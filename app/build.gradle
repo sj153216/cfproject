@@ -24,4 +24,5 @@ dependencies {
     compile 'com.android.support:support-v4:19.0.0'
     compile 'com.android.support:appcompat-v7:19.0.0'
     compile files('src/main/libs/zxing-2.1.jar')
+    compile 'com.android.support:recyclerview-v7:24.0.0'
 }
