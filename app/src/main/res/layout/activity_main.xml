@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sj="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/back_down"
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </android.support.v4.view.ViewPager>
+    <!--<ImageView
+        android:id="@+id/camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_menu_camera" />
+-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <com.sjhcn.view.ChangeIconWithText
+            android:id="@+id/myQRcode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            sj:mycolor="#4EC963"
+            sj:myicon="@mipmap/ic_menu_moreoverflow"
+            sj:text="@string/my_code"
+            sj:text_size="@dimen/myview_text_size" />
+
+        <com.sjhcn.view.ChangeIconWithText
+            android:id="@+id/make"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            sj:mycolor="#4EC963"
+            sj:myicon="@mipmap/ic_menu_copy"
+            sj:text="@string/make"
+            sj:text_size="@dimen/myview_text_size" />
+
+        <com.sjhcn.view.ChangeIconWithText
+            android:id="@+id/self_center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            sj:mycolor="#4EC963"
+            sj:myicon="@mipmap/ic_menu_blocked_user"
+            sj:text="@string/self_center"
+            sj:text_size="@dimen/myview_text_size" />
+
+        <com.sjhcn.view.ChangeIconWithText
+            android:id="@+id/set"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            sj:mycolor="#4EC963"
+            sj:myicon="@mipmap/ic_menu_preferences"
+            sj:text="@string/my_code"
+            sj:text_size="@dimen/myview_text_size" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

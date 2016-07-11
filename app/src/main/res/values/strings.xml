@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">二维码管家</string>
+    <string name="my_code">我的二维码</string>
+    <string name="make">制码</string>
+    <string name="self_center">个人中心</string>
+    <string name="set">设置</string>
+    <string name="scan">点我扫码</string>
+</resources>
