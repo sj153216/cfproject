@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/backup"
+    android:background="@mipmap/back_down"
     android:orientation="vertical">
 
     <android.support.v4.view.ViewPager
@@ -14,14 +14,7 @@
         android:layout_weight="1">
 
     </android.support.v4.view.ViewPager>
-    <!--<ImageView
-        android:id="@+id/camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ic_menu_camera" />
--->
+
 
     <LinearLayout
         android:layout_width="match_parent"

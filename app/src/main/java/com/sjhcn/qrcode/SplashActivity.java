@@ -22,7 +22,7 @@ public class SplashActivity extends Activity {
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 SplashActivity.this.startActivity(intent);
                 SplashActivity.this.finish();
-                overridePendingTransition(android.R.anim.cycle_interpolator, android.R.anim.bounce_interpolator);
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
             }
         }, SPLASH_DISPLAY_LENGTH);

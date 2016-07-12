@@ -19,13 +19,217 @@
             android:textSize="@dimen/title_size" />
     </RelativeLayout>
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/second_recycler_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="60dp">
 
-    </android.support.v7.widget.RecyclerView>
+        <ImageView
+            android:id="@+id/lable1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_menu_invite" />
+
+        <EditText
+            android:id="@+id/content1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/lable1"
+
+            android:textColorHint="#FFFFFF"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/arrow1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_find_previous_holo_dark" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/lable2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_menu_invite" />
+
+        <EditText
+            android:id="@+id/content2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/lable2"
+            android:background="@mipmap/back_down"
+            android:textColorHint="#FFFFFF"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/arrow2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_find_previous_holo_dark" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/lable3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_menu_invite" />
+
+        <EditText
+            android:id="@+id/content3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/lable3"
+            android:background="@mipmap/back_down"
+            android:textColorHint="#FFFFFF"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/arrow3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_find_previous_holo_dark" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/lable4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_menu_invite" />
+
+        <EditText
+            android:id="@+id/content4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/lable4"
+            android:background="@mipmap/back_down"
+            android:textColorHint="#FFFFFF"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/arrow4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_find_previous_holo_dark" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/lable5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_menu_invite" />
+
+        <EditText
+            android:id="@+id/content5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/lable5"
+            android:background="@mipmap/back_down"
+            android:textColorHint="#FFFFFF"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/arrow5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_find_previous_holo_dark" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/lable6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_menu_invite" />
+
+        <EditText
+            android:id="@+id/content6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/lable6"
+            android:background="@mipmap/back_down"
+            android:textColorHint="#FFFFFF"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/arrow6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_find_previous_holo_dark" />
+
+    </RelativeLayout>
+
+
+    <!-- <android.support.v7.widget.RecyclerView
+         android:id="@+id/second_recycler_view"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:layout_weight="1">
+
+     </android.support.v7.widget.RecyclerView>-->
 
 </LinearLayout>
