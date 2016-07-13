@@ -17,8 +17,8 @@ public class DBHelper extends SQLiteOpenHelper {
         this.mContext = context;
     }
 
-    public static final String CREATE_TABLE_TICKET_INFO_SQL_STATEMENT = "CREATE TABLE "
-            + Tables.QRCODE_INFO_TABLE
+    public static final String CREATE_TABLE_QRCODE_INFO_SQL_STATEMENT = "CREATE TABLE "
+            + Tables.QRCODE_INFO
             + "( "
             + QrInfoFileds.ID
             + " INTEGER PRIMARY KEY, "
@@ -31,6 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_TABLE_QRCODE_INFO_SQL_STATEMENT);
 
     }
 
@@ -40,7 +41,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public interface Tables {
-        public static final String QRCODE_INFO_TABLE = "qrcode_info_table";
+        public static final String QRCODE_INFO = "qrcode_info_table";
     }
 
     public interface QrInfoFileds {

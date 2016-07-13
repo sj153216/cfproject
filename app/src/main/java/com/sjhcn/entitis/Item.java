@@ -1,4 +1,4 @@
-package com.sjhcn;
+package com.sjhcn.entitis;
 
 import android.graphics.Bitmap;
 

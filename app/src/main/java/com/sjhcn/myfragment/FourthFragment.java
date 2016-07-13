@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sjhcn.Item;
+import com.sjhcn.entitis.Item;
 import com.sjhcn.qrcode.R;
 import com.sjhcn.recyclerview_adapter.SimpleAdapter;
 

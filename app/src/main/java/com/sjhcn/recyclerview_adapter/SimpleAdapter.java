@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sjhcn.Item;
+import com.sjhcn.entitis.Item;
 import com.sjhcn.qrcode.R;
 
 import java.util.List;
