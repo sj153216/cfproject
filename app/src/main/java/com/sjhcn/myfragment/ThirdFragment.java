@@ -1,5 +1,8 @@
 package com.sjhcn.myfragment;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,9 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.sjhcn.constants.Constant;
 import com.sjhcn.entitis.Item;
+import com.sjhcn.intf.LoadDataIntf;
 import com.sjhcn.qrcode.R;
+import com.sjhcn.qrcode.ScanHistoryActivity;
 import com.sjhcn.recyclerview_adapter.SimpleAdapter;
+import com.sjhcn.view.MyProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +27,7 @@ import java.util.List;
 /**
  * Created by sjhcn on 2016/7/12.
  */
-public class ThirdFragment extends Fragment {
+public class ThirdFragment extends Fragment implements LoadDataIntf {
     private View view;
     private RecyclerView mRecyclerView;
     private TextView mTextView;
@@ -31,6 +38,8 @@ public class ThirdFragment extends Fragment {
             R.drawable.ic_menu_invite, R.drawable.ic_find_previous_holo_dark};
 
     private String[] hints = new String[]{"我的收藏", "历史记录", "应用码分享"};
+    private MyProgressDialog dialog;
+    private Context mActivity;
 
 
     @Override
@@ -39,6 +48,17 @@ public class ThirdFragment extends Fragment {
         initView(inflater, container);
         initData();
         return view;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity = activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
     }
 
     /**
@@ -66,10 +86,25 @@ public class ThirdFragment extends Fragment {
         mSimpleAdapter = new SimpleAdapter(this.getActivity(), mData);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
-
         mRecyclerView.setAdapter(mSimpleAdapter);
 
     }
 
+    @Override
+    public void onLoadFinish(int action) {
+        if (dialog != null)
+            dialog.dismiss();
+        switch (action) {
+            case Constant.ACTION_LOAD_QRCODEINFO:
+                Intent intent = new Intent(mActivity, ScanHistoryActivity.class);
+                mActivity.startActivity(intent);
+                break;
+        }
+    }
 
+    @Override
+    public void onLoadStart() {
+//        dialog = new MyProgressDialog(QRcodeApplication.getInstance());
+//        dialog.show();
+    }
 }

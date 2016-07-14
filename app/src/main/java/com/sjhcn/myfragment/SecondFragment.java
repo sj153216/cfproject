@@ -1,5 +1,6 @@
 package com.sjhcn.myfragment;
 
+import android.app.Activity;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -41,6 +42,11 @@ public class SecondFragment extends Fragment {
         initView(inflater, container);
         initData();
         return view;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
     }
 
     /**

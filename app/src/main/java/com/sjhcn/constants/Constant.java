@@ -8,4 +8,6 @@ public class Constant {
     public static final int QRCODE_YTPE_URL = 0;
     public static final int QRCODE_YTPE_NORMAL = 1;
 
+    public static final int ACTION_LOAD_QRCODEINFO = 10;
+
 }

@@ -1,5 +1,6 @@
 package com.sjhcn.myfragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,5 +31,8 @@ public class FirstFragment extends Fragment {
         return view;
     }
 
-
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
 }

@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sjhcn.constants.Constant;
 import com.sjhcn.entitis.Item;
+import com.sjhcn.module.DataManager;
+import com.sjhcn.myfragment.ThirdFragment;
 import com.sjhcn.qrcode.R;
 
 import java.util.List;
@@ -21,10 +24,12 @@ public class SimpleAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private LayoutInflater mInflater;
     private List<Item> mData;
 
+
     public SimpleAdapter(Context context, List<Item> data) {
         mContext = context;
         mData = data;
         mInflater = LayoutInflater.from(context);
+
 
     }
 
@@ -53,15 +58,32 @@ public class SimpleAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
 class MyViewHolder extends RecyclerView.ViewHolder {
 
+    private DataManager mDataMgr;
     ImageView lableView;
     ImageView arrowView;
     TextView contentView;
 
     public MyViewHolder(View itemView) {
         super(itemView);
+        mDataMgr = DataManager.getInstance();
         lableView = (ImageView) itemView.findViewById(R.id.lable);
         arrowView = (ImageView) itemView.findViewById(R.id.arrow);
         contentView = (TextView) itemView.findViewById(R.id.content);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pos = getLayoutPosition();
+                switch (pos) {
+                    case 0:
+                        break;
+                    case 1:
+                        mDataMgr.getDataFromLocal(new ThirdFragment(), Constant.ACTION_LOAD_QRCODEINFO);
+                        break;
+                    case 2:
+                        break;
+                }
+            }
+        });
 
     }
 }
