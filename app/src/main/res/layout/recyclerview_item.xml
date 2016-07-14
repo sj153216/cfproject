@@ -6,30 +6,40 @@
 
     <ImageView
         android:id="@+id/lable"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="50dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="40dp"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_menu_invite"
-        android:layout_centerVertical="true"/>
+        android:src="@drawable/ic_menu_invite" />
 
-    <EditText
+    <TextView
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/lable"
-        android:textColorHint="#FFFFFF"
-        android:textSize="25sp"
-        android:background="@mipmap/back_down"
-        android:layout_centerVertical="true"/>
+        android:gravity="center_vertical"
+        android:text="名字"
+        android:textColor="#FCFCFC"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:layout_marginLeft="15dp"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/lable"
+        android:layout_marginLeft="15dp"
+        android:background="#FFFFFF"/>
 
     <ImageView
         android:id="@+id/arrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:scaleType="fitXY"
         android:src="@drawable/ic_find_previous_holo_dark"
-        android:layout_centerVertical="true"/>
+        android:layout_marginRight="5dp"/>
 
 </RelativeLayout>

@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name="com.sjhcn.zxingactivity.CaptureActivity" />
+        <activity android:name="com.sjhcn.qrcode.BaseActivity" />
+        <activity android:name="com.sjhcn.qrcode.ScanResultActivity" />
     </application>
 
 </manifest>

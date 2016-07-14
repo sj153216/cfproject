@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.sjhcn.qrcode.R;
+import com.sjhcn.qrcode.ScanResultActivity;
 import com.sjhcn.zxingcamera.CameraManager;
 import com.sjhcn.zxingdecoding.CaptureActivityHandler;
 import com.sjhcn.zxingdecoding.InactivityTimer;
@@ -123,11 +124,14 @@ public class CaptureActivity extends Activity implements Callback {
             Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
         } else {
 //			System.out.println("Result:"+resultString);
-            Intent resultIntent = new Intent();
-            Bundle bundle = new Bundle();
-            bundle.putString("result", resultString);
-            resultIntent.putExtras(bundle);
-            this.setResult(RESULT_OK, resultIntent);
+            Intent resultIntent = new Intent(this, ScanResultActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putString("result", resultString);
+//            resultIntent.putExtras(bundle);
+            //this.setResult(RESULT_OK, resultIntent);
+            resultIntent.putExtra("result", resultString);
+            startActivity(resultIntent);
+
         }
         CaptureActivity.this.finish();
     }

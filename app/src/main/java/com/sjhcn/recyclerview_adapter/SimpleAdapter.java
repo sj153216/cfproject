@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.sjhcn.Item;
 import com.sjhcn.qrcode.R;
@@ -55,13 +55,13 @@ class MyViewHolder extends RecyclerView.ViewHolder {
 
     ImageView lableView;
     ImageView arrowView;
-    EditText contentView;
+    TextView contentView;
 
     public MyViewHolder(View itemView) {
         super(itemView);
         lableView = (ImageView) itemView.findViewById(R.id.lable);
         arrowView = (ImageView) itemView.findViewById(R.id.arrow);
-        contentView = (EditText) itemView.findViewById(R.id.content);
+        contentView = (TextView) itemView.findViewById(R.id.content);
 
     }
 }
