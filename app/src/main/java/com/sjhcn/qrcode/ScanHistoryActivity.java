@@ -107,7 +107,8 @@ public class ScanHistoryActivity extends BaseActivity {
                 }
                 recordItem.setArrow(BitmapFactory.decodeResource(getResources(), R.drawable.ic_find_previous_holo_dark));
                 recordItem.setQrcode(codeInfo.getQRcode());
-                recordItem.setTime(MyDateUtils.formatYearMonthDay(codeInfo.getScanTime(), "-"));
+                recordItem.setTime(MyDateUtils.formatYearMonthDay(codeInfo.getScanTime(), "-") + "  " +
+                        MyDateUtils.formatHourMin(codeInfo.getScanTime(), ":"));
                 mDatas.add(recordItem);
 
             }

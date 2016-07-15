@@ -168,4 +168,5 @@ public class ChangeIconWithText extends View {
         mCanvas.drawBitmap(mIconBitmap, null, mIconRect, mPaint);
 
     }
+
 }

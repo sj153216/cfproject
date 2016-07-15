@@ -6,7 +6,6 @@ import android.os.Message;
 
 import com.sjhcn.application.QRcodeApplication;
 import com.sjhcn.constants.Constant;
-import com.sjhcn.db.DBHelper;
 import com.sjhcn.db.QRcodeInfoIntf;
 import com.sjhcn.db.QRcodeInfoManager;
 import com.sjhcn.entitis.QRcodeInfo;
@@ -53,7 +52,7 @@ public class DataManager {
 
     private void init() {
         mContext = QRcodeApplication.getInstance();
-        codeInfoMgr = new QRcodeInfoManager(new DBHelper(mContext));
+        codeInfoMgr = QRcodeInfoManager.getInstance();
         codeInfoList = new ArrayList<QRcodeInfo>();
         loadDataThread = new LoadDataThread(mainHandler, codeInfoMgr);
         loadDataThread.start();

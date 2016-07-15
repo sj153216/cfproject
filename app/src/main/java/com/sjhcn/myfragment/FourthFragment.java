@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.sjhcn.entitis.Item;
 import com.sjhcn.qrcode.R;
-import com.sjhcn.recyclerview_adapter.ThridFragmentAdapter;
+import com.sjhcn.recyclerview_adapter.FourthFragmentAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +24,9 @@ public class FourthFragment extends Fragment {
     private View view;
     private RecyclerView mRecyclerView;
     private TextView mTextView;
+    private TextView mFragmentTitle;
 
-    private ThridFragmentAdapter mSimpleAdapter;
+    private FourthFragmentAdapter mFourthAdapter;
     private List<Item> mData;
     private int[] bitmapId = new int[]{R.drawable.btn_rating_star_on_normal_holo_dark, R.drawable.ic_menu_invite,
             R.drawable.ic_menu_invite, R.drawable.ic_menu_invite, R.drawable.ic_menu_invite, R.drawable.ic_find_previous_holo_dark};
@@ -52,9 +53,11 @@ public class FourthFragment extends Fragment {
         view = inflater.inflate(R.layout.second_fragment, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.second_recycler_view);
         mTextView = (TextView) view.findViewById(R.id.tv);
+        mFragmentTitle = (TextView) view.findViewById(R.id.fragment_title);
     }
 
     private void initData() {
+        mFragmentTitle.setText("设置");
         mData = new ArrayList<Item>(5);
         for (int i = 0; i < 5; i++) {
             Item item = new Item();
@@ -63,11 +66,11 @@ public class FourthFragment extends Fragment {
             item.setContent(hints[i]);
             mData.add(item);
         }
-        mSimpleAdapter = new ThridFragmentAdapter(this.getActivity(), mData);
+        mFourthAdapter = new FourthFragmentAdapter(this.getActivity(), mData);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
 
-        mRecyclerView.setAdapter(mSimpleAdapter);
+        mRecyclerView.setAdapter(mFourthAdapter);
 
     }
 

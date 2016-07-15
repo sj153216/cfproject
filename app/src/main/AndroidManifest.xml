@@ -24,6 +24,7 @@
         <activity android:name="com.sjhcn.qrcode.BaseActivity" />
         <activity android:name="com.sjhcn.qrcode.ScanResultActivity" />
         <activity android:name="com.sjhcn.qrcode.ScanHistoryActivity" />
+        <activity android:name="com.sjhcn.qrcode.NameCardActivity" />
 
         <service android:name="com.sjhcn.service.HandleQRcodeService" />
     </application>

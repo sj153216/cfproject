@@ -43,8 +43,8 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="dd"
-            android:textColor="#D4D4D4"
-            android:textSize="20sp"
+            android:textColor="#D25F04"
+            android:textSize="18sp"
             android:textStyle="italic" />
     </LinearLayout>
 

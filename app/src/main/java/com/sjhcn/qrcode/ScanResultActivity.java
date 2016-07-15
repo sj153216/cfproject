@@ -8,11 +8,15 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.WriterException;
+import com.sjhcn.view.SwitchView;
 import com.sjhcn.zxingencoding.EncodingHandler;
 
 /**
@@ -23,9 +27,10 @@ public class ScanResultActivity extends BaseActivity {
     private TextView mContent;
     private String QRcode;
     private TextView mTitle;
-    private ImageView mInner;
     private ImageView mQRcodeBitmap;
+    private SwitchView mSwitchView;
 
+    private RelativeLayout mRl;
     private Drawable urlDrawable;
     private Drawable normalDrawable;
 
@@ -52,8 +57,9 @@ public class ScanResultActivity extends BaseActivity {
         mLable = (ImageView) findViewById(R.id.lable);
         mContent = (TextView) findViewById(R.id.content);
         mTitle = (TextView) findViewById(R.id.title_name);
-        mInner = (ImageView) findViewById(R.id.inner);
+        mSwitchView = (SwitchView) findViewById(R.id.switchview);
         mQRcodeBitmap = (ImageView) findViewById(R.id.qrcode_bitmap);
+        mRl = (RelativeLayout) findViewById(R.id.rl);
 
     }
 
@@ -72,42 +78,72 @@ public class ScanResultActivity extends BaseActivity {
 
 
     private void initEvent() {
-        mInner.setOnClickListener(new View.OnClickListener() {
+        mSwitchView.setOnStateChangedListener(new SwitchView.OnStateChangedListener() {
             @Override
-            public void onClick(View v) {
+            public void toggleToOn(View view) {
                 try {
-                    String contentString = mContent.getText().toString();
-                    if (!contentString.equals("")) {
-                        //根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（600*600）
-                        Bitmap qrCodeBitmap = EncodingHandler.createQRCode(contentString, 600);
-
-                        //------------------添加logo部分------------------//
-                        Bitmap logoBmp = BitmapFactory.decodeResource(getResources(), R.drawable.btn_rating_star_on_normal_holo_dark);
-
-                        //二维码和logo合并
-                        Bitmap bitmap = Bitmap.createBitmap(qrCodeBitmap.getWidth(), qrCodeBitmap
-                                .getHeight(), qrCodeBitmap.getConfig());
-                        Canvas canvas = new Canvas(bitmap);
-                        //二维码
-                        canvas.drawBitmap(qrCodeBitmap, 0, 0, null);
-                        //logo绘制在二维码中央
-                        canvas.drawBitmap(logoBmp, qrCodeBitmap.getWidth() / 2
-                                - logoBmp.getWidth() / 2, qrCodeBitmap.getHeight()
-                                / 2 - logoBmp.getHeight() / 2, null);
-                        //------------------添加logo部分------------------//
-
-                        mQRcodeBitmap.setImageBitmap(bitmap);
-                    } else {
-                        Toast.makeText(ScanResultActivity.this, "Text can not be empty", Toast.LENGTH_SHORT).show();
-                    }
-
+                    openQRbitmap();
                 } catch (WriterException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
-        });
 
+            @Override
+            public void toggleToOff(View view) {
+                closeQRbitmap();
+            }
+        });
+    }
+
+    /**
+     * 点击switchview时关闭显示二维码的imageview
+     */
+    private void closeQRbitmap() {
+        mSwitchView.setOpened(false);
+        ScaleAnimation animation = new ScaleAnimation(1.3f, 0.0f, 1.3f, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setDuration(500);//设置动画持续时间
+        animation.setFillAfter(true);//动画执行完后是否停留在执行完的状态
+        mRl.startAnimation(animation);
+        mRl.setVisibility(View.GONE);
+    }
+
+    /**
+     * 点击switchView时，动画的弹出显示二维码的imageview
+     *
+     * @throws WriterException
+     */
+    private void openQRbitmap() throws WriterException {
+        mSwitchView.setOpened(true);
+        String contentString = mContent.getText().toString();
+        if (!contentString.equals("")) {
+            //根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（200*200）
+            Bitmap qrCodeBitmap = EncodingHandler.createQRCode(contentString, 150);
+
+            //------------------添加logo部分------------------//
+            Bitmap logoBmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_invite);
+
+            //二维码和logo合并
+            Bitmap bitmap = Bitmap.createBitmap(qrCodeBitmap.getWidth(), qrCodeBitmap
+                    .getHeight(), qrCodeBitmap.getConfig());
+            Canvas canvas = new Canvas(bitmap);
+            //二维码
+            canvas.drawBitmap(qrCodeBitmap, 0, 0, null);
+            //logo绘制在二维码中央
+//            canvas.drawBitmap(logoBmp, qrCodeBitmap.getWidth() / 2
+//                    - logoBmp.getWidth() / 2, qrCodeBitmap.getHeight()
+//                    / 2 - logoBmp.getHeight() / 2, null);
+            //------------------添加logo部分------------------//
+            mRl.setVisibility(View.VISIBLE);
+            mQRcodeBitmap.setImageBitmap(bitmap);
+            ScaleAnimation animation = new ScaleAnimation(0.0f, 1.3f, 0.0f, 1.3f,
+                    Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            animation.setDuration(500);//设置动画持续时间
+            animation.setFillAfter(true);//动画执行完后是否停留在执行完的状态
+            mRl.startAnimation(animation);
+        } else {
+            Toast.makeText(ScanResultActivity.this, "Text can not be empty", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

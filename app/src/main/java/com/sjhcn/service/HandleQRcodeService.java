@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import com.sjhcn.constants.Constant;
-import com.sjhcn.db.DBHelper;
 import com.sjhcn.db.QRcodeInfoManager;
 import com.sjhcn.entitis.QRcodeInfo;
 
@@ -42,7 +41,7 @@ public class HandleQRcodeService extends Service {
             QRcodeInfo codeInfo = new QRcodeInfo();
             String head = result.substring(0, 4);
             fillQRcodeInfo(codeInfo, head);
-            new QRcodeInfoManager(new DBHelper(this)).addQRcodeInfo(codeInfo);
+            QRcodeInfoManager.getInstance().addQRcodeInfo(codeInfo);
         } else if (action.equals(ACTION_GET_FROM_LOCAL)) {
             //说明是想从数据库中获取数据
         }
@@ -58,7 +57,6 @@ public class HandleQRcodeService extends Service {
         if (head.equals("http")) {
             codeInfo.setQRcodeType(Constant.QRCODE_YTPE_URL);
             codeInfo.setQRcode(result);
-            long time = System.currentTimeMillis();
             codeInfo.setScanTime(System.currentTimeMillis());
         } else {
             codeInfo.setQRcodeType(Constant.QRCODE_YTPE_NORMAL);

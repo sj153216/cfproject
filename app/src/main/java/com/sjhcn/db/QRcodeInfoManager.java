@@ -3,6 +3,7 @@ package com.sjhcn.db;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.sjhcn.application.QRcodeApplication;
 import com.sjhcn.entitis.QRcodeInfo;
 
 import java.util.ArrayList;
@@ -15,13 +16,25 @@ public class QRcodeInfoManager implements QRcodeInfoIntf {
 
     private DBHelper dbHelper;
     private SQLiteDatabase db;
+    private static QRcodeInfoManager mInstance;
 
-    public QRcodeInfoManager(DBHelper dbHelper) {
+    private QRcodeInfoManager(DBHelper dbHelper) {
         this.dbHelper = dbHelper;
     }
 
+    public static QRcodeInfoManager getInstance() {
+        if (mInstance == null) {
+            synchronized ("") {
+                if (mInstance == null) {
+                    mInstance = new QRcodeInfoManager(new DBHelper(QRcodeApplication.getInstance()));
+                }
+            }
+        }
+        return mInstance;
+    }
+
     @Override
-    public Boolean addQRcodeInfo(QRcodeInfo codeInfo) {
+    public synchronized Boolean addQRcodeInfo(QRcodeInfo codeInfo) {
         try {
             if (db == null) {
                 db = dbHelper.getWritableDatabase();
@@ -34,13 +47,13 @@ public class QRcodeInfoManager implements QRcodeInfoIntf {
         } catch (Exception e) {
             return false;
         } finally {
-            db.close();
+
         }
         return true;
     }
 
     @Override
-    public Boolean deleteQRcodeInfo(String QRcode) {
+    public synchronized Boolean deleteQRcodeInfo(String QRcode) {
         try {
             if (db == null) {
                 db = dbHelper.getReadableDatabase();
@@ -52,13 +65,12 @@ public class QRcodeInfoManager implements QRcodeInfoIntf {
             e.printStackTrace();
         } finally {
 
-            db.close();
         }
         return false;
     }
 
     @Override
-    public Boolean deleteQRcodeInfo(QRcodeInfo codeInfo) {
+    public synchronized Boolean deleteQRcodeInfo(QRcodeInfo codeInfo) {
         try {
             if (db == null) {
                 db = dbHelper.getReadableDatabase();
@@ -70,13 +82,12 @@ public class QRcodeInfoManager implements QRcodeInfoIntf {
             e.printStackTrace();
         } finally {
 
-            db.close();
         }
         return false;
     }
 
     @Override
-    public List<QRcodeInfo> queryQRcodeInfo() {
+    public synchronized List<QRcodeInfo> queryQRcodeInfo() {
         List<QRcodeInfo> codeInfoList = new ArrayList<QRcodeInfo>();
         Cursor cursor = null;
         try {
@@ -94,14 +105,17 @@ public class QRcodeInfoManager implements QRcodeInfoIntf {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            db.close();
+            if (cursor != null) {
+                cursor.close();
+                cursor = null;
+            }
 
         }
         return codeInfoList;
     }
 
     @Override
-    public List<QRcodeInfo> queryQRcodeInfo(long scanTime) {
+    public synchronized List<QRcodeInfo> queryQRcodeInfo(long scanTime) {
         List<QRcodeInfo> codeInfoList = null;
         Cursor cursor = null;
         try {
@@ -120,8 +134,10 @@ public class QRcodeInfoManager implements QRcodeInfoIntf {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            db.close();
-
+            if (cursor != null) {
+                cursor.close();
+                cursor = null;
+            }
         }
         return codeInfoList;
     }

@@ -1,104 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:sj="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/thin"
-    android:orientation="vertical">
+    android:background="@mipmap/thin">
 
-    <include layout="@layout/include_title" />
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/outer"
+        <include layout="@layout/include_title" />
+
+
+        <com.sjhcn.view.SwitchView
+            android:id="@+id/switchview"
             android:layout_width="60dp"
-            android:layout_height="36dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="30dp"
-            android:background="#ffeeeeee" />
-
-        <ImageView
-            android:id="@+id/inner"
-            android:layout_width="30dp"
-            android:layout_height="33dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="60dp"
-            android:background="#0866BE" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp">
-
-        <ImageView
-            android:id="@+id/lable"
-            android:layout_width="35dp"
             android:layout_height="35dp"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="40dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_menu_invite" />
+            android:layout_gravity="right"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp" />
 
-        <TextView
-            android:id="@+id/content"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@id/lable"
-            android:gravity="center_vertical"
-            android:layout_marginRight="40dp"
-            android:text="名字"
-            android:singleLine="true"
-            android:maxEms="20"
-            android:textColor="#FCFCFC"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp">
+
+            <ImageView
+                android:id="@+id/lable"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="40dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_menu_invite" />
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="40dp"
+                android:layout_toRightOf="@id/lable"
+                android:gravity="center_vertical"
+                android:maxEms="20"
+                android:singleLine="true"
+                android:text="名字"
+                android:textColor="#B9822A"
+                android:textSize="20sp"
+                android:textStyle="italic" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/lable"
+                android:background="#B9822A" />
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_find_previous_holo_dark" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/access_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="访问链接"
             android:textSize="20sp"
             android:textStyle="italic" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@id/lable"
-            android:background="#FFFFFF" />
+    </LinearLayout>
 
-        <ImageView
-            android:id="@+id/arrow"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_find_previous_holo_dark" />
-
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/access_to"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="访问链接"
-        android:textSize="20sp"
-        android:textStyle="italic" />
-    <ImageView
-        android:id="@+id/qrcode_bitmap"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:background="#024593"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:visibility="gone"/>
+        android:layout_gravity="center"
+        android:background="#C9E9DE"
+        android:padding="40dp"
+        >
 
-
-</LinearLayout>
+        <ImageView
+            android:id="@+id/qrcode_bitmap"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:background="#ffffff"
+            android:scaleType="fitXY" />
+    </RelativeLayout>
+</FrameLayout>

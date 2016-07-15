@@ -32,8 +32,9 @@ public class ThirdFragment extends Fragment implements LoadDataIntf {
     private View view;
     private RecyclerView mRecyclerView;
     private TextView mTextView;
+    private TextView mFragmentTitle;
 
-    private ThridFragmentAdapter mSimpleAdapter;
+    private ThridFragmentAdapter mThirdAdapter;
     private List<Item> mData;
     private int[] bitmapId = new int[]{R.drawable.btn_rating_star_on_normal_holo_dark, R.drawable.ic_menu_invite,
             R.drawable.ic_menu_invite, R.drawable.ic_find_previous_holo_dark};
@@ -113,9 +114,11 @@ public class ThirdFragment extends Fragment implements LoadDataIntf {
         view = inflater.inflate(R.layout.second_fragment, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.second_recycler_view);
         mTextView = (TextView) view.findViewById(R.id.tv);
+        mFragmentTitle = (TextView) view.findViewById(R.id.fragment_title);
     }
 
     private void initData() {
+        mFragmentTitle.setText("个人中心");
         mData = new ArrayList<Item>(3);
         for (int i = 0; i < 3; i++) {
             Item item = new Item();
@@ -124,10 +127,10 @@ public class ThirdFragment extends Fragment implements LoadDataIntf {
             item.setContent(hints[i]);
             mData.add(item);
         }
-        mSimpleAdapter = new ThridFragmentAdapter(this.getActivity(), mData);
+        mThirdAdapter = new ThridFragmentAdapter(this.getActivity(), mData);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mSimpleAdapter);
+        mRecyclerView.setAdapter(mThirdAdapter);
 
     }
 
