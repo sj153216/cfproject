@@ -1,9 +1,11 @@
 package com.sjhcn.entitis;
 
+import java.io.Serializable;
+
 /**
  * Created by tong on 2016/7/13.
  */
-public class QRcodeInfo {
+public class QRcodeInfo implements Serializable {
     private String QRcode;
     private long scanTime;
     private int QRcodeType;

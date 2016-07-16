@@ -54,7 +54,10 @@
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@id/lable"
             android:gravity="center_vertical"
+            android:layout_marginRight="40dp"
             android:text="名字"
+            android:singleLine="true"
+            android:maxEms="20"
             android:textColor="#FCFCFC"
             android:textSize="20sp"
             android:textStyle="italic" />

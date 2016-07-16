@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by sjhcn on 2016/7/15.
  */
 public class DBHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "check_ticket_data.db";
+    public static final String DATABASE_NAME = "qrcode_data.db";
     private static final int DATABASE_VERSION = 1;
     private Context mContext;
 
@@ -27,7 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
             + QrInfoFileds.SCAN_TIME
             + " LONG, "
             + QrInfoFileds.QR_CODE_TYPE
-            + "  INTEGER," + "  TEXT" + " );";
+            + "  INTEGER );";
 
     @Override
     public void onCreate(SQLiteDatabase db) {

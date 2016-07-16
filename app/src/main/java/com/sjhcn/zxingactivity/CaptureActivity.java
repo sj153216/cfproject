@@ -19,6 +19,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.sjhcn.qrcode.R;
 import com.sjhcn.qrcode.ScanResultActivity;
+import com.sjhcn.service.HandleQRcodeService;
 import com.sjhcn.zxingcamera.CameraManager;
 import com.sjhcn.zxingdecoding.CaptureActivityHandler;
 import com.sjhcn.zxingdecoding.InactivityTimer;
@@ -125,11 +126,15 @@ public class CaptureActivity extends Activity implements Callback {
         } else {
 //			System.out.println("Result:"+resultString);
             Intent resultIntent = new Intent(this, ScanResultActivity.class);
+            Intent serviceIntent = new Intent(this, HandleQRcodeService.class);
 //            Bundle bundle = new Bundle();
 //            bundle.putString("result", resultString);
 //            resultIntent.putExtras(bundle);
             //this.setResult(RESULT_OK, resultIntent);
+            serviceIntent.putExtra("serviceResult", resultString);
+            serviceIntent.setAction(HandleQRcodeService.ACTION_SAVE_TO_LOCAL);
             resultIntent.putExtra("result", resultString);
+            startService(serviceIntent);
             startActivity(resultIntent);
 
         }
