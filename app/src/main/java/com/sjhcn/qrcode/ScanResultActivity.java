@@ -5,11 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,6 +35,7 @@ public class ScanResultActivity extends BaseActivity {
     private RelativeLayout mRl;
     private Drawable urlDrawable;
     private Drawable normalDrawable;
+    private Button mAccessBt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,8 @@ public class ScanResultActivity extends BaseActivity {
         mSwitchView = (SwitchView) findViewById(R.id.switchview);
         mQRcodeBitmap = (ImageView) findViewById(R.id.qrcode_bitmap);
         mRl = (RelativeLayout) findViewById(R.id.rl);
+        mAccessBt = (Button) findViewById(R.id.access_to);
+
 
     }
 
@@ -91,6 +96,18 @@ public class ScanResultActivity extends BaseActivity {
             @Override
             public void toggleToOff(View view) {
                 closeQRbitmap();
+            }
+        });
+
+        mAccessBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = (String) mContent.getText();
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(url);
+                intent.setData(content_url);
+                startActivity(intent);
             }
         });
     }

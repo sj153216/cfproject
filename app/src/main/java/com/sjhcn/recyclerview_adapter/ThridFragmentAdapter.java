@@ -86,6 +86,12 @@ class ThirdFragmentViewHolder extends RecyclerView.ViewHolder {
                         mDataMgr.getDataFromLocal(new ThirdFragment(), Constant.ACTION_LOAD_MAKE_QRCODEINFO);
                         break;
                     case 2:
+                        //应用码分享
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                        sendIntent.setType("text/plain");
+                        ThirdFragment.mActivity.startActivity(sendIntent);
                         break;
                 }
             }
