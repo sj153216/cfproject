@@ -40,12 +40,14 @@ public class ScanRecordAdapter extends RecyclerView.Adapter<ScanViewHolder> {
         RecordItem item = mData.get(position);
         holder.lableView.setImageBitmap(item.getLable());
         holder.arrowView.setImageBitmap(item.getArrow());
+        holder.scanRecordView.setText(item.getQrcode());
+        holder.timeView.setText(item.getTime());
     }
 
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mData.size();
     }
 
 }
@@ -55,14 +57,14 @@ class ScanViewHolder extends RecyclerView.ViewHolder {
     ImageView lableView;
     ImageView arrowView;
     TextView scanRecordView;
-    TextView makeRecordView;
+    TextView timeView;
 
     public ScanViewHolder(View itemView) {
         super(itemView);
         lableView = (ImageView) itemView.findViewById(R.id.lable);
         arrowView = (ImageView) itemView.findViewById(R.id.arrow);
         scanRecordView = (TextView) itemView.findViewById(R.id.qrcode);
-        makeRecordView = (TextView) itemView.findViewById(R.id.time);
+        timeView = (TextView) itemView.findViewById(R.id.time);
 
 
     }

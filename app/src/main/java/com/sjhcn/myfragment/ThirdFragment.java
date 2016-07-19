@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +19,7 @@ import com.sjhcn.entitis.Item;
 import com.sjhcn.intf.LoadDataIntf;
 import com.sjhcn.qrcode.R;
 import com.sjhcn.qrcode.ScanHistoryActivity;
-import com.sjhcn.recyclerview_adapter.SimpleAdapter;
+import com.sjhcn.recyclerview_adapter.ThridFragmentAdapter;
 import com.sjhcn.view.MyProgressDialog;
 
 import java.util.ArrayList;
@@ -32,14 +33,14 @@ public class ThirdFragment extends Fragment implements LoadDataIntf {
     private RecyclerView mRecyclerView;
     private TextView mTextView;
 
-    private SimpleAdapter mSimpleAdapter;
+    private ThridFragmentAdapter mSimpleAdapter;
     private List<Item> mData;
     private int[] bitmapId = new int[]{R.drawable.btn_rating_star_on_normal_holo_dark, R.drawable.ic_menu_invite,
             R.drawable.ic_menu_invite, R.drawable.ic_find_previous_holo_dark};
 
     private String[] hints = new String[]{"我的收藏", "历史记录", "应用码分享"};
     private MyProgressDialog dialog;
-    private Context mActivity;
+    public static Context mActivity;
 
 
     @Override
@@ -59,6 +60,46 @@ public class ThirdFragment extends Fragment implements LoadDataIntf {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     /**
@@ -83,7 +124,7 @@ public class ThirdFragment extends Fragment implements LoadDataIntf {
             item.setContent(hints[i]);
             mData.add(item);
         }
-        mSimpleAdapter = new SimpleAdapter(this.getActivity(), mData);
+        mSimpleAdapter = new ThridFragmentAdapter(this.getActivity(), mData);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mSimpleAdapter);
@@ -104,7 +145,7 @@ public class ThirdFragment extends Fragment implements LoadDataIntf {
 
     @Override
     public void onLoadStart() {
-//        dialog = new MyProgressDialog(QRcodeApplication.getInstance());
-//        dialog.show();
+        dialog = new MyProgressDialog(mActivity);
+        dialog.show();
     }
 }

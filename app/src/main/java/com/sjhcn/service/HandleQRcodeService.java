@@ -3,7 +3,6 @@ package com.sjhcn.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.os.SystemClock;
 
 import com.sjhcn.constants.Constant;
 import com.sjhcn.db.DBHelper;
@@ -59,11 +58,12 @@ public class HandleQRcodeService extends Service {
         if (head.equals("http")) {
             codeInfo.setQRcodeType(Constant.QRCODE_YTPE_URL);
             codeInfo.setQRcode(result);
-            codeInfo.setScanTime(SystemClock.currentThreadTimeMillis());
+            long time = System.currentTimeMillis();
+            codeInfo.setScanTime(System.currentTimeMillis());
         } else {
             codeInfo.setQRcodeType(Constant.QRCODE_YTPE_NORMAL);
             codeInfo.setQRcode(result);
-            codeInfo.setScanTime(SystemClock.currentThreadTimeMillis());
+            codeInfo.setScanTime(System.currentTimeMillis());
         }
     }
 

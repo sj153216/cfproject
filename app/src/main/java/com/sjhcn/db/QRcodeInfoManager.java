@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.sjhcn.entitis.QRcodeInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,7 +77,7 @@ public class QRcodeInfoManager implements QRcodeInfoIntf {
 
     @Override
     public List<QRcodeInfo> queryQRcodeInfo() {
-        List<QRcodeInfo> codeInfoList = null;
+        List<QRcodeInfo> codeInfoList = new ArrayList<QRcodeInfo>();
         Cursor cursor = null;
         try {
             if (db == null) {

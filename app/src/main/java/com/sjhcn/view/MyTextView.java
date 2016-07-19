@@ -28,7 +28,7 @@ public class MyTextView extends TextView {
         mPaint.setAntiAlias(true);
         mPaint.setColor(Color.parseColor("#FFFFFF"));
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(1);
+        mPaint.setStrokeWidth(6);
     }
 
 

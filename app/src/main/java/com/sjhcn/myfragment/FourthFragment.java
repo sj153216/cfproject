@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.sjhcn.entitis.Item;
 import com.sjhcn.qrcode.R;
-import com.sjhcn.recyclerview_adapter.SimpleAdapter;
+import com.sjhcn.recyclerview_adapter.ThridFragmentAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class FourthFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private TextView mTextView;
 
-    private SimpleAdapter mSimpleAdapter;
+    private ThridFragmentAdapter mSimpleAdapter;
     private List<Item> mData;
     private int[] bitmapId = new int[]{R.drawable.btn_rating_star_on_normal_holo_dark, R.drawable.ic_menu_invite,
             R.drawable.ic_menu_invite, R.drawable.ic_menu_invite, R.drawable.ic_menu_invite, R.drawable.ic_find_previous_holo_dark};
@@ -63,7 +63,7 @@ public class FourthFragment extends Fragment {
             item.setContent(hints[i]);
             mData.add(item);
         }
-        mSimpleAdapter = new SimpleAdapter(this.getActivity(), mData);
+        mSimpleAdapter = new ThridFragmentAdapter(this.getActivity(), mData);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
 

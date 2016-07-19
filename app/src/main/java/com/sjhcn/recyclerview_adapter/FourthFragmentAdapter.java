@@ -17,15 +17,15 @@ import com.sjhcn.qrcode.R;
 import java.util.List;
 
 /**
- * Created by tong on 2016/7/12.
+ * Created by sjhcn on 2016/7/20.
  */
-public class SimpleAdapter extends RecyclerView.Adapter<MyViewHolder> {
+public class FourthFragmentAdapter extends RecyclerView.Adapter<FourthFragmentViewHolder> {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<Item> mData;
 
 
-    public SimpleAdapter(Context context, List<Item> data) {
+    public FourthFragmentAdapter(Context context, List<Item> data) {
         mContext = context;
         mData = data;
         mInflater = LayoutInflater.from(context);
@@ -34,14 +34,14 @@ public class SimpleAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FourthFragmentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recyclerview_item, parent, false);
-        MyViewHolder myViewHolder = new MyViewHolder(view);
+        FourthFragmentViewHolder myViewHolder = new FourthFragmentViewHolder(view);
         return myViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(FourthFragmentViewHolder holder, int position) {
         Item item = mData.get(position);
         holder.lableView.setImageBitmap(item.getLable());
         holder.arrowView.setImageBitmap(item.getArrow());
@@ -56,14 +56,14 @@ public class SimpleAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 }
 
-class MyViewHolder extends RecyclerView.ViewHolder {
+class FourthFragmentViewHolder extends RecyclerView.ViewHolder {
 
     private DataManager mDataMgr;
     ImageView lableView;
     ImageView arrowView;
     TextView contentView;
 
-    public MyViewHolder(View itemView) {
+    public FourthFragmentViewHolder(View itemView) {
         super(itemView);
         mDataMgr = DataManager.getInstance();
         lableView = (ImageView) itemView.findViewById(R.id.lable);
@@ -87,3 +87,5 @@ class MyViewHolder extends RecyclerView.ViewHolder {
 
     }
 }
+
+

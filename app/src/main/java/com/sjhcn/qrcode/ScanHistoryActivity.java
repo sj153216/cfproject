@@ -47,7 +47,8 @@ public class ScanHistoryActivity extends BaseActivity {
     private ViewPager mViewPager;
     private RecyclerView mScanRecord;
     private RecyclerView mMakeRecord;
-    private ArrayList<View> mViewList;
+    private ArrayList<View> mViewList = new ArrayList<View>(2);
+    ;
 
 
     private Bitmap urlBitmap;
@@ -56,15 +57,16 @@ public class ScanHistoryActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initData();
+        setContentView(R.layout.scan_history_activity);
         initView();
+        initData();
     }
 
     private void initView() {
         mScanRecordTv = (MyTextView) findViewById(R.id.scan_record);
         mMakeRecordTv = (MyTextView) findViewById(R.id.make_record);
         mTitle = (TextView) findViewById(R.id.title_name);
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager = (ViewPager) findViewById(R.id.history_viewpager);
         mScanRecord = new RecyclerView(this);
         initRecyclerView(mScanRecord);
         mMakeRecord = new RecyclerView(this);
@@ -74,18 +76,18 @@ public class ScanHistoryActivity extends BaseActivity {
     }
 
     private void initData() {
-        mViewList = new ArrayList<View>(2);
         urlBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_add);
         normalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_invite);
         mTitle.setText("历史记录");
         mDataMgr = DataManager.getInstance();
+        codeInfoList = mDataMgr.getCodeInfoList();
         mDatas = new ArrayList<RecordItem>();
-        mRecyclerViewAdapter = new ScanRecordAdapter(this, mDatas);
-        pagerAdapter = new MyPagerAdapter(mViewList);
-        mScanRecord.setAdapter(mRecyclerViewAdapter);
-        mViewPager.setAdapter(pagerAdapter);
-        codeInfoList = new ArrayList<QRcodeInfo>();
         fillItem(codeInfoList);
+        pagerAdapter = new MyPagerAdapter(mViewList);
+        mViewPager.setAdapter(pagerAdapter);
+        mRecyclerViewAdapter = new ScanRecordAdapter(this, mDatas);
+        mScanRecord.setAdapter(mRecyclerViewAdapter);
+
     }
 
     /**

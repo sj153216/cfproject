@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.sjhcn.entitis.Item;
 import com.sjhcn.qrcode.R;
-import com.sjhcn.recyclerview_adapter.SimpleAdapter;
+import com.sjhcn.recyclerview_adapter.ThridFragmentAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class SecondFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private TextView mTextView;
 
-    private SimpleAdapter mSimpleAdapter;
+    private ThridFragmentAdapter mSimpleAdapter;
     private List<Item> mData;
     private int[] bitmapId = new int[]{R.drawable.ic_menu_invite, R.drawable.ic_menu_invite,
             R.drawable.ic_menu_invite, R.drawable.ic_menu_invite,
@@ -48,6 +48,7 @@ public class SecondFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
     }
+
 
     /**
      * 初始化fragment中的view
@@ -71,12 +72,13 @@ public class SecondFragment extends Fragment {
             item.setContent(hints[i]);
             mData.add(item);
         }
-        mSimpleAdapter = new SimpleAdapter(this.getActivity(), mData);
+        mSimpleAdapter = new ThridFragmentAdapter(this.getActivity(), mData);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
 
         mRecyclerView.setAdapter(mSimpleAdapter);
 
     }
+
 
 }
