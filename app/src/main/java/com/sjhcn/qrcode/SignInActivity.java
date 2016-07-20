@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,9 +23,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     private TextView mTitle;
     private Button mSignInBt;
-    private TextView mRegesterTv;
     private EditText mUserNameEt;
     private EditText mPasswordEt;
+    private RelativeLayout mRegiRl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         initView();
         initData();
         initEvent();
+        
     }
 
     private void initData() {
@@ -40,7 +42,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initEvent() {
-        mRegesterTv.setOnClickListener(this);
+        mRegiRl.setOnClickListener(this);
 
     }
 
@@ -54,9 +56,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     private void initView() {
         mTitle = (TextView) findViewById(R.id.title_name);
         mSignInBt = (Button) findViewById(R.id.signIn_bt);
-        mRegesterTv = (TextView) findViewById(R.id.regeste_tv);
         mUserNameEt = (EditText) findViewById(R.id.username_et);
         mPasswordEt = (EditText) findViewById(R.id.password_et);
+        mRegiRl = (RelativeLayout) findViewById(R.id.regi_rl);
 
     }
 
@@ -64,7 +66,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.regeste_tv:
+            case R.id.regi_rl:
                 //用户注册
                 Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
                 startActivity(intent);
@@ -79,8 +81,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                         if (e == null) {
                             Toast.makeText(SignInActivity.this, "添加数据成功", Toast.LENGTH_SHORT).show();
                             String ps = object.getPassword();
+                            String us = object.getUserName();
                         } else {
-                            Toast.makeText(SignInActivity.this, "添加数据成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignInActivity.this, "添加数据是失败", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

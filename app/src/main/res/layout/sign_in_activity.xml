@@ -89,13 +89,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:background="#B07AB6"
+        android:background="@drawable/selector_sign_btn_back"
         android:text="登录"
-        android:textColor="#FFFFFF"
+        android:textColor="#FF994C"
         android:textSize="20sp"
         android:textStyle="italic" />
 
     <RelativeLayout
+        android:id="@+id/regi_rl"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp">
@@ -114,11 +115,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="35dp"
+            android:layout_marginRight="30dp"
             android:text="还没注册？马上注册"
             android:textColor="#FF994C"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="italic" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="200dp"
+            android:background="#B67CB7" />
     </RelativeLayout>
 
 </LinearLayout>

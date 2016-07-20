@@ -25,7 +25,7 @@
             android:textStyle="italic" />
 
         <EditText
-            android:id="@+id/username_et"
+            android:id="@+id/username_regi_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -63,7 +63,7 @@
             android:textStyle="italic" />
 
         <EditText
-            android:id="@+id/password_et"
+            android:id="@+id/password_regi_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -83,6 +83,7 @@
 
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -126,9 +127,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:background="#B07AB6"
+        android:background="@drawable/selector_sign_btn_back"
         android:text="注册"
-        android:textColor="#FFFFFF"
+        android:textColor="#FF994C"
         android:textSize="20sp"
         android:textStyle="italic" />
 
