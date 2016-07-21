@@ -1,6 +1,5 @@
 package com.sjhcn.qrcode;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,8 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sjhcn.entitis.UserInfo;
-
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -42,7 +40,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
-        mTitle.setText("用户登录");
+        mTitle.setText("用户注册");
     }
 
     private void initView() {
@@ -61,24 +59,42 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 mPasswordEt.getText().toString().equals("") ||
                 mConfirmEt.getText().toString().equals("")) {
             Toast.makeText(RegisterActivity.this, "账户名或密码不能为空", Toast.LENGTH_SHORT).show();
-        }
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUserName(mUserNameEt.getText().toString());
-        userInfo.setPassword(mPasswordEt.getText().toString());
-        userInfo.save(new SaveListener<String>() {
-            @Override
-            public void done(String s, BmobException e) {
-                if (e == null) {
-                    Toast.makeText(RegisterActivity.this, "添加数据成功", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterActivity.this, RegisterSuccessActivity.class);
-                    startActivity(intent);
-                    RegisterActivity.this.finish();
-                } else {
-                    Toast.makeText(RegisterActivity.this, "添加数据失败", Toast.LENGTH_SHORT).show();
+        } else {
+            BmobUser user = new BmobUser();
 
+            user.setUsername(mUserNameEt.getText().toString());
+            user.setPassword(mPasswordEt.getText().toString());
+            user.signUp(new SaveListener() {
+                @Override
+                public void done(Object o, Object o2) {
+                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
 
+                @Override
+                public void done(Object o, BmobException e) {
+                    if (e == null) {
+
+                        Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+
+            });
+//        userInfo.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String s, BmobException e) {
+//                if (e == null) {
+//                    Toast.makeText(RegisterActivity.this, "添加数据成功", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(RegisterActivity.this, RegisterSuccessActivity.class);
+//                    startActivity(intent);
+//                    RegisterActivity.this.finish();
+//                } else {
+//                    Toast.makeText(RegisterActivity.this, "添加数据失败", Toast.LENGTH_SHORT).show();
+//
+//                }
+//            }
+//        });
+
+        }
     }
 }

@@ -33,6 +33,7 @@
             android:layout_toRightOf="@id/name_tv"
             android:background="@null"
             android:hint="请输入用户名"
+            android:inputType="textPassword"
             android:textColorHint="#FF994C"
             android:textSize="20sp"
             android:textStyle="italic" />
@@ -71,6 +72,7 @@
             android:layout_toRightOf="@id/name_tv_1"
             android:background="@null"
             android:hint="请输入密码"
+            android:inputType="textPassword"
             android:textColorHint="#FF994C"
             android:textSize="20sp"
             android:textStyle="italic" />

@@ -1,11 +1,11 @@
 package com.sjhcn.entitis;
 
-import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.BmobUser;
 
 /**
  * Created by sjhcn on 2016/8/8.
  */
-public class UserInfo extends BmobObject {
+public class UserInfo extends BmobUser {
     private String userName;
 
     public String getPassword() {
@@ -25,5 +25,7 @@ public class UserInfo extends BmobObject {
     }
 
     private String password;
+
+
 
 }

@@ -12,9 +12,8 @@ import android.widget.Toast;
 import com.sjhcn.entitis.UserInfo;
 
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * Created by sjhcn on 2016/8/8.
@@ -74,19 +73,26 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.signIn_bt:
                 //用户登录
-                BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
-                query.getObject("sj153216", new QueryListener<UserInfo>() {
-                    @Override
-                    public void done(UserInfo object, BmobException e) {
-                        if (e == null) {
+
+                UserInfo userInfo = new UserInfo();
+                if (mUserNameEt.getText().toString().equals("") || mPasswordEt.getText().toString().equals("")) {
+                    Toast.makeText(SignInActivity.this, "用户名跟密码不能为空", Toast.LENGTH_SHORT).show();
+                } else {
+                    userInfo.setUserName(mUserNameEt.getText().toString());
+                    userInfo.setPassword(mPasswordEt.getText().toString());
+                    userInfo.login(new SaveListener() {
+                        @Override
+                        public void done(Object o, Object o2) {
                             Toast.makeText(SignInActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                            String ps = object.getPassword();
-                            String us = object.getUserName();
-                        } else {
-                            Toast.makeText(SignInActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+
                         }
-                    }
-                });
+
+                        @Override
+                        public void done(Object o, BmobException e) {
+
+                        }
+                    });
+                }
                 SignInActivity.this.finish();
                 break;
 
