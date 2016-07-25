@@ -30,7 +30,7 @@ public class SecondFragment extends Fragment {
     private SecondFragmentAdapter mSecondAdapter;
     private List<Item> mData;
     private int[] bitmapId = new int[]{R.drawable.contace_circle, R.drawable.phone,
-            R.drawable.ic_menu_invite, R.drawable.ie,
+            R.drawable.wenben, R.drawable.ie,
             R.drawable.map, R.drawable.ic_find_previous_holo_dark};
     private String[] hints = new String[]{"名片", "电话", "文本", "网址", "位置"};
 
