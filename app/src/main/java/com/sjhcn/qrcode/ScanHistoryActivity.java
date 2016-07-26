@@ -2,7 +2,6 @@ package com.sjhcn.qrcode;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -23,7 +22,6 @@ import com.sjhcn.recyclerview_adapter.MakeRecordAdapter;
 import com.sjhcn.recyclerview_adapter.ScanRecordAdapter;
 import com.sjhcn.utils.MyDateUtils;
 import com.sjhcn.view.DividerItemDecoration;
-import com.sjhcn.view.MyTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +33,8 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
 
     private static final int POSITION_SCAN_RECORD = 0;
     private static final int POSITION_MAKE_RECORD = 1;
-    private MyTextView mScanRecordTv;
-    private MyTextView mMakeRecordTv;
+    private TextView mScanRecordTv;
+    private TextView mMakeRecordTv;
     private TextView mTitle;
 
     private MyPagerAdapter pagerAdapter;
@@ -75,8 +73,8 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
 
 
     private void initView() {
-        mScanRecordTv = (MyTextView) findViewById(R.id.scan_record);
-        mMakeRecordTv = (MyTextView) findViewById(R.id.make_record);
+        mScanRecordTv = (TextView) findViewById(R.id.scan_record);
+        mMakeRecordTv = (TextView) findViewById(R.id.make_record);
         mTitle = (TextView) findViewById(R.id.title_name);
         mViewPager = (ViewPager) findViewById(R.id.history_viewpager);
         mScanRecord = new RecyclerView(this);
@@ -88,7 +86,7 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initData() {
-        mScanRecordTv.setBackgroundColor(Color.parseColor("#66DDFB"));
+        // mScanRecordTv.setBackgroundColor(Color.parseColor("#66DDFB"));
         urlBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ie);
         normalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.contace_circle);
         mTitle.setText("历史记录");
@@ -262,8 +260,10 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
      * 当viewpager滑动时，选择make textview
      */
     private void showMakeRecyclerView() {
-        mScanRecordTv.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        mMakeRecordTv.setBackgroundColor(Color.parseColor("#66DDFB"));
+        // mScanRecordTv.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        mScanRecordTv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_corner_make_history));
+        //mMakeRecordTv.setBackgroundColor(Color.parseColor("#66DDFB"));
+        mMakeRecordTv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_corner_scan_history));
         mViewPager.setCurrentItem(POSITION_MAKE_RECORD);
     }
 
@@ -271,8 +271,10 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
      * 当viewpager滑动时，选择scan textview
      */
     private void showScanRecyclerView() {
-        mScanRecordTv.setBackgroundColor(Color.parseColor("#66DDFB"));
-        mMakeRecordTv.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        // mScanRecordTv.setBackgroundColor(Color.parseColor("#66DDFB"));
+        mScanRecordTv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_corner_scan_history));
+        //mMakeRecordTv.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        mMakeRecordTv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_corner_make_history));
         mViewPager.setCurrentItem(POSITION_SCAN_RECORD);
     }
 

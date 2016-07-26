@@ -1,5 +1,8 @@
 package com.sjhcn.qrcode;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +30,11 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.share.OnGetShareUrlResultListener;
 import com.baidu.mapapi.search.share.ShareUrlResult;
 import com.baidu.mapapi.search.share.ShareUrlSearch;
@@ -36,7 +45,8 @@ import java.util.List;
 /**
  * Created by tong on 2016/7/15.
  */
-public class MapCardActivity extends BaseActivity implements View.OnClickListener, OnGetShareUrlResultListener {
+public class MapCardActivity extends BaseActivity implements View.OnClickListener,
+        OnGetShareUrlResultListener, OnGetGeoCoderResultListener {
 
 
     private TextView mTitle;
@@ -56,9 +66,24 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
 
+    private GeoCoder mGeoCoder;
+
     //分享
     private ShareUrlSearch mShareUrlSearch = null;
+    //显示地理位置的dialog
+    private Dialog mDialog;
+    private TextView mLatitudeTv;
+    private TextView mLongitudeTv;
+    private TextView mAddress;
 
+    //视图切换
+    private ImageView mPlusIv;
+    private LinearLayout mPopupWindowLl;
+    private TextView mNormalTv;
+    private TextView mSateTv;
+
+    //判断popupwindow是否已经显示
+    private boolean isShowing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +108,20 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         mTitle = (TextView) findViewById(R.id.title_name);
         mMapView = (MapView) findViewById(R.id.map_view);
         mNavigateIv = (ImageView) findViewById(R.id.navigate_iv);
+        mLatitudeTv = (TextView) findViewById(R.id.latitude_tv);
+        mLongitudeTv = (TextView) findViewById(R.id.longitude_tv);
+        mAddress = (TextView) findViewById(R.id.location_tv);
+        mPlusIv = (ImageView) findViewById(R.id.plus_iv);
+        mPopupWindowLl = (LinearLayout) findViewById(R.id.popup_window);
+        mNormalTv = (TextView) findViewById(R.id.normal);
+        mSateTv = (TextView) findViewById(R.id.map_sate_tv);
     }
 
     private void initData() {
+        mDialog = new Dialog(this);
+        mDialog.setContentView(R.layout.dialog_show_position);
+        mDialog.setCancelable(true);
+        mDialog.setCanceledOnTouchOutside(true);
         IntentFilter iFilter = new IntentFilter();
         iFilter.addAction(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR);
         iFilter.addAction(SDKInitializer.SDK_BROADCAST_ACTION_STRING_NETWORK_ERROR);
@@ -108,10 +144,17 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         mBaiduMap.setOnMapLongClickListener(new BaiduMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
-                Toast.makeText(MapCardActivity.this, "纬度---->" + latLng.latitude + "经度---->" + latLng.longitude,
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MapCardActivity.this, "纬度---->" + latLng.latitude + "经度---->" + latLng.longitude,
+//                        Toast.LENGTH_SHORT).show();
+                mLatitudeTv.setText(latLng.latitude + "");
+                mLongitudeTv.setText(latLng.longitude + "");
+                mAddress.setText(mLocation.getAddrStr());
+                mDialog.show();
             }
         });
+        mPlusIv.setOnClickListener(this);
+        mNormalTv.setOnClickListener(this);
+        mSateTv.setOnClickListener(this);
     }
 
     /**
@@ -262,10 +305,59 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
             case R.id.navigate_iv:
                 navigateTo();
                 break;
-
+            case R.id.plus_iv:
+                showPopupWindow(v);
+                break;
+            case R.id.map_normal_tv:
+                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+                break;
+            case R.id.map_sate_tv:
+                mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+                break;
         }
     }
 
+    /**
+     * 显示PopupWindow用于切换地图视图，卫星之类的
+     */
+    private void showPopupWindow(View v) {
+        if (isShowing) {
+            setAnimator(v, -200f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f);
+            mPopupWindowLl.setVisibility(View.GONE);
+            isShowing = false;
+        } else {
+            mPopupWindowLl.setVisibility(View.VISIBLE);
+            setAnimator(v, 200f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f);
+            isShowing = true;
+        }
+    }
+
+    /**
+     * 设置动画
+     *
+     * @param v
+     * @param tran
+     * @param x
+     * @param xTo
+     * @param y
+     * @param yTo
+     * @param a
+     * @param aTo
+     */
+    private void setAnimator(View v, float tran, float x, float xTo, float y, float yTo, float a, float aTo) {
+        ObjectAnimator trans = ObjectAnimator.ofFloat(v, "translationY", tran);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(v, "scaleX", x, xTo);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(v, "scaleY", y, yTo);
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(v, "alpha", a, aTo);
+        AnimatorSet set = new AnimatorSet();
+        set.setDuration(200);
+        set.playTogether(trans, scaleX, scaleY, alpha);
+        set.start();
+    }
+
+    /**
+     * 验证key权限
+     */
     class SDKReceiver extends BroadcastReceiver {
 
         @Override
@@ -276,7 +368,6 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
                 Toast.makeText(MapCardActivity.this, "quan xian cuo wu", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     @Override
@@ -289,6 +380,8 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         startActivity(Intent.createChooser(it, "将短串分享到"));
     }
 
+    //分享接口
+
     @Override
     public void onGetLocationShareUrlResult(ShareUrlResult shareUrlResult) {
         // 分享短串结果
@@ -299,6 +392,41 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         startActivity(Intent.createChooser(it, "将短串分享到"));
 
     }
+
+    // 编码接口
+
+    /**
+     * 正向编码
+     *
+     * @param geoCodeResult
+     */
+    @Override
+    public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
+        if (geoCodeResult == null
+                || geoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
+            // 没有检测到结果
+        }
+    }
+
+    /**
+     * 反向编码
+     *
+     * @param reverseGeoCodeResult
+     */
+    @Override
+    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
+        if (reverseGeoCodeResult == null
+                || reverseGeoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
+            // 没有检测到结果
+            Toast.makeText(MapCardActivity.this, "抱歉，未能找到结果",
+                    Toast.LENGTH_LONG).show();
+        }
+        Toast.makeText(MapCardActivity.this,
+                "位置：" + reverseGeoCodeResult.getAddress(), Toast.LENGTH_LONG)
+                .show();
+    }
+
+
 }
 
 

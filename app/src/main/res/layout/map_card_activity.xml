@@ -50,10 +50,59 @@
             android:layout_height="25dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/selector_btn_back"
             android:layout_marginBottom="60dp"
             android:layout_marginRight="20dp"
-            android:src="@drawable/map"/>
+            android:background="@drawable/selector_btn_back"
+            android:src="@drawable/map" />
+
+
+        <LinearLayout
+            android:id="@+id/popup_window"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/shape_corner"
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/map_normal_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/selector_btn_back"
+                android:text="普通视图"
+                android:textColor="#A976AE"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/map_sate_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/selector_btn_back"
+                android:text="卫星视图"
+                android:textColor="#A976AE"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/plus_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/selector_btn_back"
+            android:src="@drawable/plus" />
 
 
     </RelativeLayout>
