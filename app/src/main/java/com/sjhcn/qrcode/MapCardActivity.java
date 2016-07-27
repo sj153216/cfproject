@@ -150,8 +150,6 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         mBaiduMap.setOnMapLongClickListener(new BaiduMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
-//                Toast.makeText(MapCardActivity.this, "纬度---->" + latLng.latitude + "经度---->" + latLng.longitude,
-//                        Toast.LENGTH_SHORT).show();
                 mLatitudeTv.setText(latLng.latitude + "");
                 mLongitudeTv.setText(latLng.longitude + "");
                 mAddress.setText(mLocation.getAddrStr());

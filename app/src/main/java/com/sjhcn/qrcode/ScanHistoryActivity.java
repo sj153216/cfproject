@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sjhcn.constants.Constant;
@@ -55,7 +56,9 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
     private RecyclerView mScanRecord;
     private RecyclerView mMakeRecord;
     private ArrayList<View> mViewList = new ArrayList<View>(2);
-    ;
+
+    private LinearLayout mNoFootLl;
+    private TextView mNoFootTv;
 
 
     private Bitmap urlBitmap;
@@ -83,6 +86,8 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
         initRecyclerView(mMakeRecord);
         mViewList.add(POSITION_SCAN_RECORD, mScanRecord);
         mViewList.add(POSITION_MAKE_RECORD, mMakeRecord);
+        mNoFootLl = (LinearLayout) findViewById(R.id.nofoot_ll);
+        mNoFootTv = (TextView) findViewById(R.id.record_tv);
     }
 
     private void initData() {
@@ -103,6 +108,7 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
         mScanRecyclerViewAdapter = new ScanRecordAdapter(this, mScanDatas);
         mMakeRecyclerViewAdapter = new MakeRecordAdapter(this, mMakeDatas);
         mScanRecord.setAdapter(mScanRecyclerViewAdapter);
+
         mMakeRecord.setAdapter(mMakeRecyclerViewAdapter);
 
     }
@@ -164,6 +170,10 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onResume() {
         super.onResume();
+        if (mScanDatas.size() == 0) {
+            mNoFootLl.setVisibility(View.VISIBLE);
+            mNoFootTv.setText("还没有扫码记录哦");
+        }
     }
 
     /**
@@ -228,10 +238,30 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
-                        showScanRecyclerView();
+                        if (mScanDatas.size() == 0) {
+                            mNoFootLl.setVisibility(View.VISIBLE);
+                            mNoFootTv.setText("还没有扫码记录哦");
+                            showScanRecyclerView();
+
+                        } else {
+                            //mScanRecord.setAdapter(mScanRecyclerViewAdapter);
+                            showScanRecyclerView();
+                            mNoFootLl.setVisibility(View.GONE);
+
+                        }
+
                         break;
                     case 1:
-                        showMakeRecyclerView();
+                        if (mMakeDatas.size() == 0) {
+                            mNoFootLl.setVisibility(View.VISIBLE);
+                            mNoFootTv.setText("还没有制码记录哦");
+
+                        } else {
+                           // mMakeRecord.setAdapter(mMakeRecyclerViewAdapter);
+                            mNoFootLl.setVisibility(View.GONE);
+
+                            showMakeRecyclerView();
+                        }
                         break;
                 }
             }
@@ -248,10 +278,29 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.scan_record:
-                showScanRecyclerView();
+                if (mScanDatas.size() == 0) {
+                    mNoFootLl.setVisibility(View.VISIBLE);
+                    mNoFootTv.setText("还没有扫码记录哦");
+
+                    showScanRecyclerView();
+                } else {
+                    // mScanRecord.setAdapter(mScanRecyclerViewAdapter);
+                    showScanRecyclerView();
+                    mNoFootLl.setVisibility(View.GONE);
+
+                }
                 break;
             case R.id.make_record:
-                showMakeRecyclerView();
+                if (mMakeDatas.size() == 0) {
+                    mNoFootLl.setVisibility(View.VISIBLE);
+                    mNoFootTv.setText("还没有制骂记录哦");
+                    showMakeRecyclerView();
+                } else {
+                    //  mMakeRecord.setAdapter(mMakeRecyclerViewAdapter);
+                    showMakeRecyclerView();
+                    mNoFootLl.setVisibility(View.GONE);
+
+                }
                 break;
         }
     }

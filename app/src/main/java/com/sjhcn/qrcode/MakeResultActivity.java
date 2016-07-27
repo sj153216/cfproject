@@ -76,73 +76,6 @@ public class MakeResultActivity extends BaseActivity {
 
     }
 
-    private void initData() {
-        Intent intent = getIntent();
-        mAction = intent.getIntExtra("action", Constant.ACTION_GENERATE_URL_QRCODEINFO);
-        mQRcodeInfo = intent.getStringExtra("qrCode");
-        showWhichPage(mAction, intent);
-    }
-
-    /**
-     * 根据action判断显示哪个界面，是url还是名片
-     *
-     * @param action
-     */
-    private void showWhichPage(int action, Intent intent) {
-        switch (action) {
-            case Constant.ACTION_GENERATE_URL_QRCODEINFO:
-                //首先让另外两个布局不可见
-                mNameLl.setVisibility(View.GONE);
-                mUrlRl.setVisibility(View.VISIBLE);
-                mContentTv.setText(mQRcodeInfo);
-                break;
-            case Constant.ACTION_GENERATE_NAME_QRCODEINFO:
-                //首先让另外两个布局不可见
-                mUrlRl.setVisibility(View.GONE);
-                mNameLl.setVisibility(View.VISIBLE);
-                String mNameStr = intent.getStringExtra("mNameStr");
-                String mPhoneStr = intent.getStringExtra("mPhoneStr");
-                String mPosStr = intent.getStringExtra("mPosStr");
-                String mPartStr = intent.getStringExtra("mPartStr");
-                String mEmailStr = intent.getStringExtra("mEmailStr");
-                String mCompanyStr = intent.getStringExtra("mCompanyStr");
-
-                mNameTv.setText(mNameStr);
-                mPhoneTv.setText(mPhoneStr);
-                mPosTv.setText(mPosStr);
-                mPartTv.setText(mPartStr);
-                mEmailTv.setText(mEmailStr);
-                mCompanyTv.setText(mCompanyStr);
-                break;
-            case Constant.ACTION_GENERATE_PHONE_QRCODEINFO:
-                mNameLl.setVisibility(View.GONE);
-                mUrlRl.setVisibility(View.GONE);
-                mPhoneRl.setVisibility(View.VISIBLE);
-                mContentTv.setText(mQRcodeInfo);
-                break;
-            default:
-                break;
-        }
-    }
-
-    /**
-     * 根据action将对应的内容设置到view
-     *
-     * @param action
-     */
-    private void setContentToView(int action) {
-        switch (action) {
-            case Constant.ACTION_GENERATE_URL_QRCODEINFO:
-                break;
-            case Constant.ACTION_GENERATE_NAME_QRCODEINFO:
-                break;
-            case Constant.ACTION_GENERATE_MAP_QRCODEINFO:
-                break;
-            default:
-                break;
-        }
-    }
-
     private void initView() {
         //初始化url部分的view
         mUrlRl = (RelativeLayout) findViewById(R.id.url_rl);
@@ -187,6 +120,73 @@ public class MakeResultActivity extends BaseActivity {
             mTitle.setText("电话二维码");
         } else {
             mTitle.setText("地图二维码");
+        }
+    }
+
+    private void initData() {
+        Intent intent = getIntent();
+        mAction = intent.getIntExtra("action", Constant.ACTION_GENERATE_URL_QRCODEINFO);
+        mQRcodeInfo = intent.getStringExtra("qrCode");
+        showWhichPage(mAction, intent);
+    }
+
+    /**
+     * 根据action判断显示哪个界面，是url还是名片
+     *
+     * @param action
+     */
+    private void showWhichPage(int action, Intent intent) {
+        switch (action) {
+            case Constant.ACTION_GENERATE_URL_QRCODEINFO:
+                //首先让另外两个布局不可见
+                mNameLl.setVisibility(View.GONE);
+                mUrlRl.setVisibility(View.VISIBLE);
+                mContentTv.setText(mQRcodeInfo);
+                break;
+            case Constant.ACTION_GENERATE_NAME_QRCODEINFO:
+                //首先让另外两个布局不可见
+                mUrlRl.setVisibility(View.GONE);
+                mNameLl.setVisibility(View.VISIBLE);
+                String mNameStr = intent.getStringExtra("mNameStr");
+                String mPhoneStr = intent.getStringExtra("mPhoneStr");
+                String mPosStr = intent.getStringExtra("mPosStr");
+                String mPartStr = intent.getStringExtra("mPartStr");
+                String mEmailStr = intent.getStringExtra("mEmailStr");
+                String mCompanyStr = intent.getStringExtra("mCompanyStr");
+
+                mNameTv.setText(mNameStr);
+                mPhoneTv.setText(mPhoneStr);
+                mPosTv.setText(mPosStr);
+                mPartTv.setText(mPartStr);
+                mEmailTv.setText(mEmailStr);
+                mCompanyTv.setText(mCompanyStr);
+                break;
+            case Constant.ACTION_GENERATE_PHONE_QRCODEINFO:
+                mNameLl.setVisibility(View.GONE);
+                mUrlRl.setVisibility(View.GONE);
+                mPhoneRl.setVisibility(View.VISIBLE);
+                mPhoneContentTv.setText(mQRcodeInfo);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 根据action将对应的内容设置到view
+     *
+     * @param action
+     */
+    private void setContentToView(int action) {
+        switch (action) {
+            case Constant.ACTION_GENERATE_URL_QRCODEINFO:
+                break;
+            case Constant.ACTION_GENERATE_NAME_QRCODEINFO:
+                break;
+            case Constant.ACTION_GENERATE_MAP_QRCODEINFO:
+                break;
+            default:
+                break;
         }
     }
 

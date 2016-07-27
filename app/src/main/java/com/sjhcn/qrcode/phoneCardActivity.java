@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sjhcn.constants.Constant;
+import com.sjhcn.service.HandleQRcodeService;
 
 /**
  * Created by sjhcn on 2016/8/15.
@@ -58,9 +59,20 @@ public class PhoneCardActivity extends BaseActivity {
                     Intent intent = new Intent(PhoneCardActivity.this, MakeResultActivity.class);
                     intent.putExtra("qrCode", qrcode);
                     intent.putExtra("action", Constant.ACTION_GENERATE_PHONE_QRCODEINFO);
+                    startHandleService(qrcode);
                     startActivity(intent);
                 }
             }
         });
+    }
+
+    /**
+     * 启动service，存储制码数据到数据库
+     */
+    private void startHandleService(String qrcode) {
+        Intent intent = new Intent(PhoneCardActivity.this, HandleQRcodeService.class);
+        intent.setAction(HandleQRcodeService.ACTION_SAVE_MAKE_TO_LOCAL);
+        intent.putExtra("serviceResult", qrcode);
+        startService(intent);
     }
 }
