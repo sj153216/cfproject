@@ -32,7 +32,7 @@ public class LoadDataThread extends Thread {
     public void run() {
         Looper.prepare();
         mLooper = Looper.myLooper();
-        mWorkHandler = new Handler() {
+        mWorkHandler = new Handler(mLooper) {
             @Override
             public void handleMessage(Message msg) {
                 int action = msg.what;

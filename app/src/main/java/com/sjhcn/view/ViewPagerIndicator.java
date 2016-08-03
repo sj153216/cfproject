@@ -34,11 +34,11 @@ public class ViewPagerIndicator extends LinearLayout {
     /**
      * 标题正常时的颜色
      */
-    private static final int COLOR_TEXT_NORMAL = 0x31BDFA;
+    private static final int COLOR_TEXT_NORMAL = 0x77FFFFFF;
     /**
      * 标题选中时的颜色
      */
-    private static final int COLOR_TEXT_HIGHLIGHTCOLOR = 0x815087;
+    private static final int COLOR_TEXT_HIGHLIGHTCOLOR = 0xFFFFFFFF;
 
     private ViewPager mViewPager;
 
@@ -52,7 +52,7 @@ public class ViewPagerIndicator extends LinearLayout {
         // 初始化画笔
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.parseColor("#000000"));
+        mPaint.setColor(Color.parseColor("#FFFFFF"));
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setPathEffect(new CornerPathEffect(3));
 

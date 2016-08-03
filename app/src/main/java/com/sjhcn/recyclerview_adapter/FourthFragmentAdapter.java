@@ -2,13 +2,17 @@ package com.sjhcn.recyclerview_adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.sjhcn.application.QRcodeApplication;
 import com.sjhcn.entitis.Item;
 import com.sjhcn.module.DataManager;
 import com.sjhcn.myfragment.ThirdFragment;
@@ -16,6 +20,7 @@ import com.sjhcn.qrcode.AboutUsActivity;
 import com.sjhcn.qrcode.R;
 import com.sjhcn.qrcode.SuggestionActivity;
 import com.sjhcn.utils.Utils;
+import com.sjhcn.view.MyDialog;
 
 import java.util.List;
 
@@ -84,15 +89,30 @@ class FourthFragmentViewHolder extends RecyclerView.ViewHolder {
                         ThirdFragment.mActivity.startActivity(aboutIntent);
                         break;
                     case 1:
+                        final MyDialog mDialog = new MyDialog(ThirdFragment.mActivity);
+                        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        mDialog.setContentView(R.layout.dialog_progress_update);
+                        mDialog.setCancelable(true);
+                        mDialog.setCanceledOnTouchOutside(true);
+                        mDialog.show();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mDialog.dismiss();
+                                Toast.makeText(QRcodeApplication.getInstance(), "当前版本已是最新", Toast.LENGTH_SHORT).show();
+                            }
+                        }, 2000);
 
                         break;
                     case 2:
-                        Utils.showShare(Platform.SHARE_APPS,null);
+                        Utils.showShare(Platform.SHARE_APPS, null);
                         break;
                     case 3:
                         //意见反馈
                         Intent suggestionIsntent = new Intent(ThirdFragment.mActivity, SuggestionActivity.class);
-                        ThirdFragment.mActivity.startActivity(suggestionIsntent);;
+                        ThirdFragment.mActivity.startActivity(suggestionIsntent);
+                        ;
                         break;
                 }
             }

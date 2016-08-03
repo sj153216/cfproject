@@ -60,7 +60,7 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
             R.drawable.gexing_10, R.drawable.gexing_12};
     private int[] mClassBitmaps = new int[]{R.drawable.class_1, R.drawable.class_2, R.drawable.class_3,
             R.drawable.class_4, R.drawable.class_5, R.drawable.class_6,
-            R.drawable.class_7, R.drawable.class_8, R.drawable.class_9};
+            R.drawable.class_7, R.drawable.class_8};
     private List<Drawable> mData = new ArrayList<Drawable>();
     private List<Drawable> mClassData = new ArrayList<Drawable>();
     //三个gridview的adapter，只不过数据集不同
