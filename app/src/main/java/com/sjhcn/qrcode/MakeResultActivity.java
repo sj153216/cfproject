@@ -79,7 +79,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
     private byte[] mMapByte;
     //将地图界面传递过来的字节数组转化为bitmap
     private Bitmap mMapBitmap;
-
+    //将模板界面传递过来的字节数组转化为bitmap
     private Bitmap mBitmap;
 
 
@@ -142,6 +142,10 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
             mTitle.setText("电话二维码");
         } else if (mAction == Constant.ACTION_GENERATE_MAP_QRCODEINFO) {
             mTitle.setText("地图二维码");
+        } else if (mAction == Constant.ACTION_GENERATE_NAME_MODEL_QRCODEINFO ||
+                mAction == Constant.ACTION_GENERATE_PHONE_MODEL_QRCODEINFO ||
+                mAction == Constant.ACTION_GENERATE_URL_MODEL_QRCODEINFO) {
+            mTitle.setText("模板二维码");
         }
         mShareIv.setVisibility(View.VISIBLE);
     }
@@ -201,6 +205,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
                 mUrlRl.setVisibility(View.GONE);
                 mPhoneRl.setVisibility(View.GONE);
                 mMapLl.setVisibility(View.VISIBLE);
+                mMapBitmap = BitmapFactory.decodeByteArray(mMapByte, 0, mMapByte.length);
                 mShowMapIv.setImageBitmap(mMapBitmap);
                 mMapContentTv.setText(mQRcodeInfo);
                 break;

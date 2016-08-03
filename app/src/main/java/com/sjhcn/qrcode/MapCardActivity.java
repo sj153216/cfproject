@@ -472,8 +472,6 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
                 addressComponent.street + addressComponent.streetNumber + "");
         mDialog.show();
     }
-
-
 }
 
 

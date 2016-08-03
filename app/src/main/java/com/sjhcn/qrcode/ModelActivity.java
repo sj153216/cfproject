@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Created by sjhcn on 2016/8/20.
  */
-public class ModelActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class ModelActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener, ViewPagerIndicator.OnPageChangeListener {
 
     private TextView mTitle;
     private Button mSelectBt;
@@ -72,7 +72,8 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
 
     private int lastClickPos = 0;
     private boolean isSelected = false;
-    public static Bitmap mBitmap;
+    public Bitmap mBitmap;
+    private int mViewPagerCurrentPos = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +158,7 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
         mClassGv.setOnItemClickListener(this);
         mSunshineGv.setOnItemClickListener(this);
         mSunsetGv.setOnItemClickListener(this);
+        mIndicator.setOnPagerChangerListener(this);
     }
 
     @Override
@@ -187,14 +189,13 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case Constant.ACTION_GENERATE_PHONE_QRCODEINFO:
                 intent.putExtra("qrCode", mQRcodeStr);
+                intent.putExtra("mapCode", compressBitmap(mBitmap));
                 intent.putExtra("action", Constant.ACTION_GENERATE_PHONE_QRCODEINFO);
                 break;
             case Constant.ACTION_GENERATE_URL_QRCODEINFO:
                 intent.putExtra("qrCode", mQRcodeStr);
+                intent.putExtra("mapCode", compressBitmap(mBitmap));
                 intent.putExtra("action", Constant.ACTION_GENERATE_URL_MODEL_QRCODEINFO);
-                break;
-            case Constant.ACTION_GENERATE_MAP_QRCODEINFO:
-
                 break;
         }
         startActivity(intent);
@@ -215,6 +216,18 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        GridView temp = null;
+        switch (mViewPagerCurrentPos) {
+            case 0:
+                temp = mClassGv;
+                break;
+            case 1:
+                temp = mSunshineGv;
+                break;
+            case 2:
+                temp = mSunsetGv;
+                break;
+        }
         ImageView selectIv = (ImageView) view.findViewById(R.id.model_item_select_iv);
         if (lastClickPos == position) {
             // ImageView iv = (ImageView) view.findViewById(R.id.model_item_iv);
@@ -229,8 +242,8 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
             }
         } else {
             if (isSelected) {
-                int count = mClassGv.getChildCount();
-                ImageView oldSelectIv = (ImageView) mClassGv.getChildAt(lastClickPos).findViewById(R.id.model_item_select_iv);
+                int count = temp.getChildCount();
+                ImageView oldSelectIv = (ImageView) temp.getChildAt(lastClickPos).findViewById(R.id.model_item_select_iv);
                 if (oldSelectIv != null) {
                     oldSelectIv.setVisibility(View.GONE);
                 }
@@ -240,5 +253,22 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
             mBitmap = BitmapFactory.decodeResource(QRcodeApplication.getInstance().getResources(), mBitmaps[position]);
         }
         lastClickPos = position;
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        //当界面滑动时，将lastClickPos置0
+        lastClickPos = 0;
+        isSelected = false;
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        mViewPagerCurrentPos = position;
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }
