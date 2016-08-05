@@ -100,7 +100,7 @@ public class ScanResultActivity extends BaseActivity {
      */
     private void closeQRbitmap() {
         mSwitchView.setOpened(false);
-        ScaleAnimation animation = new ScaleAnimation(1.3f, 0.0f, 1.3f, 0.0f,
+        ScaleAnimation animation = new ScaleAnimation(1.1f, 0.0f, 1.1f, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         animation.setDuration(500);//设置动画持续时间
         animation.setFillAfter(true);//动画执行完后是否停留在执行完的状态
@@ -136,7 +136,7 @@ public class ScanResultActivity extends BaseActivity {
             //------------------添加logo部分------------------//
             mRl.setVisibility(View.VISIBLE);
             mQRcodeBitmap.setImageBitmap(bitmap);
-            ScaleAnimation animation = new ScaleAnimation(0.0f, 1.3f, 0.0f, 1.3f,
+            ScaleAnimation animation = new ScaleAnimation(0.0f, 1.1f, 0.0f, 1.1f,
                     Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             animation.setDuration(500);//设置动画持续时间
             animation.setFillAfter(true);//动画执行完后是否停留在执行完的状态

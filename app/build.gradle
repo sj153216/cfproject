@@ -25,4 +25,36 @@ dependencies {
     compile 'com.android.support:appcompat-v7:19.0.0'
     compile files('src/main/libs/zxing-2.1.jar')
     compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile files('src/main/libs/baidumapapi_v3_1_0.jar')
 }
+android{
+    sourceSets.main{
+        jniLibs.srcDirs 'src/main/libs'
+    }
+}
+android{
+    productFlavors {
+        x86 {
+            ndk {
+                abiFilter "x86"
+            }
+        }
+        mips {
+            ndk {
+                abiFilter "mips"
+            }
+        }
+        armv7 {
+            ndk {
+                abiFilter "armeabi-v7a"
+            }
+        }
+        arm {
+            ndk {
+                abiFilter "armeabi"
+            }
+        }
+        fat
+    }
+}
+

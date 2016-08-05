@@ -1,6 +1,7 @@
 package com.sjhcn.recyclerview_adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sjhcn.constants.Constant;
 import com.sjhcn.entitis.Item;
 import com.sjhcn.module.DataManager;
 import com.sjhcn.myfragment.ThirdFragment;
+import com.sjhcn.qrcode.AboutUsActivity;
 import com.sjhcn.qrcode.R;
 
 import java.util.List;
@@ -75,9 +76,10 @@ class FourthFragmentViewHolder extends RecyclerView.ViewHolder {
                 int pos = getLayoutPosition();
                 switch (pos) {
                     case 0:
+                        Intent intent = new Intent(ThirdFragment.mActivity, AboutUsActivity.class);
+                        ThirdFragment.mActivity.startActivity(intent);
                         break;
                     case 1:
-                        mDataMgr.getDataFromLocal(new ThirdFragment(), Constant.ACTION_LOAD_QRCODEINFO);
                         break;
                     case 2:
                         break;

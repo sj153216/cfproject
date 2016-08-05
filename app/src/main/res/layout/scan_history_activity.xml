@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:padding="10dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <com.sjhcn.view.MyTextView
             android:id="@+id/scan_record"
@@ -26,7 +26,7 @@
             android:gravity="center"
             android:padding="20dp"
             android:text="读码记录"
-            android:textColor="#ffffff"
+            android:textColor="#F45A1C"
             android:textSize="22sp" />
 
         <com.sjhcn.view.MyTextView
@@ -37,7 +37,7 @@
             android:gravity="center"
             android:padding="20dp"
             android:text="制码记录"
-            android:textColor="#ffffff"
+            android:textColor="#F45A1C"
             android:textSize="22sp" />
     </LinearLayout>
 

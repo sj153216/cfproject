@@ -139,7 +139,9 @@ public class ThirdFragment extends Fragment implements LoadDataIntf {
         if (dialog != null)
             dialog.dismiss();
         switch (action) {
-            case Constant.ACTION_LOAD_QRCODEINFO:
+            case Constant.ACTION_LOAD_SCAN_QRCODEINFO:
+                break;
+            case Constant.ACTION_LOAD_MAKE_QRCODEINFO:
                 Intent intent = new Intent(mActivity, ScanHistoryActivity.class);
                 mActivity.startActivity(intent);
                 break;

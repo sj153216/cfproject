@@ -7,21 +7,10 @@
 
     <ImageView
         android:id="@+id/camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_menu_camera" />
-
-    <TextView
-        android:id="@+id/scan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/camera"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="@string/scan"
-        android:textStyle="bold"
-        android:textSize="@dimen/scan_size" />
+        android:src="@mipmap/camera_add" />
 
 </RelativeLayout>

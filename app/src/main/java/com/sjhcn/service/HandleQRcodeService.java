@@ -5,16 +5,20 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import com.sjhcn.constants.Constant;
-import com.sjhcn.db.QRcodeInfoManager;
-import com.sjhcn.entitis.QRcodeInfo;
+import com.sjhcn.db.QRcodeMakeInfoManager;
+import com.sjhcn.db.QRcodeScanInfoManager;
+import com.sjhcn.entitis.QRcodeMakeInfo;
+import com.sjhcn.entitis.QRcodeScanInfo;
 
 /**
  * Created by sjhcn on 2016/7/16.
  */
 public class HandleQRcodeService extends Service {
 
-    public static final String ACTION_SAVE_TO_LOCAL = "save_to_local";
-    public static final String ACTION_GET_FROM_LOCAL = "get_from_local";
+    //将扫描得到的二维码存入数数据库
+    public static final String ACTION_SAVE_SCAN_TO_LOCAL = "save_scan_to_local";
+    //将制码得到的二维码存入数数据库
+    public static final String ACTION_SAVE_MAKE_TO_LOCAL = "save_make_to_local";
     private String result = null;
     private String mAction = null;
 
@@ -36,14 +40,19 @@ public class HandleQRcodeService extends Service {
      * @param action
      */
     private void handleQRcodeInfo(String action) {
-        if (action.equals(ACTION_SAVE_TO_LOCAL)) {
-            //说明是想将数据存储到数据库中
-            QRcodeInfo codeInfo = new QRcodeInfo();
+        if (action.equals(ACTION_SAVE_SCAN_TO_LOCAL)) {
+            //将扫描得到的二维码存入数据库
+            QRcodeScanInfo codeInfo = new QRcodeScanInfo();
             String head = result.substring(0, 4);
-            fillQRcodeInfo(codeInfo, head);
-            QRcodeInfoManager.getInstance().addQRcodeInfo(codeInfo);
-        } else if (action.equals(ACTION_GET_FROM_LOCAL)) {
-            //说明是想从数据库中获取数据
+            fillQRcodeScanInfo(codeInfo, head);
+            QRcodeScanInfoManager.getInstance().addQRcodeScanInfo(codeInfo);
+        } else if (action.equals(ACTION_SAVE_MAKE_TO_LOCAL)) {
+            //将制码得到的二维码存入数据库
+            QRcodeMakeInfo codeInfo = new QRcodeMakeInfo();
+            String head = result.substring(0, 4);
+            fillQRcodeMakeInfo(codeInfo, head);
+            QRcodeMakeInfoManager.getInstance().addQRcodeMakeInfo(codeInfo);
+
         }
     }
 
@@ -53,13 +62,35 @@ public class HandleQRcodeService extends Service {
      * @param codeInfo
      * @param head
      */
-    private void fillQRcodeInfo(QRcodeInfo codeInfo, String head) {
+    private void fillQRcodeMakeInfo(QRcodeMakeInfo codeInfo, String head) {
         if (head.equals("http")) {
-            codeInfo.setQRcodeType(Constant.QRCODE_YTPE_URL);
+            codeInfo.setQRcodeType(Constant.MAKE_QRCODE_YTPE_URL);
+            codeInfo.setQRcode(result);
+            codeInfo.setMakeTime(System.currentTimeMillis());
+        } else if (head.substring(0, 2).equals("坐标")) {
+            codeInfo.setQRcodeType(Constant.MAKE_QRCODE_YTPE_MAP);
+            codeInfo.setQRcode(result);
+            codeInfo.setMakeTime(System.currentTimeMillis());
+        } else {
+            codeInfo.setQRcodeType(Constant.MAKE_QRCODE_YTPE_NORMAL);
+            codeInfo.setQRcode(result);
+            codeInfo.setMakeTime(System.currentTimeMillis());
+        }
+    }
+
+    /**
+     * 封装成bean对象
+     *
+     * @param codeInfo
+     * @param head
+     */
+    private void fillQRcodeScanInfo(QRcodeScanInfo codeInfo, String head) {
+        if (head.equals("http")) {
+            codeInfo.setQRcodeType(Constant.SCAN_QRCODE_YTPE_URL);
             codeInfo.setQRcode(result);
             codeInfo.setScanTime(System.currentTimeMillis());
         } else {
-            codeInfo.setQRcodeType(Constant.QRCODE_YTPE_NORMAL);
+            codeInfo.setQRcodeType(Constant.SCAN_QRCODE_YTPE_NORMAL);
             codeInfo.setQRcode(result);
             codeInfo.setScanTime(System.currentTimeMillis());
         }

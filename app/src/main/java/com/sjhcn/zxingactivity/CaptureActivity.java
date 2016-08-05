@@ -132,7 +132,7 @@ public class CaptureActivity extends Activity implements Callback {
 //            resultIntent.putExtras(bundle);
             //this.setResult(RESULT_OK, resultIntent);
             serviceIntent.putExtra("serviceResult", resultString);
-            serviceIntent.setAction(HandleQRcodeService.ACTION_SAVE_TO_LOCAL);
+            serviceIntent.setAction(HandleQRcodeService.ACTION_SAVE_SCAN_TO_LOCAL);
             resultIntent.putExtra("result", resultString);
             startService(serviceIntent);
             startActivity(resultIntent);

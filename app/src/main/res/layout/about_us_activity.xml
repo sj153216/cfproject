@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/init"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="20dp"
+        android:text="二维码管家，专业的二维码扫描工具，想怎么扫，他妈就怎么扫，至于反应速度嘛，那要看人品了，识别率还行！
+
+我们的产品功能不算太丰富，适用范围也不是很广，不管您是企业还是个人，都值得拥有。
+
+二维码管家上线以来一直的到众多忠实用户的关注，再次感谢大家的支持，欢迎批评指正，提出意见和建议，我们会坚持不懈的保持功能更新，并维持应用的的简介和操作习惯！"
+        android:textColor="#A572AA"
+        android:textSize="20sp"
+        android:textStyle="italic" />
+
+
+</LinearLayout>

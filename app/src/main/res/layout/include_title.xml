@@ -15,7 +15,7 @@
             android:layout_height="35dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/ic_previous_holo_dark"/>
+            android:src="@mipmap/ic_previous_holo_dark" />
 
         <TextView
             android:id="@+id/title_name"
@@ -30,18 +30,19 @@
 
         <ImageView
             android:id="@+id/right_img"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:scaleType="fitXY"
+            android:src="@mipmap/camera"
             android:visibility="gone" />
 
         <ImageView
             android:id="@+id/to_right_img"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:layout_toLeftOf="@id/right_img"

@@ -2,6 +2,7 @@ package com.sjhcn.qrcode;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -12,9 +13,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sjhcn.constants.Constant;
-import com.sjhcn.entitis.QRcodeInfo;
-import com.sjhcn.entitis.RecordItem;
+import com.sjhcn.entitis.MakeRecordItem;
+import com.sjhcn.entitis.QRcodeMakeInfo;
+import com.sjhcn.entitis.QRcodeScanInfo;
+import com.sjhcn.entitis.ScanRecordItem;
 import com.sjhcn.module.DataManager;
+import com.sjhcn.recyclerview_adapter.MakeRecordAdapter;
 import com.sjhcn.recyclerview_adapter.ScanRecordAdapter;
 import com.sjhcn.utils.MyDateUtils;
 import com.sjhcn.view.DividerItemDecoration;
@@ -26,7 +30,7 @@ import java.util.List;
 /**
  * Created by tong on 2016/7/13.
  */
-public class ScanHistoryActivity extends BaseActivity {
+public class ScanHistoryActivity extends BaseActivity implements View.OnClickListener {
 
     private static final int POSITION_SCAN_RECORD = 0;
     private static final int POSITION_MAKE_RECORD = 1;
@@ -36,12 +40,16 @@ public class ScanHistoryActivity extends BaseActivity {
 
     private MyPagerAdapter pagerAdapter;
 
-    private ScanRecordAdapter mRecyclerViewAdapter;
-    private List<RecordItem> mDatas;
+    private ScanRecordAdapter mScanRecyclerViewAdapter;
+    private MakeRecordAdapter mMakeRecyclerViewAdapter;
+    private List<ScanRecordItem> mScanDatas;
+    private List<MakeRecordItem> mMakeDatas;
     private DataManager mDataMgr;
 
-    //保存从数据库获取的codeInfoList
-    private List<QRcodeInfo> codeInfoList;
+    //保存从数据库获取的scanCodeInfoList
+    private List<QRcodeScanInfo> scanCodeInfoList;
+    //保存从数据库获取的makeCodeInfoList
+    private List<QRcodeMakeInfo> makeCodeInfoList;
 
 
     private ViewPager mViewPager;
@@ -60,6 +68,12 @@ public class ScanHistoryActivity extends BaseActivity {
         setContentView(R.layout.scan_history_activity);
         initView();
         initData();
+        initEvent();
+    }
+
+    private void initEvent() {
+        mScanRecordTv.setOnClickListener(this);
+        mMakeRecordTv.setOnClickListener(this);
     }
 
     private void initView() {
@@ -76,17 +90,24 @@ public class ScanHistoryActivity extends BaseActivity {
     }
 
     private void initData() {
-        urlBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_add);
-        normalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_invite);
+        mScanRecordTv.setBackgroundColor(Color.parseColor("#66DDFB"));
+        urlBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ie);
+        normalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.contace_circle);
         mTitle.setText("历史记录");
         mDataMgr = DataManager.getInstance();
-        codeInfoList = mDataMgr.getCodeInfoList();
-        mDatas = new ArrayList<RecordItem>();
-        fillItem(codeInfoList);
+        scanCodeInfoList = mDataMgr.getScanCodeInfoList();
+        makeCodeInfoList = mDataMgr.getMakeCodeInfoList();
+        mScanDatas = new ArrayList<ScanRecordItem>();
+        mMakeDatas = new ArrayList<MakeRecordItem>();
+
+        fillScanItem(scanCodeInfoList);
+        fillMakeItem(makeCodeInfoList);
         pagerAdapter = new MyPagerAdapter(mViewList);
         mViewPager.setAdapter(pagerAdapter);
-        mRecyclerViewAdapter = new ScanRecordAdapter(this, mDatas);
-        mScanRecord.setAdapter(mRecyclerViewAdapter);
+        mScanRecyclerViewAdapter = new ScanRecordAdapter(this, mScanDatas);
+        mMakeRecyclerViewAdapter = new MakeRecordAdapter(this, mMakeDatas);
+        mScanRecord.setAdapter(mScanRecyclerViewAdapter);
+        mMakeRecord.setAdapter(mMakeRecyclerViewAdapter);
 
     }
 
@@ -95,12 +116,12 @@ public class ScanHistoryActivity extends BaseActivity {
      *
      * @param codeInfoList
      */
-    private void fillItem(List<QRcodeInfo> codeInfoList) {
+    private void fillScanItem(List<QRcodeScanInfo> codeInfoList) {
         if (codeInfoList.size() > 0) {
             for (int i = 0; i < codeInfoList.size(); i++) {
-                RecordItem recordItem = new RecordItem();
-                QRcodeInfo codeInfo = codeInfoList.get(i);
-                if (codeInfo.getQRcodeType() == Constant.QRCODE_YTPE_URL) {
+                ScanRecordItem recordItem = new ScanRecordItem();
+                QRcodeScanInfo codeInfo = codeInfoList.get(i);
+                if (codeInfo.getQRcodeType() == Constant.SCAN_QRCODE_YTPE_URL) {
                     recordItem.setLable(urlBitmap);
                 } else {
                     recordItem.setLable(normalBitmap);
@@ -109,7 +130,35 @@ public class ScanHistoryActivity extends BaseActivity {
                 recordItem.setQrcode(codeInfo.getQRcode());
                 recordItem.setTime(MyDateUtils.formatYearMonthDay(codeInfo.getScanTime(), "-") + "  " +
                         MyDateUtils.formatHourMin(codeInfo.getScanTime(), ":"));
-                mDatas.add(recordItem);
+                mScanDatas.add(recordItem);
+
+            }
+        }
+
+    }
+
+    /**
+     * 因为从数据库取出的数据是qrcode，要转换成item设置给adapter
+     *
+     * @param codeInfoList
+     */
+    private void fillMakeItem(List<QRcodeMakeInfo> codeInfoList) {
+        if (codeInfoList.size() > 0) {
+            for (int i = 0; i < codeInfoList.size(); i++) {
+                MakeRecordItem recordItem = new MakeRecordItem();
+                QRcodeMakeInfo codeInfo = codeInfoList.get(i);
+                if (codeInfo.getQRcodeType() == Constant.MAKE_QRCODE_YTPE_URL) {
+                    recordItem.setLable(urlBitmap);
+                } else if (codeInfo.getQRcodeType() == Constant.MAKE_QRCODE_YTPE_NORMAL) {
+                    recordItem.setLable(normalBitmap);
+                } else if (codeInfo.getQRcodeType() == Constant.MAKE_QRCODE_YTPE_MAP) {
+                    //地图暂未做
+                }
+                recordItem.setArrow(BitmapFactory.decodeResource(getResources(), R.drawable.ic_find_previous_holo_dark));
+                recordItem.setQrcode(codeInfo.getQRcode());
+                recordItem.setTime(MyDateUtils.formatYearMonthDay(codeInfo.getMakeTime(), "-") + "  " +
+                        MyDateUtils.formatHourMin(codeInfo.getMakeTime(), ":"));
+                mMakeDatas.add(recordItem);
 
             }
         }
@@ -119,7 +168,6 @@ public class ScanHistoryActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     /**
@@ -133,6 +181,7 @@ public class ScanHistoryActivity extends BaseActivity {
                 this, DividerItemDecoration.HORIZONTAL_LIST));
 
     }
+
 
     // ViewPager适配器
     class MyPagerAdapter extends PagerAdapter {
@@ -169,4 +218,21 @@ public class ScanHistoryActivity extends BaseActivity {
         }
 
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.scan_record:
+                mScanRecordTv.setBackgroundColor(Color.parseColor("#66DDFB"));
+                mMakeRecordTv.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                mViewPager.setCurrentItem(POSITION_SCAN_RECORD);
+                break;
+            case R.id.make_record:
+                mScanRecordTv.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                mMakeRecordTv.setBackgroundColor(Color.parseColor("#66DDFB"));
+                mViewPager.setCurrentItem(POSITION_MAKE_RECORD);
+                break;
+        }
+    }
+
 }

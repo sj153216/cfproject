@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:sj="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/start">
+    android:background="@mipmap/init">
+
+    <ImageView
+        android:id="@+id/init_img"
+        android:layout_width="250dp"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/init_img" />
 
 
-</LinearLayout>
+</RelativeLayout>

@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sjhcn.constants.Constant;
 import com.sjhcn.entitis.Item;
 import com.sjhcn.module.DataManager;
 import com.sjhcn.myfragment.ThirdFragment;
+import com.sjhcn.qrcode.MapCardActivity;
 import com.sjhcn.qrcode.NameCardActivity;
 import com.sjhcn.qrcode.R;
+import com.sjhcn.qrcode.UrlCardActivity;
 
 import java.util.List;
 
@@ -78,19 +79,21 @@ class SecondFragmentViewHolder extends RecyclerView.ViewHolder {
                 int pos = getLayoutPosition();
                 switch (pos) {
                     case 0:
-                        Intent intent = new Intent(ThirdFragment.mActivity, NameCardActivity.class);
-                        ThirdFragment.mActivity.startActivity(intent);
+                        Intent nmeIntent = new Intent(ThirdFragment.mActivity, NameCardActivity.class);
+                        ThirdFragment.mActivity.startActivity(nmeIntent);
 
                         break;
                     case 1:
-                        mDataMgr.getDataFromLocal(new ThirdFragment(), Constant.ACTION_LOAD_QRCODEINFO);
                         break;
                     case 2:
                         break;
                     case 3:
-
+                        Intent urlIntent = new Intent(ThirdFragment.mActivity, UrlCardActivity.class);
+                        ThirdFragment.mActivity.startActivity(urlIntent);
                         break;
                     case 4:
+                        Intent mapIntent = new Intent(ThirdFragment.mActivity, MapCardActivity.class);
+                        ThirdFragment.mActivity.startActivity(mapIntent);
                         break;
                     case 5:
                         break;

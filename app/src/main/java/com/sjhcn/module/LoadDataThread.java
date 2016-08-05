@@ -5,7 +5,8 @@ import android.os.Looper;
 import android.os.Message;
 
 import com.sjhcn.constants.Constant;
-import com.sjhcn.db.QRcodeInfoIntf;
+import com.sjhcn.db.QRcodeMakeInfoIntf;
+import com.sjhcn.db.QRcodeScanInfoIntf;
 
 /**
  * Created by tong on 2016/7/14.
@@ -18,11 +19,13 @@ public class LoadDataThread extends Thread {
     private Handler mWorkHandler;
 
     private Looper mLooper;
-    private QRcodeInfoIntf codeInfoMgr;
+    private QRcodeScanInfoIntf scanCodeInfoMgr;
+    private QRcodeMakeInfoIntf makeCodeInfoMgr;
 
-    public LoadDataThread(Handler mainHandler, QRcodeInfoIntf codeInfoMgr) {
+    public LoadDataThread(Handler mainHandler, QRcodeScanInfoIntf scanCodeInfoMgr, QRcodeMakeInfoIntf makeCodeInfoMgr) {
         this.mMainHandler = mainHandler;
-        this.codeInfoMgr = codeInfoMgr;
+        this.scanCodeInfoMgr = scanCodeInfoMgr;
+        this.makeCodeInfoMgr = makeCodeInfoMgr;
     }
 
     @Override
@@ -49,9 +52,13 @@ public class LoadDataThread extends Thread {
         Object queryResult = null;
         try {
             switch (action) {
-                case Constant.ACTION_LOAD_QRCODEINFO:
-                    //加载二维码数据
-                    queryResult = codeInfoMgr.queryQRcodeInfo();
+                case Constant.ACTION_LOAD_SCAN_QRCODEINFO:
+                    //加载扫描二维码数据
+                    queryResult = scanCodeInfoMgr.queryQRcodeScanInfo();
+                    break;
+                case Constant.ACTION_LOAD_MAKE_QRCODEINFO:
+                    //加载制码二维码数据
+                    queryResult = makeCodeInfoMgr.queryQRcodeMakeInfo();
                     break;
                 default:
                     break;

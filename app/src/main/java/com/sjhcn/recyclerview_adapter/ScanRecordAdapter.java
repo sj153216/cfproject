@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sjhcn.entitis.RecordItem;
+import com.sjhcn.entitis.ScanRecordItem;
 import com.sjhcn.qrcode.R;
 
 import java.util.List;
@@ -19,9 +19,9 @@ import java.util.List;
 public class ScanRecordAdapter extends RecyclerView.Adapter<ScanViewHolder> {
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<RecordItem> mData;
+    private List<ScanRecordItem> mData;
 
-    public ScanRecordAdapter(Context context, List<RecordItem> data) {
+    public ScanRecordAdapter(Context context, List<ScanRecordItem> data) {
         mContext = context;
         mData = data;
         mInflater = LayoutInflater.from(context);
@@ -37,7 +37,7 @@ public class ScanRecordAdapter extends RecyclerView.Adapter<ScanViewHolder> {
 
     @Override
     public void onBindViewHolder(ScanViewHolder holder, int position) {
-        RecordItem item = mData.get(position);
+        ScanRecordItem item = mData.get(position);
         holder.lableView.setImageBitmap(item.getLable());
         holder.arrowView.setImageBitmap(item.getArrow());
         holder.scanRecordView.setText(item.getQrcode());

@@ -6,9 +6,12 @@ import android.os.Message;
 
 import com.sjhcn.application.QRcodeApplication;
 import com.sjhcn.constants.Constant;
-import com.sjhcn.db.QRcodeInfoIntf;
-import com.sjhcn.db.QRcodeInfoManager;
-import com.sjhcn.entitis.QRcodeInfo;
+import com.sjhcn.db.QRcodeMakeInfoIntf;
+import com.sjhcn.db.QRcodeMakeInfoManager;
+import com.sjhcn.db.QRcodeScanInfoIntf;
+import com.sjhcn.db.QRcodeScanInfoManager;
+import com.sjhcn.entitis.QRcodeMakeInfo;
+import com.sjhcn.entitis.QRcodeScanInfo;
 import com.sjhcn.intf.LoadDataIntf;
 
 import java.util.ArrayList;
@@ -24,9 +27,13 @@ public class DataManager {
     private static DataManager mInstance = null;
 
     private LoadDataIntf loadDataIntf = null;
-    private QRcodeInfoIntf codeInfoMgr;
+    private QRcodeScanInfoIntf scanCodeInfoMgr;
+    private QRcodeMakeInfoIntf makeCodeInfoMgr;
     private Context mContext;
-    private List<QRcodeInfo> codeInfoList;
+    //存放扫描的的二维码信息
+    private List<QRcodeScanInfo> scanCodeInfoList;
+    //存放制码的二维码信息
+    private List<QRcodeMakeInfo> makeCodeInfoList;
     private LoadDataThread loadDataThread;
 
     Handler mainHandler = new Handler() {
@@ -35,8 +42,12 @@ public class DataManager {
             int action = msg.what;
             Object obj = msg.obj;
             switch (action) {
-                case Constant.ACTION_LOAD_QRCODEINFO:
-                    codeInfoList = (List<QRcodeInfo>) obj;
+                case Constant.ACTION_LOAD_SCAN_QRCODEINFO:
+                    scanCodeInfoList = (List<QRcodeScanInfo>) obj;
+                    loadDataIntf.onLoadFinish(action);
+                    break;
+                case Constant.ACTION_LOAD_MAKE_QRCODEINFO:
+                    makeCodeInfoList = (List<QRcodeMakeInfo>) obj;
                     loadDataIntf.onLoadFinish(action);
                     break;
                 default:
@@ -52,9 +63,11 @@ public class DataManager {
 
     private void init() {
         mContext = QRcodeApplication.getInstance();
-        codeInfoMgr = QRcodeInfoManager.getInstance();
-        codeInfoList = new ArrayList<QRcodeInfo>();
-        loadDataThread = new LoadDataThread(mainHandler, codeInfoMgr);
+        scanCodeInfoMgr = QRcodeScanInfoManager.getInstance();
+        makeCodeInfoMgr = QRcodeMakeInfoManager.getInstance();
+        scanCodeInfoList = new ArrayList<QRcodeScanInfo>();
+        makeCodeInfoList = new ArrayList<QRcodeMakeInfo>();
+        loadDataThread = new LoadDataThread(mainHandler, scanCodeInfoMgr, makeCodeInfoMgr);
         loadDataThread.start();
     }
 
@@ -76,21 +89,48 @@ public class DataManager {
     }
 
 
+    /**
+     * 从本地数据库加载数据
+     *
+     * @param loadDataIntf
+     * @param action
+     */
     public void getDataFromLocal(LoadDataIntf loadDataIntf, int action) {
         this.loadDataIntf = loadDataIntf;
         if (loadDataIntf == null) {
             return;
         }
-        this.loadDataIntf.onLoadStart();
+        if (action == Constant.ACTION_LOAD_MAKE_QRCODEINFO) {
+            this.loadDataIntf.onLoadStart();
+        }
         loadDataThread.addTask(action);
     }
 
-    public List<QRcodeInfo> getCodeInfoList() {
-        if (codeInfoList == null) {
+
+    /**
+     * 拿到扫描的二维码数据
+     *
+     * @return
+     */
+    public List<QRcodeScanInfo> getScanCodeInfoList() {
+        if (scanCodeInfoList == null) {
             //确保activity拿数据的时候不为null，length为0可以，说明没有数据
-            codeInfoList = new ArrayList<QRcodeInfo>();
+            scanCodeInfoList = new ArrayList<QRcodeScanInfo>();
         }
-        return codeInfoList;
+        return scanCodeInfoList;
+    }
+
+    /**
+     * 拿到制码的二维码数据
+     *
+     * @return
+     */
+    public List<QRcodeMakeInfo> getMakeCodeInfoList() {
+        if (makeCodeInfoList == null) {
+            //确保activity拿数据的时候不为null，length为0可以，说明没有数据
+            makeCodeInfoList = new ArrayList<QRcodeMakeInfo>();
+        }
+        return makeCodeInfoList;
     }
 
 
