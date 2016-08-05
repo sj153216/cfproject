@@ -2,8 +2,10 @@ package com.sjhcn.recyclerview_adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -67,7 +69,7 @@ class SecondFragmentViewHolder extends RecyclerView.ViewHolder {
     ImageView arrowView;
     TextView contentView;
 
-    public SecondFragmentViewHolder(View itemView) {
+    public SecondFragmentViewHolder(final View itemView) {
         super(itemView);
         mDataMgr = DataManager.getInstance();
         lableView = (ImageView) itemView.findViewById(R.id.lable);
@@ -79,28 +81,58 @@ class SecondFragmentViewHolder extends RecyclerView.ViewHolder {
                 int pos = getLayoutPosition();
                 switch (pos) {
                     case 0:
+                        touchEvent(itemView);
                         Intent nmeIntent = new Intent(ThirdFragment.mActivity, NameCardActivity.class);
                         ThirdFragment.mActivity.startActivity(nmeIntent);
 
                         break;
                     case 1:
+                        touchEvent(itemView);
                         break;
                     case 2:
+                        touchEvent(itemView);
                         break;
                     case 3:
+                        touchEvent(itemView);
                         Intent urlIntent = new Intent(ThirdFragment.mActivity, UrlCardActivity.class);
                         ThirdFragment.mActivity.startActivity(urlIntent);
                         break;
                     case 4:
+                        touchEvent(itemView);
                         Intent mapIntent = new Intent(ThirdFragment.mActivity, MapCardActivity.class);
                         ThirdFragment.mActivity.startActivity(mapIntent);
                         break;
                     case 5:
+                        touchEvent(itemView);
                         break;
                 }
             }
         });
 
+    }
+
+    /**
+     * 点击item时设置背景颜色
+     * @param view
+     */
+    private void touchEvent(final View view) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundColor(Color.parseColor("#A473AA"));
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        v.setBackgroundColor(Color.parseColor(null));
+                        break;
+
+                }
+                return false;
+            }
+        });
     }
 }
 
