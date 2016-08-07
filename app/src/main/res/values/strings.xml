@@ -5,4 +5,5 @@
     <string name="self_center">个人中心</string>
     <string name="set">设置</string>
     <string name="scan">点我扫码</string>
+    <string name="share">标题</string>
 </resources>

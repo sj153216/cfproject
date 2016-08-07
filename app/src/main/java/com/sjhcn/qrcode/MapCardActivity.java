@@ -36,15 +36,41 @@ public class MapCardActivity extends BaseActivity {
     //位置提供器
     private String provider;
     private boolean isFirstLocate = true;
+    private LocationListener locationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(QRcodeApplication.getInstance());
         setContentView(R.layout.map_card_activity);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                //更新档前位置信息
+                if (location != null) {
+                    navigateTo(location);
+                }
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
         initView();
         initData();
         initEvent();
+
     }
 
 
@@ -53,7 +79,7 @@ public class MapCardActivity extends BaseActivity {
         super.onResume();
         mTitle.setText("位置");
         mMapView.onResume();
-        locationManager.requestLocationUpdates("gps", 60000, 1, locationListener);
+        locationManager.requestLocationUpdates("gps", 5000, 1, locationListener);
     }
 
 
@@ -82,12 +108,13 @@ public class MapCardActivity extends BaseActivity {
             return;
         }
         Location location = locationManager.getLastKnownLocation(provider);
-
+        locationManager.requestLocationUpdates(provider, 5000, 1, locationListener);
         if (location != null) {
             navigateTo(location);
         }
-        locationManager.requestLocationUpdates(provider, 5000, 1, locationListener);
+
     }
+
 
     /**
      * 定位到指定的经纬度
@@ -105,31 +132,6 @@ public class MapCardActivity extends BaseActivity {
         }
     }
 
-    LocationListener locationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(Location location) {
-            //更新档前位置信息
-            if (location != null) {
-
-                navigateTo(location);
-            }
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
-    };
 
     @Override
     protected void onDestroy() {
@@ -147,10 +149,15 @@ public class MapCardActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         mMapView.onPause();
+        if (locationManager != null) {
+            //程序关闭时将监听器移除
+            locationManager.removeUpdates(locationListener);
+        }
     }
 
 
     private void initEvent() {
+
 
     }
 
