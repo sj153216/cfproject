@@ -15,6 +15,7 @@ import com.sjhcn.module.DataManager;
 import com.sjhcn.myfragment.ThirdFragment;
 import com.sjhcn.qrcode.CollectActivity;
 import com.sjhcn.qrcode.R;
+import com.sjhcn.qrcode.SignInActivity;
 
 import java.util.List;
 
@@ -92,6 +93,10 @@ class ThirdFragmentViewHolder extends RecyclerView.ViewHolder {
                         sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
                         sendIntent.setType("text/plain");
                         ThirdFragment.mActivity.startActivity(sendIntent);
+                        break;
+                    case 3:
+                        Intent signIntent = new Intent(ThirdFragment.mActivity, SignInActivity.class);
+                        ThirdFragment.mActivity.startActivity(signIntent);
                         break;
                 }
             }

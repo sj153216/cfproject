@@ -39,7 +39,7 @@ public class ThirdFragment extends Fragment implements LoadDataIntf {
     private int[] bitmapId = new int[]{R.drawable.btn_rating_star_on_normal_holo_dark, R.drawable.ic_menu_invite,
             R.drawable.ic_menu_invite, R.drawable.ic_find_previous_holo_dark};
 
-    private String[] hints = new String[]{"我的收藏", "历史记录", "应用码分享"};
+    private String[] hints = new String[]{"我的收藏", "历史记录", "应用码分享","用户登录"};
     private MyProgressDialog dialog;
     public static Context mActivity;
 
@@ -120,7 +120,7 @@ public class ThirdFragment extends Fragment implements LoadDataIntf {
     private void initData() {
         mFragmentTitle.setText("个人中心");
         mData = new ArrayList<Item>(3);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             Item item = new Item();
             item.setLable(((BitmapDrawable) getResources().getDrawable(bitmapId[i])).getBitmap());
             item.setArrow(((BitmapDrawable) getResources().getDrawable(bitmapId[3])).getBitmap());
