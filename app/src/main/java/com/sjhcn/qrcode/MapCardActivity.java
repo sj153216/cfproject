@@ -23,9 +23,12 @@ import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.model.LatLng;
 import com.sjhcn.application.QRcodeApplication;
 
 import java.util.List;
@@ -112,7 +115,7 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setMyLocationEnabled(true);
 
-        mLocationClient = new LocationClient(this);     //声明LocationClient类
+        mLocationClient = new LocationClient(QRcodeApplication.getInstance());     //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
         initLocation();
         mLocationClient.start();
@@ -161,15 +164,23 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void showMe() {
+        if (isFirstLocate) {
+            //LatLng ll = new LatLng(32.0797236 , 118.7665758);
+            LatLng ll = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
+            mBaiduMap.animateMapStatus(update);
+            update = MapStatusUpdateFactory.zoomTo(16f);
+            mBaiduMap.animateMapStatus(update);
+            isFirstLocate = false;
+        }
         // 构造定位数据
-        MyLocationData locData = new MyLocationData.Builder()
-                .accuracy(mLocation.getRadius())
-                // 此处设置开发者获取到的方向信息，顺时针0-360
-                .direction(100).latitude(mLocation.getLatitude())
-                .longitude(mLocation.getLongitude()).build();
+        MyLocationData.Builder builder = new MyLocationData.Builder();
+        builder.latitude(mLocation.getLatitude());
+        builder.longitude(mLocation.getLongitude());
+        builder.direction(100);
+        MyLocationData locationData = builder.build();
         // 设置定位数据
-        mBaiduMap.setMyLocationData(locData);
-        // 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）
+        mBaiduMap.setMyLocationData(locationData);
         BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
                 .fromResource(R.drawable.location);
         MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, mCurrentMarker);
@@ -277,6 +288,7 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
                 sb.append(location.getAddrStr());
                 sb.append("\ndescribe : ");
                 sb.append("gps定位成功");
+                showMe();
 
             } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
                 sb.append("\naddr : ");
