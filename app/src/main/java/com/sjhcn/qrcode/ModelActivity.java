@@ -55,14 +55,18 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
     //存放GridView的list
     private ArrayList<View> mViewList = new ArrayList<View>(3);
 
-    private int[] mBitmaps = new int[]{R.drawable.gexing_2, R.drawable.gexing_3, R.drawable.gexing_4,
+    private int[] mSunshineBitmaps = new int[]{R.drawable.gexing_2, R.drawable.gexing_3, R.drawable.gexing_4,
             R.drawable.gexing_5, R.drawable.gexing_8, R.drawable.gexing_9,
             R.drawable.gexing_10, R.drawable.gexing_12};
     private int[] mClassBitmaps = new int[]{R.drawable.class_1, R.drawable.class_2, R.drawable.class_3,
             R.drawable.class_4, R.drawable.class_5, R.drawable.class_6,
             R.drawable.class_7, R.drawable.class_8};
-    private List<Drawable> mData = new ArrayList<Drawable>();
+    private int[] mSunsetBitmaps = new int[]{R.drawable.set_1, R.drawable.set_2, R.drawable.set_3,
+            R.drawable.set_4, R.drawable.set_5, R.drawable.set_6,
+            R.drawable.set_7, R.drawable.set_8, R.drawable.set_8};
     private List<Drawable> mClassData = new ArrayList<Drawable>();
+    private List<Drawable> mSunshineData = new ArrayList<Drawable>();
+    private List<Drawable> mSunsetData = new ArrayList<Drawable>();
     //三个gridview的adapter，只不过数据集不同
     private ModelGridViewAdapter mClassAdapter;
     private ModelGridViewAdapter mSunsetAdapter;
@@ -104,20 +108,23 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
         action = intent.getIntExtra("action", Constant.ACTION_GENERATE_MAP_QRCODEINFO);
 
         initGridView();
-        for (int i = 0; i < mBitmaps.length; i++) {
-            mData.add(getResources().getDrawable(mBitmaps[i]));
-        }
         for (int i = 0; i < mClassBitmaps.length; i++) {
             mClassData.add(getResources().getDrawable(mClassBitmaps[i]));
+        }
+        for (int i = 0; i < mSunsetBitmaps.length; i++) {
+            mSunsetData.add(getResources().getDrawable(mSunsetBitmaps[i]));
+        }
+        for (int i = 0; i < mSunshineBitmaps.length; i++) {
+            mSunshineData.add(getResources().getDrawable(mSunshineBitmaps[i]));
         }
         mPagerAdapter = new MyPagerAdapter(mViewList);
         mViewPager.setAdapter(mPagerAdapter);
 
-        mClassAdapter = new ModelGridViewAdapter(mData, this);
+        mClassAdapter = new ModelGridViewAdapter(mClassData, this);
         mClassGv.setAdapter(mClassAdapter);
-        mSunsetAdapter = new ModelGridViewAdapter(mData, this);
+        mSunsetAdapter = new ModelGridViewAdapter(mSunsetData, this);
         mSunsetGv.setAdapter(mSunsetAdapter);
-        mSunshineAdapter = new ModelGridViewAdapter(mClassData, this);
+        mSunshineAdapter = new ModelGridViewAdapter(mSunshineData, this);
         mSunshineGv.setAdapter(mSunshineAdapter);
         mIndicator.setViewPager(mViewPager, 0);
 
@@ -129,22 +136,22 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
      */
     private void initGridView() {
         mClassGv = new GridView(this);
-        mClassGv.setHorizontalSpacing(2);
-        mClassGv.setVerticalSpacing(2);
+        mClassGv.setHorizontalSpacing(3);
+        mClassGv.setVerticalSpacing(3);
         mClassGv.setNumColumns(3);
         mViewList.add(mClassGv);
 
-        mSunshineGv = new GridView(this);
-        mSunshineGv.setHorizontalSpacing(2);
-        mSunshineGv.setVerticalSpacing(2);
-        mSunshineGv.setNumColumns(3);
-        mViewList.add(mSunshineGv);
-
         mSunsetGv = new GridView(this);
-        mSunsetGv.setHorizontalSpacing(2);
-        mSunsetGv.setVerticalSpacing(2);
+        mSunsetGv.setHorizontalSpacing(3);
+        mSunsetGv.setVerticalSpacing(3);
         mSunsetGv.setNumColumns(3);
         mViewList.add(mSunsetGv);
+
+        mSunshineGv = new GridView(this);
+        mSunshineGv.setHorizontalSpacing(3);
+        mSunshineGv.setVerticalSpacing(3);
+        mSunshineGv.setNumColumns(3);
+        mViewList.add(mSunshineGv);
     }
 
     @Override
@@ -190,7 +197,7 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
             case Constant.ACTION_GENERATE_PHONE_QRCODEINFO:
                 intent.putExtra("qrCode", mQRcodeStr);
                 intent.putExtra("mapCode", compressBitmap(mBitmap));
-                intent.putExtra("action", Constant.ACTION_GENERATE_PHONE_QRCODEINFO);
+                intent.putExtra("action", Constant.ACTION_GENERATE_PHONE_MODEL_QRCODEINFO);
                 break;
             case Constant.ACTION_GENERATE_URL_QRCODEINFO:
                 intent.putExtra("qrCode", mQRcodeStr);
@@ -222,11 +229,15 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
                 temp = mClassGv;
                 break;
             case 1:
-                temp = mSunshineGv;
-                break;
-            case 2:
                 temp = mSunsetGv;
                 break;
+            case 2:
+                temp = mSunshineGv;
+                break;
+        }
+        for (int i = 0; i < temp.getChildCount(); i++) {
+            ImageView oldSelectIv = (ImageView) temp.getChildAt(i).findViewById(R.id.model_item_select_iv);
+            oldSelectIv.setVisibility(View.GONE);
         }
         ImageView selectIv = (ImageView) view.findViewById(R.id.model_item_select_iv);
         if (lastClickPos == position) {
@@ -235,14 +246,13 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
             if (!isSelected) {
                 selectIv.setVisibility(View.VISIBLE);
                 isSelected = true;
-                mBitmap = BitmapFactory.decodeResource(QRcodeApplication.getInstance().getResources(), mBitmaps[position]);
+                currentGridView(mViewPagerCurrentPos, position);
             } else {
                 selectIv.setVisibility(View.GONE);
                 isSelected = false;
             }
         } else {
             if (isSelected) {
-                int count = temp.getChildCount();
                 ImageView oldSelectIv = (ImageView) temp.getChildAt(lastClickPos).findViewById(R.id.model_item_select_iv);
                 if (oldSelectIv != null) {
                     oldSelectIv.setVisibility(View.GONE);
@@ -250,9 +260,26 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
             }
             selectIv.setVisibility(View.VISIBLE);
             isSelected = true;
-            mBitmap = BitmapFactory.decodeResource(QRcodeApplication.getInstance().getResources(), mBitmaps[position]);
+            currentGridView(mViewPagerCurrentPos, position);
         }
         lastClickPos = position;
+    }
+
+    /**
+     * 判断当前在哪个gridview
+     */
+    private void currentGridView(int viewPagerPos, int itemPos) {
+        switch (viewPagerPos) {
+            case 0:
+                mBitmap = BitmapFactory.decodeResource(QRcodeApplication.getInstance().getResources(), mClassBitmaps[itemPos]);
+                break;
+            case 1:
+                mBitmap = BitmapFactory.decodeResource(QRcodeApplication.getInstance().getResources(), mSunsetBitmaps[itemPos]);
+                break;
+            case 2:
+                mBitmap = BitmapFactory.decodeResource(QRcodeApplication.getInstance().getResources(), mSunshineBitmaps[itemPos]);
+                break;
+        }
     }
 
     @Override

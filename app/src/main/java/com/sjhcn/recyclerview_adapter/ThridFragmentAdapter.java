@@ -14,6 +14,7 @@ import com.sjhcn.entitis.Item;
 import com.sjhcn.module.DataManager;
 import com.sjhcn.myfragment.ThirdFragment;
 import com.sjhcn.qrcode.CollectActivity;
+import com.sjhcn.qrcode.MakeResultActivity;
 import com.sjhcn.qrcode.R;
 import com.sjhcn.qrcode.SignInActivity;
 
@@ -88,11 +89,16 @@ class ThirdFragmentViewHolder extends RecyclerView.ViewHolder {
                         break;
                     case 2:
                         //应用码分享
-                        Intent sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-                        sendIntent.setType("text/plain");
-                        ThirdFragment.mActivity.startActivity(sendIntent);
+//                        Intent sendIntent = new Intent();
+//                        sendIntent.setAction(Intent.ACTION_SEND);
+//                        sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+//                        sendIntent.setType("text/plain");
+//                        ThirdFragment.mActivity.startActivity(sendIntent);
+                        String myCode = "http://fusion.qq.com/cgi-bin/qzapps/unified_jump?appid=42318433&from=wx&isTimeline=false&actionFlag=0&params=pname%3Dcom.sjhcn.qrcode%26versioncode%3D1%26channelid%3D%26actionflag%3D0";
+                        Intent myCodeIntent = new Intent(ThirdFragment.mActivity, MakeResultActivity.class);
+                        myCodeIntent.putExtra("action", Constant.ACTION_GENERATE_MYCODE_QRCODEINFO);
+                        myCodeIntent.putExtra("qrCode", myCode);
+                        ThirdFragment.mActivity.startActivity(myCodeIntent);
                         break;
                     case 3:
                         Intent signIntent = new Intent(ThirdFragment.mActivity, SignInActivity.class);

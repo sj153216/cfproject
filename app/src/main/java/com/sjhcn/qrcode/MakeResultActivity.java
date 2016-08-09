@@ -65,6 +65,10 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
     private LinearLayout mMapLl;
     private TextView mMapContentTv;
 
+    //下面是我的二维码部分
+    private TextView mMyCodeTv;
+
+
     //标题，根据action变化
     private TextView mTitle;
     //标题，根据action变化
@@ -129,6 +133,8 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
         mPhoneIv = (ImageView) findViewById(R.id.phone_lable);
         mPhoneContentTv = (TextView) findViewById(R.id.phone_content_tv);
 
+        //初始化我的二维码部分
+        mMyCodeTv = (TextView) findViewById(R.id.my_code_tv);
     }
 
     @Override
@@ -146,6 +152,8 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
                 mAction == Constant.ACTION_GENERATE_PHONE_MODEL_QRCODEINFO ||
                 mAction == Constant.ACTION_GENERATE_URL_MODEL_QRCODEINFO) {
             mTitle.setText("模板二维码");
+        } else if (mAction == Constant.ACTION_GENERATE_MYCODE_QRCODEINFO) {
+            mTitle.setText("我的二维码");
         }
         mShareIv.setVisibility(View.VISIBLE);
     }
@@ -171,6 +179,9 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
                 mNameLl.setVisibility(View.GONE);
                 mUrlRl.setVisibility(View.VISIBLE);
                 mContentTv.setText(mQRcodeInfo);
+                if (mMapByte != null) {
+                    mMapBitmap = BitmapFactory.decodeByteArray(mMapByte, 0, mMapByte.length);
+                }
                 break;
             case Constant.ACTION_GENERATE_NAME_QRCODEINFO:
             case Constant.ACTION_GENERATE_NAME_MODEL_QRCODEINFO:
@@ -192,6 +203,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
                 mPartTv.setText(mPartStr);
                 mEmailTv.setText(mEmailStr);
                 mCompanyTv.setText(mCompanyStr);
+
                 break;
             case Constant.ACTION_GENERATE_PHONE_QRCODEINFO:
             case Constant.ACTION_GENERATE_PHONE_MODEL_QRCODEINFO:
@@ -199,6 +211,9 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
                 mUrlRl.setVisibility(View.GONE);
                 mPhoneRl.setVisibility(View.VISIBLE);
                 mPhoneContentTv.setText(mQRcodeInfo);
+                if (mMapByte != null) {
+                    mMapBitmap = BitmapFactory.decodeByteArray(mMapByte, 0, mMapByte.length);
+                }
                 break;
             case Constant.ACTION_GENERATE_MAP_QRCODEINFO:
                 mNameLl.setVisibility(View.GONE);
@@ -209,29 +224,15 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
                 mShowMapIv.setImageBitmap(mMapBitmap);
                 mMapContentTv.setText(mQRcodeInfo);
                 break;
-            default:
-                break;
-        }
-    }
-
-    /**
-     * 根据action将对应的内容设置到view
-     *
-     * @param action
-     */
-    private void setContentToView(int action) {
-        switch (action) {
-            case Constant.ACTION_GENERATE_URL_QRCODEINFO:
-                break;
-            case Constant.ACTION_GENERATE_NAME_QRCODEINFO:
-                break;
-            case Constant.ACTION_GENERATE_MAP_QRCODEINFO:
+            case Constant.ACTION_GENERATE_MYCODE_QRCODEINFO:
+                mNameLl.setVisibility(View.GONE);
+                mUrlRl.setVisibility(View.VISIBLE);
+                mContentTv.setText(mQRcodeInfo);
                 break;
             default:
                 break;
         }
     }
-
 
     private void initEvent() {
         mSwitchView.setOnStateChangedListener(new SwitchView.OnStateChangedListener() {
@@ -267,6 +268,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
         animation.setFillAfter(true);//动画执行完后是否停留在执行完的状态
         mQRcodeRl.startAnimation(animation);
         mQRcodeRl.setVisibility(View.GONE);
+        mMyCodeTv.setVisibility(View.GONE);
     }
 
     /**
@@ -302,6 +304,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
             animation.setDuration(500);//设置动画持续时间
             animation.setFillAfter(true);//动画执行完后是否停留在执行完的状态
             mQRcodeRl.startAnimation(animation);
+            mMyCodeTv.setVisibility(View.VISIBLE);
         } else {
             Toast.makeText(MakeResultActivity.this, "Text can not be empty", Toast.LENGTH_SHORT).show();
         }
@@ -329,6 +332,11 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
             case Constant.ACTION_GENERATE_URL_MODEL_QRCODEINFO:
             case Constant.ACTION_GENERATE_MAP_MODEL_QRCODEINFO:
                 Utils.combineBitmap(bitmap, mMapBitmap, qrCodeBitmap);
+                break;
+            case Constant.ACTION_GENERATE_MYCODE_QRCODEINFO:
+                Canvas myCodeCanvas = new Canvas(bitmap);
+                //二维码
+                myCodeCanvas.drawBitmap(qrCodeBitmap, 0, 0, null);
                 break;
         }
     }

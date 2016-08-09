@@ -564,7 +564,7 @@ public class Utils {
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
         // url仅在微信（包括好友和朋友圈）中使用
-        oks.setUrl("http://sharesdk.cn");
+        oks.setUrl("http://fusion.qq.com/cgi-bin/qzapps/unified_jump?appid=42318433&from=wx&isTimeline=false&actionFlag=0&params=pname%3Dcom.sjhcn.qrcode%26versioncode%3D1%26channelid%3D%26actionflag%3D0");
         // comment是我对这条分享的评论，仅在人人网和QQ空间使用
         //oks.setComment("我是测试评论文本");
         // site是分享此内容的网站名称，仅在QQ空间使用
@@ -581,11 +581,12 @@ public class Utils {
                     //微信分享应用 ,此功能需要微信绕开审核，需要使用项目中的wechatdemo.keystore进行签名打包
                     //由于Onekeyshare没有关于应用分享的参数如setShareType等，我们需要通过自定义 分享来实现
                     //比如下面设置了setTitle,可以覆盖oks.setTitle里面的title值
-                    paramsToShare.setTitle("来自分享");
-                    paramsToShare.setText("分享内容");
-                    paramsToShare.setShareType(shareType);
+                    //paramsToShare.setTitle("来自分享");
+                    //paramsToShare.setText("分享内容");
+                   // paramsToShare.setShareType(shareType);
                     //paramsToShare.setImagePath("/sdcard/bitmap.png");
-                    paramsToShare.setImageData(bitmap);
+                    //paramsToShare.setImageData(bitmap);
+                    //paramsToShare.setUrl("http://fusion.qq.com/cgi-bin/qzapps/unified_jump?appid=42318433&from=wx&isTimeline=false&actionFlag=0&params=pname%3Dcom.sjhcn.qrcode%26versioncode%3D1%26channelid%3D%26actionflag%3D0");
                     //paramsToShare.setExtInfo("");
                     //paramsToShare.setFilePath("/data/app/com.sjhcn.qrcode-1/base.apk");
                     // paramsToShare.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");

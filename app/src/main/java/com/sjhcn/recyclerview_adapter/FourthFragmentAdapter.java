@@ -106,7 +106,7 @@ class FourthFragmentViewHolder extends RecyclerView.ViewHolder {
 
                         break;
                     case 2:
-                        Utils.showShare(Platform.SHARE_APPS, null);
+                        Utils.showShare(Platform.SHARE_WEBPAGE, null);
                         break;
                     case 3:
                         //意见反馈

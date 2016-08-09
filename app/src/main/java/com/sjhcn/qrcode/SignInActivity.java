@@ -83,7 +83,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 //用户注册
                 Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
                 startActivity(intent);
-
+                SignInActivity.this.finish();
                 break;
             case R.id.signIn_bt:
                 //用户登录
@@ -125,20 +125,25 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
      */
     private void judgePerssion(JSONArray jsonArray, BmobException e, String password) {
         if (e == null) {
-            if (jsonArray == null) {
+            if (jsonArray == null || jsonArray.length() == 0) {
                 Toast.makeText(SignInActivity.this, "该用户未注册", Toast.LENGTH_SHORT).show();
             } else {
                 ArrayList<UserInfo> userInfoList = (ArrayList<UserInfo>) com.alibaba.fastjson.JSONArray.parseArray(jsonArray.toString(), UserInfo.class);
                 UserInfo userInfo = userInfoList.get(0);
-                if (!sHasLoginIn && userInfo.getPassword().equals(password)) {
-                    startLoginSuccessActivity();
-                    sUserName = mUserNameEt.getText().toString();
-                    sPassword = mPasswordEt.getText().toString();
-                    sHasLoginIn = true;
-                } else if (sHasLoginIn) {
-                    Toast.makeText(SignInActivity.this, "当前用户已经登录,不可重复登录", Toast.LENGTH_SHORT).show();
+                if (sUserName == null) {
+                    if (userInfo.getPassword().equals(password)) {
+                        sUserName = mUserNameEt.getText().toString();
+                        startLoginSuccessActivity();
+                    } else {
+                        Toast.makeText(SignInActivity.this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(SignInActivity.this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
+                    if (sUserName.equals(mUserNameEt.getText().toString())) {
+                        Toast.makeText(SignInActivity.this, "当前用户已经登录,不可重复登录", Toast.LENGTH_SHORT).show();
+                    }else{
+                        sUserName = mUserNameEt.getText().toString();
+                        startLoginSuccessActivity();
+                    }
                 }
 
             }

@@ -32,5 +32,6 @@ public class Constant {
     public static final int ACTION_GENERATE_PHONE_MODEL_QRCODEINFO = 27;
     public static final int ACTION_GENERATE_URL_MODEL_QRCODEINFO = 28;
     public static final int ACTION_GENERATE_MAP_MODEL_QRCODEINFO = 29;
+    public static final int ACTION_GENERATE_MYCODE_QRCODEINFO = 30;
 
 }

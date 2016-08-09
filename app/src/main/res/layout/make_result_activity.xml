@@ -41,7 +41,7 @@
                     android:layout_height="35dp"
                     android:layout_marginLeft="30dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_menu_invite" />
+                    android:src="@drawable/ie" />
 
                 <TextView
                     android:id="@+id/contentTv"
@@ -51,7 +51,7 @@
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@id/lable"
-                    android:maxEms="30"
+                    android:maxEms="40"
                     android:singleLine="true"
                     android:textColor="#AB7BAF"
                     android:textSize="18sp"
@@ -81,6 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:background="@drawable/selector_btn_back"
                     android:text="访问链接"
                     android:textColor="#AB7BAF"
                     android:textSize="18sp"
@@ -421,9 +422,9 @@
                         android:layout_marginRight="40dp"
                         android:layout_marginTop="3dp"
                         android:layout_toRightOf="@id/map_lable"
+                        android:background="@drawable/selector_btn_back"
                         android:maxEms="30"
                         android:singleLine="true"
-                        android:background="@drawable/selector_btn_back"
                         android:text="坐标"
                         android:textColor="#AB7BAF"
                         android:textSize="18sp"
@@ -484,4 +485,17 @@
             android:background="#ffffff"
             android:scaleType="fitXY" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/my_code_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="120dp"
+        android:text="扫描上面二维码下载"
+        android:textColor="#AB7BAF"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:visibility="gone" />
+
 </FrameLayout>
