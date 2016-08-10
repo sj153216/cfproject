@@ -79,7 +79,7 @@ public class MapCardActivity extends BaseActivity {
         super.onResume();
         mTitle.setText("位置");
         mMapView.onResume();
-        locationManager.requestLocationUpdates("gps", 5000, 1, locationListener);
+        locationManager.requestLocationUpdates(provider, 1000, 1, locationListener);
     }
 
 
@@ -96,19 +96,28 @@ public class MapCardActivity extends BaseActivity {
         mReceiver = new SDKReceiver();
         registerReceiver(mReceiver, iFilter);
         mBaiduMap = mMapView.getMap();
+        //Criteria criteria = new Criteria();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+
         //获取所有可用的位置提供器
         List<String> providerList = locationManager.getProviders(true);
-        if (providerList.contains(LocationManager.GPS_PROVIDER)) {
-            provider = LocationManager.GPS_PROVIDER;
-        } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
-            provider = LocationManager.NETWORK_PROVIDER;
-        } else {
-            Toast.makeText(MapCardActivity.this, "当前没有可用的位置提供器", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if (providerList.contains(LocationManager.GPS_PROVIDER)) {
+            //provider = LocationManager.GPS_PROVIDER;
+//        } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
+        provider = LocationManager.NETWORK_PROVIDER;
+//        } else {
+//            Toast.makeText(MapCardActivity.this, "当前没有可用的位置提供器", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+        locationManager.requestLocationUpdates(provider, 1000, 1, locationListener);
         Location location = locationManager.getLastKnownLocation(provider);
-        locationManager.requestLocationUpdates(provider, 5000, 1, locationListener);
+
+        if (location == null) {
+            location = new Location(provider);
+
+
+        }
         if (location != null) {
             navigateTo(location);
         }
@@ -118,18 +127,18 @@ public class MapCardActivity extends BaseActivity {
 
     /**
      * 定位到指定的经纬度
-     *
-     * @param location
      */
     private void navigateTo(Location location) {
         if (isFirstLocate) {
-            LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
+            LatLng ll = new LatLng(32.0797236 , 118.7665758);
             MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
             mBaiduMap.animateMapStatus(update);
             update = MapStatusUpdateFactory.zoomTo(16f);
             mBaiduMap.animateMapStatus(update);
             isFirstLocate = false;
         }
+
+
     }
 
 

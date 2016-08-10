@@ -70,6 +70,7 @@
         <activity android:name="com.sjhcn.qrcode.AboutUsActivity" />
         <activity android:name="com.sjhcn.qrcode.SignInActivity" />
         <activity android:name="com.sjhcn.qrcode.RegisterActivity" />
+        <activity android:name="com.sjhcn.qrcode.RegisterSuccessActivity" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

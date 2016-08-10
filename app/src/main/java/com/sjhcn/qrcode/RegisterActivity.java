@@ -1,5 +1,6 @@
 package com.sjhcn.qrcode;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -69,6 +70,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             public void done(String s, BmobException e) {
                 if (e == null) {
                     Toast.makeText(RegisterActivity.this, "添加数据成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterActivity.this, RegisterSuccessActivity.class);
+                    startActivity(intent);
+                    RegisterActivity.this.finish();
                 } else {
                     Toast.makeText(RegisterActivity.this, "添加数据失败", Toast.LENGTH_SHORT).show();
 

@@ -34,7 +34,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         initView();
         initData();
         initEvent();
-        
+
     }
 
     private void initData() {
@@ -79,15 +79,17 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void done(UserInfo object, BmobException e) {
                         if (e == null) {
-                            Toast.makeText(SignInActivity.this, "添加数据成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignInActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             String ps = object.getPassword();
                             String us = object.getUserName();
                         } else {
-                            Toast.makeText(SignInActivity.this, "添加数据是失败", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignInActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+                SignInActivity.this.finish();
                 break;
+
         }
 
     }

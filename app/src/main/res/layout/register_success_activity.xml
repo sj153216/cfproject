@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/dansebackground">
+
+    <include layout="@layout/include_title"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="注册成功，5秒后回到主界面..."
+        android:textColor="#F59C3F"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/count_down_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="5"
+        android:layout_marginTop="200dp"
+        android:textColor="#F59C3F"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        android:gravity="center"/>
+
+
+</RelativeLayout>
