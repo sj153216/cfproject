@@ -77,8 +77,10 @@ public class ScanResultActivity extends BaseActivity implements View.OnClickList
         String head = QRcode.substring(0, 4);
         if (head.equals("http")) {
             setLableAndTitle("网址二维码", urlDrawable);
+            mAccessBt.setVisibility(View.VISIBLE);
         } else {
             setLableAndTitle("正常二维码", normalDrawable);
+            mAccessBt.setVisibility(View.GONE);
 
         }
 

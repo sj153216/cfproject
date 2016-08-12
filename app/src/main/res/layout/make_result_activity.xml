@@ -39,7 +39,7 @@
                     android:id="@+id/lable"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="30dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_menu_invite" />
 
@@ -54,8 +54,8 @@
                     android:maxEms="20"
                     android:singleLine="true"
                     android:text="名字"
-                    android:textColor="#B9822A"
-                    android:textSize="20sp"
+                    android:textColor="#AB7BAF"
+                    android:textSize="18sp"
                     android:textStyle="italic" />
 
                 <ImageView
@@ -83,7 +83,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:text="访问链接"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
+                    android:textColor="#AB7BAF"
                     android:textStyle="italic" />
             </RelativeLayout>
 
@@ -127,8 +128,8 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center_vertical"
                             android:text="姓名:"
-                            android:textColor="#FDB803"
-                            android:textSize="20sp"
+                            android:textColor="#AB7BAF"
+                            android:textSize="18sp"
                             android:textStyle="italic" />
 
                         <TextView
@@ -140,8 +141,8 @@
                             android:layout_toRightOf="@id/name"
                             android:gravity="center_vertical"
                             android:text="ssss"
-                            android:textColor="#F7B25C"
-                            android:textSize="20sp"
+                            android:textColor="#AB7BAF"
+                            android:textSize="18sp"
                             android:textStyle="italic" />
 
                         <TextView
@@ -153,8 +154,8 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center_vertical"
                             android:text="职位:"
-                            android:textColor="#FDB803"
-                            android:textSize="20sp"
+                            android:textColor="#AB7BAF"
+                            android:textSize="18sp"
                             android:textStyle="italic" />
 
                         <TextView
@@ -167,8 +168,8 @@
                             android:layout_toRightOf="@id/pos"
                             android:gravity="center_vertical"
                             android:text="ssssssss"
-                            android:textColor="#F7B25C"
-                            android:textSize="20sp"
+                            android:textColor="#AB7BAF"
+                            android:textSize="18sp"
                             android:textStyle="italic" />
 
                         <RelativeLayout
@@ -179,8 +180,9 @@
 
                             <ImageView
                                 android:id="@+id/phone_little"
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_centerVertical="true"
                                 android:layout_marginLeft="3dp"
                                 android:scaleType="fitXY"
                                 android:src="@mipmap/phone" />
@@ -193,8 +195,8 @@
                                 android:layout_marginLeft="5dp"
                                 android:layout_toRightOf="@id/phone_little"
                                 android:text="ddddddd"
-                                android:textColor="#F7B25C"
-                                android:textSize="20sp"
+                                android:textColor="#AB7BAF"
+                                android:textSize="18sp"
                                 android:textStyle="italic" />
 
                             <ImageView
@@ -218,8 +220,8 @@
 
                     <ImageView
                         android:id="@+id/lable_1"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_centerVertical="true"
                         android:scaleType="fitXY"
                         android:src="@mipmap/lable" />
@@ -232,8 +234,8 @@
                         android:layout_toRightOf="@id/lable_1"
                         android:gravity="center_vertical"
                         android:text="公司:"
-                        android:textColor="#FDB803"
-                        android:textSize="20sp"
+                        android:textColor="#AB7BAF"
+                        android:textSize="18sp"
                         android:textStyle="italic" />
 
                     <TextView
@@ -243,8 +245,8 @@
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@id/company"
                         android:gravity="center_vertical"
-                        android:textColor="#FDB803"
-                        android:textSize="20sp"
+                        android:textColor="#AB7BAF"
+                        android:textSize="18sp"
                         android:textStyle="italic" />
 
                     <ImageView
@@ -265,8 +267,8 @@
 
                     <ImageView
                         android:id="@+id/lable_2"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_centerVertical="true"
                         android:scaleType="fitXY"
                         android:src="@mipmap/lable" />
@@ -279,8 +281,8 @@
                         android:layout_toRightOf="@id/lable_2"
                         android:gravity="center_vertical"
                         android:text="部门:"
-                        android:textColor="#FDB803"
-                        android:textSize="20sp"
+                        android:textColor="#AB7BAF"
+                        android:textSize="18sp"
                         android:textStyle="italic" />
 
                     <TextView
@@ -290,8 +292,8 @@
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@id/part"
                         android:gravity="center_vertical"
-                        android:textColor="#FDB803"
-                        android:textSize="20sp"
+                        android:textColor="#AB7BAF"
+                        android:textSize="18sp"
                         android:textStyle="italic" />
 
                     <ImageView
@@ -311,8 +313,8 @@
 
                     <ImageView
                         android:id="@+id/lable_3"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_centerVertical="true"
                         android:scaleType="fitXY"
                         android:src="@mipmap/lable" />
@@ -325,8 +327,8 @@
                         android:layout_toRightOf="@id/lable_3"
                         android:gravity="center_vertical"
                         android:text="邮箱:"
-                        android:textColor="#FDB803"
-                        android:textSize="20sp"
+                        android:textColor="#AB7BAF"
+                        android:textSize="18sp"
                         android:textStyle="italic" />
 
                     <TextView
@@ -336,8 +338,8 @@
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@id/email"
                         android:gravity="center_vertical"
-                        android:textColor="#FDB803"
-                        android:textSize="20sp"
+                        android:textColor="#AB7BAF"
+                        android:textSize="18sp"
                         android:textStyle="italic" />
 
                     <ImageView

@@ -24,23 +24,23 @@
             android:background="@null"
             android:editable="true"
             android:hint="必填  10字以内"
-            android:textColorHint="#FCB700"
-            android:textSize="20sp"
+            android:textColorHint="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="姓名 :"
-            android:textColor="#FCB700"
-            android:textSize="20sp"
+            android:textColor="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/name"
-            android:background="#FCC105" />
+            android:background="#B57EB8" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -59,23 +59,23 @@
             android:background="@null"
             android:editable="true"
             android:hint="必填  20字以内"
-            android:textColorHint="#FCB700"
-            android:textSize="20sp"
+            android:textColorHint="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="手机:"
-            android:textColor="#FCB700"
-            android:textSize="20sp"
+            android:textColor="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/phone"
-            android:background="#FCC105" />
+            android:background="#B57EB8" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -94,23 +94,23 @@
             android:background="@null"
             android:editable="true"
             android:hint="20字以内"
-            android:textColorHint="#FCB700"
-            android:textSize="20sp"
+            android:textColorHint="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="职位 :"
-            android:textColor="#FCB700"
-            android:textSize="20sp"
+            android:textColor="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/position"
-            android:background="#FCC105" />
+            android:background="#B57EB8" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -129,23 +129,23 @@
             android:background="@null"
             android:editable="true"
             android:hint="20字以内"
-            android:textColorHint="#FCB700"
-            android:textSize="20sp"
+            android:textColorHint="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="部门 :"
-            android:textColor="#FCB700"
-            android:textSize="20sp"
+            android:textColor="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/part"
-            android:background="#FCC105" />
+            android:background="#B57EB8" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -164,23 +164,23 @@
             android:background="@null"
             android:editable="true"
             android:hint="20字以内"
-            android:textColorHint="#FCB700"
-            android:textSize="20sp"
+            android:textColorHint="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="邮箱 :"
-            android:textColor="#FCB700"
-            android:textSize="20sp"
+            android:textColor="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/email"
-            android:background="#FCC105" />
+            android:background="#B57EB8" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -199,23 +199,23 @@
             android:background="@null"
             android:editable="true"
             android:hint="30字以内"
-            android:textColorHint="#FCB700"
-            android:textSize="20sp"
+            android:textColorHint="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="公司 :"
-            android:textColor="#FCB700"
-            android:textSize="20sp"
+            android:textColor="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/company"
-            android:background="#FCC105" />
+            android:background="#B57EB8" />
     </RelativeLayout>
 
 

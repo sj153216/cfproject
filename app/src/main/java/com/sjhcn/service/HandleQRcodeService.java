@@ -2,12 +2,8 @@ package com.sjhcn.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
-import android.widget.Toast;
 
-import com.sjhcn.application.QRcodeApplication;
 import com.sjhcn.constants.Constant;
 import com.sjhcn.db.QRcodeMakeInfoManager;
 import com.sjhcn.db.QRcodeScanInfoManager;
@@ -27,14 +23,14 @@ public class HandleQRcodeService extends Service {
     private String mAction = null;
     public static Boolean isTooShort = true;
 
-    private Handler mainHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 0x110) {
-                Toast.makeText(QRcodeApplication.getInstance(), "您输入的二维码长度太短啦", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
+//    private Handler mainHandler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            if (msg.what == 0x110) {
+//                Toast.makeText(QRcodeApplication.getInstance(), "您输入的二维码长度太短啦", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    };
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -65,16 +61,16 @@ public class HandleQRcodeService extends Service {
             QRcodeMakeInfo codeInfo = new QRcodeMakeInfo();
             String head = null;
             int length = result.length();
-            if (length >= 4) {
-                isTooShort = false;
-                head = result.substring(0, 4);
-                fillQRcodeMakeInfo(codeInfo, head);
-                QRcodeMakeInfoManager.getInstance().addQRcodeMakeInfo(codeInfo);
-            } else {
-                isTooShort = true;
-                Message msg = mainHandler.obtainMessage();
-                mainHandler.sendEmptyMessage(0x110);
-            }
+//            if (length >= 4) {
+//                isTooShort = false;
+            head = result.substring(0, 4);
+            fillQRcodeMakeInfo(codeInfo, head);
+            QRcodeMakeInfoManager.getInstance().addQRcodeMakeInfo(codeInfo);
+//            } else {
+//                isTooShort = true;
+//                Message msg = mainHandler.obtainMessage();
+//                mainHandler.sendEmptyMessage(0x110);
+//            }
 
         }
     }

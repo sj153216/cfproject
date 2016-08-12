@@ -29,8 +29,8 @@
             android:layout_marginLeft="40dp"
             android:background="@null"
             android:hint="请输入联系邮件"
-            android:textColorHint="#FF9B50"
-            android:textSize="20sp"
+            android:textColorHint="#AB7BAF"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <ImageView
@@ -49,8 +49,8 @@
         android:gravity="top|left"
         android:hint="请输入您的意见或建议"
         android:singleLine="false"
-        android:textColorHint="#FF9B50"
-        android:textSize="20sp"
+        android:textColorHint="#AB7BAF"
+        android:textSize="18sp"
         android:textStyle="italic" />
 
     <LinearLayout
@@ -72,8 +72,8 @@
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
                 android:text="操作不便"
-                android:textColor="#FF9B50"
-                android:textSize="20sp"
+                android:textColor="#AB7BAF"
+                android:textSize="18sp"
                 android:textStyle="italic" />
 
             <RadioButton
@@ -82,8 +82,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="功能不够"
-                android:textColor="#FF9B50"
-                android:textSize="20sp"
+                android:textColor="#AB7BAF"
+                android:textSize="18sp"
                 android:textStyle="italic" />
 
         </RadioGroup>
@@ -92,14 +92,14 @@
     <Button
         android:id="@+id/submit_bt"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/selector_sign_btn_back"
         android:gravity="center"
         android:paddingBottom="5dp"
         android:text="提交"
-        android:textColor="#FF9B50"
-        android:textSize="20sp"
+        android:textColor="#AB7BAF"
+        android:textSize="18sp"
         android:textStyle="italic" />
 
 </LinearLayout>

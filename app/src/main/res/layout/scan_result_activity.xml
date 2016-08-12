@@ -32,7 +32,7 @@
                 android:id="@+id/lable"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="30dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_menu_invite" />
 
@@ -44,11 +44,11 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="3dp"
                 android:layout_toRightOf="@id/lable"
-                android:maxEms="20"
+                android:maxEms="30"
                 android:singleLine="true"
                 android:text="名字"
-                android:textColor="#B9822A"
-                android:textSize="20sp"
+                android:textColor="#AB7BAF"
+                android:textSize="18sp"
                 android:textStyle="italic" />
 
             <ImageView
@@ -59,7 +59,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/lable"
-                android:background="#B9822A" />
+                android:background="#AB7BAF" />
 
             <ImageView
                 android:id="@+id/arrow"
@@ -79,7 +79,8 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="访问链接"
-                android:textSize="20sp"
+                android:textSize="18sp"
+                android:textColor="#AB7BAF"
                 android:textStyle="italic" />
         </RelativeLayout>
 

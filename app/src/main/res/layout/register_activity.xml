@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="用户名:"
-            android:textColor="#FF994C"
-            android:textSize="20sp"
+            android:textColor="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <EditText
@@ -33,15 +33,15 @@
             android:layout_toRightOf="@id/name_tv"
             android:background="@null"
             android:hint="请输入用户名"
-            android:textColorHint="#FF994C"
-            android:textSize="20sp"
+            android:textColorHint="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="#B07FB7" />
+            android:background="#B57EB8" />
 
 
     </RelativeLayout>
@@ -58,8 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="密   码:"
-            android:textColor="#FF994C"
-            android:textSize="20sp"
+            android:textColor="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <EditText
@@ -71,8 +71,8 @@
             android:layout_toRightOf="@id/name_tv_1"
             android:background="@null"
             android:hint="请输入密码"
-            android:textColorHint="#FF994C"
-            android:textSize="20sp"
+            android:textColorHint="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic"
             android:inputType="textPassword"/>
 
@@ -80,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="#B07FB7" />
+            android:background="#B57EB8" />
 
 
     </RelativeLayout>
@@ -97,8 +97,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="确认密码:"
-            android:textColor="#FF994C"
-            android:textSize="20sp"
+            android:textColor="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <EditText
@@ -110,8 +110,8 @@
             android:layout_toRightOf="@id/name_tv_2"
             android:background="@null"
             android:hint="请输入密码"
-            android:textColorHint="#FF994C"
-            android:textSize="20sp"
+            android:textColorHint="#B57EB8"
+            android:textSize="18sp"
             android:textStyle="italic"
             android:inputType="textPassword"/>
 
@@ -131,8 +131,8 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/selector_sign_btn_back"
         android:text="注册"
-        android:textColor="#FF994C"
-        android:textSize="20sp"
+        android:textColor="#B57EB8"
+        android:textSize="18sp"
         android:textStyle="italic" />
 
 

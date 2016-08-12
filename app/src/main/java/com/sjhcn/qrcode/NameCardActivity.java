@@ -99,16 +99,17 @@ public class NameCardActivity extends BaseActivity implements LoadDataIntf {
             Toast.makeText(NameCardActivity.this, "姓名或电话不能为空", Toast.LENGTH_SHORT).show();
         } else {
             startHandleService();
+            startMakeQRcodeActivity();
             //跳转之前首先判断下输入的二维码是否过短，若过短，就不跳转机，给个提示
             //因为两个线程同时执行，没法通过标识符判断
-            try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if (!HandleQRcodeService.isTooShort) {
-                startMakeQRcodeActivity();
-            }
+//            try {
+//                Thread.sleep(1500);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            if (!HandleQRcodeService.isTooShort) {
+//
+//            }
         }
     }
 

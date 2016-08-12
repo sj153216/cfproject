@@ -21,14 +21,14 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.share.OnGetShareUrlResultListener;
+import com.baidu.mapapi.search.share.ShareUrlResult;
+import com.baidu.mapapi.search.share.ShareUrlSearch;
 import com.sjhcn.application.QRcodeApplication;
 
 import java.util.List;
@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * Created by tong on 2016/7/15.
  */
-public class MapCardActivity extends BaseActivity implements View.OnClickListener {
+public class MapCardActivity extends BaseActivity implements View.OnClickListener, OnGetShareUrlResultListener {
 
 
     private TextView mTitle;
@@ -56,6 +56,9 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
 
+    //分享
+    private ShareUrlSearch mShareUrlSearch = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,30 +66,6 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         SDKInitializer.initialize(QRcodeApplication.getInstance());
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.map_card_activity);
-//        locationListener = new LocationListener() {
-//            @Override
-//            public void onLocationChanged(Location location) {
-//                //更新档前位置信息
-//                if (location != null) {
-//                    navigateTo(location);
-//                }
-//            }
-//
-//            @Override
-//            public void onStatusChanged(String provider, int status, Bundle extras) {
-//
-//            }
-//
-//            @Override
-//            public void onProviderEnabled(String provider) {
-//
-//            }
-//
-//            @Override
-//            public void onProviderDisabled(String provider) {
-//
-//            }
-//        };
         initView();
         initData();
         initEvent();
@@ -113,33 +92,26 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         mReceiver = new SDKReceiver();
         registerReceiver(mReceiver, iFilter);
         mBaiduMap = mMapView.getMap();
-        mBaiduMap.setMyLocationEnabled(true);
 
+        mShareUrlSearch = ShareUrlSearch.newInstance();
+        mShareUrlSearch.setOnGetShareUrlResultListener(this);
+
+        mBaiduMap.setMyLocationEnabled(true);
         mLocationClient = new LocationClient(QRcodeApplication.getInstance());     //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
         initLocation();
         mLocationClient.start();
+    }
 
-//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        //获取所有可用的位置提供器
-        //List<String> providerList = locationManager.getProviders(true);
-//        if (providerList.contains(LocationManager.GPS_PROVIDER)) {
-        //provider = LocationManager.GPS_PROVIDER;
-//        } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
-        //provider = LocationManager.NETWORK_PROVIDER;
-//        } else {
-//            Toast.makeText(MapCardActivity.this, "当前没有可用的位置提供器", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        locationManager.requestLocationUpdates(provider, 1000, 1, locationListener);
-//        mLocation = locationManager.getLastKnownLocation(provider);
-//
-//        if (mLocation == null) {
-//            mLocation = new Location(provider);
-//        }
-//        if (mLocation != null) {
-//            navigateTo(mLocation);
-//        }
+    private void initEvent() {
+        mNavigateIv.setOnClickListener(this);
+        mBaiduMap.setOnMapLongClickListener(new BaiduMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                Toast.makeText(MapCardActivity.this, "纬度---->" + latLng.latitude + "经度---->" + latLng.longitude,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
@@ -150,8 +122,7 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
         );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
         option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
-        int span = 1000;
-        option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
+        option.setScanSpan(1000);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
         option.setOpenGps(true);//可选，默认false,设置是否使用gps
         option.setLocationNotify(true);//可选，默认false，设置是否当gps有效时按照1S1次频率输出GPS结果
@@ -163,60 +134,13 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         mLocationClient.setLocOption(option);
     }
 
-    private void showMe() {
-        if (isFirstLocate) {
-            //LatLng ll = new LatLng(32.0797236 , 118.7665758);
-            LatLng ll = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
-            mBaiduMap.animateMapStatus(update);
-            update = MapStatusUpdateFactory.zoomTo(16f);
-            mBaiduMap.animateMapStatus(update);
-            isFirstLocate = false;
-        }
-        // 构造定位数据
-        MyLocationData.Builder builder = new MyLocationData.Builder();
-        builder.latitude(mLocation.getLatitude());
-        builder.longitude(mLocation.getLongitude());
-        builder.direction(100);
-        MyLocationData locationData = builder.build();
-        // 设置定位数据
-        mBaiduMap.setMyLocationData(locationData);
-        BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
-                .fromResource(R.drawable.location);
-        MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, mCurrentMarker);
-        mBaiduMap.setMyLocationConfigeration(config);
-    }
-
-
     @Override
     protected void onPause() {
         super.onPause();
         mMapView.onPause();
-//        if (locationManager != null) {
-//            //程序关闭时将监听器移除
-//            locationManager.removeUpdates(locationListener);
-//        }
     }
 
-    /**
-     * 定位到指定的经纬度
-     */
-//    private void navigateTo(Location location) {
-//        if (isFirstLocate) {
-//            //LatLng ll = new LatLng(32.0797236 , 118.7665758);
-//            LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
-//            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
-//            mBaiduMap.animateMapStatus(update);
-//            update = MapStatusUpdateFactory.zoomTo(16f);
-//            mBaiduMap.animateMapStatus(update);
-//            isFirstLocate = false;
-//        }
-//        MyLocationData.Builder builder = new MyLocationData.Builder();
-//        builder.latitude(location.getLatitude());
-//        builder.longitude(location.getLongitude());
-//        MyLocationData locationData = builder.build();
-//        mBaiduMap.setMyLocationData(locationData);
-//    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -224,43 +148,16 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         mBaiduMap.setMyLocationEnabled(false);
         mMapView.onDestroy();
         unregisterReceiver(mReceiver);
-//        if (locationManager != null) {
-//            //程序关闭时将监听器移除
-//            locationManager.removeUpdates(locationListener);
-//        }
-
     }
 
-    class SDKReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR)) {
-                // key 验证失败，相应处理
-                Toast.makeText(MapCardActivity.this, "quan xian cuo wu", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private void initEvent() {
-        mNavigateIv.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.navigate_iv:
-
-                break;
-
-        }
-    }
 
     class MyLocationListener implements BDLocationListener {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
+            if (location == null || mMapView == null) {
+                return;
+            }
             //设成全局的，方便调用
             mLocation = location;
             //Receive Location
@@ -271,7 +168,7 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
             sb.append(location.getLocType());
             sb.append("\nlatitude : ");
             sb.append(location.getLatitude());
-            sb.append("\nlontitude : ");
+            sb.append("\nlontitude :  ");
             sb.append(location.getLongitude());
             sb.append("\nradius : ");
             sb.append(location.getRadius());
@@ -325,6 +222,82 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
             }
             Log.i("BaiduLocationApiDem", sb.toString());
         }
+
+    }
+
+    private void showMe() {
+        if (isFirstLocate) {
+            //LatLng ll = new LatLng(32.0797236 , 118.7665758);
+            navigateTo();
+            isFirstLocate = false;
+        }
+        // 构造定位数据
+        MyLocationData.Builder builder = new MyLocationData.Builder();
+        builder.latitude(mLocation.getLatitude());
+        builder.longitude(mLocation.getLongitude());
+        builder.direction(100);
+        MyLocationData locationData = builder.build();
+        // 设置定位数据
+        mBaiduMap.setMyLocationData(locationData);
+//        BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
+//                .fromResource(R.drawable.location);
+//        MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, mCurrentMarker);
+//        mBaiduMap.setMyLocationConfigeration(config);
+    }
+
+
+    /**
+     * 定位到指定经纬度
+     */
+    private void navigateTo() {
+        LatLng ll = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+        MapStatus.Builder builder = new MapStatus.Builder();
+        builder.target(ll).zoom(18.0f);
+        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.navigate_iv:
+                navigateTo();
+                break;
+
+        }
+    }
+
+    class SDKReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR)) {
+                // key 验证失败，相应处理
+                Toast.makeText(MapCardActivity.this, "quan xian cuo wu", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+    @Override
+    public void onGetPoiDetailShareUrlResult(ShareUrlResult shareUrlResult) {
+        // 分享短串结果
+        Intent it = new Intent(Intent.ACTION_SEND);
+        it.putExtra(Intent.EXTRA_TEXT, "您的朋友通过百度地图SDK与您分享一个POI点详情: "
+                + " -- " + shareUrlResult.getUrl());
+        it.setType("text/plain");
+        startActivity(Intent.createChooser(it, "将短串分享到"));
+    }
+
+    @Override
+    public void onGetLocationShareUrlResult(ShareUrlResult shareUrlResult) {
+        // 分享短串结果
+        Intent it = new Intent(Intent.ACTION_SEND);
+        it.putExtra(Intent.EXTRA_TEXT, "您的朋友通过百度地图SDK与您分享一个位置: "
+                + " -- " + shareUrlResult.getUrl());
+        it.setType("text/plain");
+        startActivity(Intent.createChooser(it, "将短串分享到"));
+
     }
 }
 

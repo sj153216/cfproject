@@ -28,10 +28,10 @@ public class FourthFragment extends Fragment {
 
     private FourthFragmentAdapter mFourthAdapter;
     private List<Item> mData;
-    private int[] bitmapId = new int[]{R.drawable.btn_rating_star_on_normal_holo_dark, R.drawable.ic_menu_invite,
-            R.drawable.ic_menu_invite, R.drawable.ic_menu_invite, R.drawable.ic_menu_invite, R.drawable.ic_find_previous_holo_dark};
+    private int[] bitmapId = new int[]{R.drawable.aboutus, R.drawable.banbenshengji,
+            R.drawable.share_app, R.drawable.yonghufankui, R.drawable.ic_find_previous_holo_dark};
 
-    private String[] hints = new String[]{"关于我们", "版本升级", "分享给好友", "意见反馈", "二维码签到"};
+    private String[] hints = new String[]{"关于我们", "版本升级", "分享给好友", "意见反馈"};
 
 
     @Override
@@ -58,11 +58,11 @@ public class FourthFragment extends Fragment {
 
     private void initData() {
         mFragmentTitle.setText("设置");
-        mData = new ArrayList<Item>(5);
-        for (int i = 0; i < 5; i++) {
+        mData = new ArrayList<Item>(4);
+        for (int i = 0; i < 4; i++) {
             Item item = new Item();
             item.setLable(((BitmapDrawable) getResources().getDrawable(bitmapId[i])).getBitmap());
-            item.setArrow(((BitmapDrawable) getResources().getDrawable(bitmapId[5])).getBitmap());
+            item.setArrow(((BitmapDrawable) getResources().getDrawable(bitmapId[4])).getBitmap());
             item.setContent(hints[i]);
             mData.add(item);
         }

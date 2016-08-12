@@ -70,7 +70,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 mConfirmEt.getText().toString().equals("")) {
             Toast.makeText(RegisterActivity.this, "账户名或密码不能为空", Toast.LENGTH_SHORT).show();
         } else {
-            if (!isRepeatUserName) {
+            if (!isRepeatUserName()) {
                 UserInfo userInfo = new UserInfo();
                 userInfo.setUserName(mUserNameEt.getText().toString());
                 userInfo.setPassword(mPasswordEt.getText().toString());
