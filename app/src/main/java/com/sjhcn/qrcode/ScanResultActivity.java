@@ -21,16 +21,19 @@ import com.google.zxing.WriterException;
 import com.sjhcn.view.SwitchView;
 import com.sjhcn.zxingencoding.EncodingHandler;
 
+import static com.sjhcn.qrcode.R.id.to_right_img;
+
 /**
  * Created by sjhcn on 2016/7/15.
  */
-public class ScanResultActivity extends BaseActivity {
+public class ScanResultActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mLable;
     private TextView mContent;
     private String QRcode;
     private TextView mTitle;
     private ImageView mQRcodeBitmap;
     private SwitchView mSwitchView;
+    private ImageView mShareIv;
 
     private RelativeLayout mRl;
     private Drawable urlDrawable;
@@ -52,8 +55,9 @@ public class ScanResultActivity extends BaseActivity {
     private void initData() {
         Intent intent = getIntent();
         QRcode = intent.getStringExtra("result");
-        urlDrawable = getResources().getDrawable(R.drawable.ic_menu_add);
-        normalDrawable = getResources().getDrawable(R.drawable.ic_menu_invite);
+        urlDrawable = getResources().getDrawable(R.drawable.ie);
+        normalDrawable = getResources().getDrawable(R.drawable.contace_circle);
+        mShareIv.setVisibility(View.VISIBLE);
     }
 
     private void initView() {
@@ -64,8 +68,7 @@ public class ScanResultActivity extends BaseActivity {
         mQRcodeBitmap = (ImageView) findViewById(R.id.qrcode_bitmap);
         mRl = (RelativeLayout) findViewById(R.id.rl);
         mAccessBt = (Button) findViewById(R.id.access_to);
-
-
+        mShareIv = (ImageView) findViewById(to_right_img);
     }
 
     @Override
@@ -99,17 +102,8 @@ public class ScanResultActivity extends BaseActivity {
             }
         });
 
-        mAccessBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = (String) mContent.getText();
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse(url);
-                intent.setData(content_url);
-                startActivity(intent);
-            }
-        });
+        mAccessBt.setOnClickListener(this);
+        mShareIv.setOnClickListener(this);
     }
 
     /**
@@ -173,5 +167,23 @@ public class ScanResultActivity extends BaseActivity {
         mTitle.setText(title);
         mLable.setImageDrawable(drawable);
         mContent.setText(QRcode);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.switchview:
+                String url = (String) mContent.getText();
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(url);
+                intent.setData(content_url);
+                startActivity(intent);
+                break;
+            case R.id.to_right_img:
+                //分享的代码
+
+                break;
+        }
     }
 }

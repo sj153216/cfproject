@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/dansebackground"
+    android:background="@drawable/bg_add"
     android:orientation="vertical">
 
     <include layout="@layout/include_title" />
@@ -73,7 +73,8 @@
             android:hint="请输入密码"
             android:textColorHint="#FF994C"
             android:textSize="20sp"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:inputType="textPassword"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -111,7 +112,8 @@
             android:hint="请输入密码"
             android:textColorHint="#FF994C"
             android:textSize="20sp"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:inputType="textPassword"/>
 
         <ImageView
             android:layout_width="match_parent"

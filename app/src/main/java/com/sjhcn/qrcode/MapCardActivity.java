@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class MapCardActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(QRcodeApplication.getInstance());
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.map_card_activity);
         locationListener = new LocationListener() {
             @Override
@@ -103,7 +105,7 @@ public class MapCardActivity extends BaseActivity {
         //获取所有可用的位置提供器
         List<String> providerList = locationManager.getProviders(true);
 //        if (providerList.contains(LocationManager.GPS_PROVIDER)) {
-            //provider = LocationManager.GPS_PROVIDER;
+        //provider = LocationManager.GPS_PROVIDER;
 //        } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
         provider = LocationManager.NETWORK_PROVIDER;
 //        } else {
@@ -130,7 +132,8 @@ public class MapCardActivity extends BaseActivity {
      */
     private void navigateTo(Location location) {
         if (isFirstLocate) {
-            LatLng ll = new LatLng(32.0797236 , 118.7665758);
+            //LatLng ll = new LatLng(32.0797236 , 118.7665758);
+            LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
             MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
             mBaiduMap.animateMapStatus(update);
             update = MapStatusUpdateFactory.zoomTo(16f);

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/dansebackground"
+    android:background="@drawable/bg_add"
     android:orientation="vertical">
 
     <android.support.v4.view.ViewPager
@@ -29,8 +29,8 @@
             android:gravity="center_vertical"
             android:padding="5dp"
             sj:mycolor="#4EC963"
-            sj:myicon="@mipmap/ic_menu_moreoverflow"
-            sj:text="@string/my_code"
+            sj:myicon="@mipmap/ic_menu_camera"
+            sj:text="@string/scan_code"
             sj:text_size="@dimen/myview_text_size" />
 
         <com.sjhcn.view.ChangeIconWithText
@@ -66,7 +66,7 @@
             android:padding="5dp"
             sj:mycolor="#4EC963"
             sj:myicon="@mipmap/ic_menu_preferences"
-            sj:text="@string/my_code"
+            sj:text="@string/set"
             sj:text_size="@dimen/myview_text_size" />
 
 

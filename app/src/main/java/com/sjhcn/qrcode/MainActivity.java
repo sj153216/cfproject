@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.Window;
 
 import com.sjhcn.myfragment.FirstFragment;
 import com.sjhcn.myfragment.FourthFragment;
@@ -15,6 +16,8 @@ import com.sjhcn.view.ChangeIconWithText;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.sharesdk.framework.ShareSDK;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
@@ -31,6 +34,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         initView();
         initData();
@@ -76,6 +80,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mViewPager.setCurrentItem(0);
         resetOthers();
         mTabs.get(0).setAlpha(1.0f);
+
+        ShareSDK.initSDK(this);
     }
 
     private void initEvent() {
@@ -108,8 +114,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
 
+
     @Override
     public void onClick(View v) {
+        String path = getApplicationContext().getPackageResourcePath();
+        if (path.equals("dd")) {
+            path = "";
+        }
         resetOthers();
         switch (v.getId()) {
             case R.id.myQRcode:

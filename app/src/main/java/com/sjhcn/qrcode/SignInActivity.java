@@ -3,6 +3,7 @@ package com.sjhcn.qrcode;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -10,6 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sjhcn.entitis.UserInfo;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
@@ -30,6 +35,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sign_in_activity);
         initView();
         initData();
@@ -43,6 +49,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     private void initEvent() {
         mRegiRl.setOnClickListener(this);
+        mSignInBt.setOnClickListener(this);
 
     }
 
@@ -74,23 +81,67 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.signIn_bt:
                 //用户登录
-                BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
-                query.getObject("sj153216", new QueryListener<UserInfo>() {
-                    @Override
-                    public void done(UserInfo object, BmobException e) {
-                        if (e == null) {
-                            Toast.makeText(SignInActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                            String ps = object.getPassword();
-                            String us = object.getUserName();
-                        } else {
-                            Toast.makeText(SignInActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                SignInActivity.this.finish();
+                loginIn();
                 break;
 
         }
+    }
+
+    /**
+     * 用户登录
+     */
+    private void loginIn() {
+        final String userName = mUserNameEt.getText().toString();
+        final String password = mPasswordEt.getText().toString();
+        BmobQuery query = new BmobQuery("UserInfo");
+        query.addWhereEqualTo("userName", userName);
+        query.order("createdAt");
+        //v3.5.0版本提供`findObjectsByTable`方法查询自定义表名的数据
+        query.findObjectsByTable(new QueryListener<JSONArray>() {
+            @Override
+            public void done(JSONArray jsonArray, BmobException e) {
+                judgePerssion(jsonArray, e, password);
+            }
+        });
+    }
+
+    /**
+     * 判断用户名跟密码是否有权限
+     *
+     * @param jsonArray
+     * @param e
+     * @param password
+     */
+    private void judgePerssion(JSONArray jsonArray, BmobException e, String password) {
+        if (e == null) {
+            if (jsonArray == null) {
+                Toast.makeText(SignInActivity.this, "该用户未注册", Toast.LENGTH_SHORT).show();
+            } else {
+                ArrayList<UserInfo> userInfoList = (ArrayList<UserInfo>) com.alibaba.fastjson.JSONArray.parseArray(jsonArray.toString(), UserInfo.class);
+                for (int i = 0; i < userInfoList.size(); i++) {
+                    UserInfo userInfo = userInfoList.get(i);
+                    if (userInfo.getPassword().equals(password)) {
+                        startLoginSuccessActivity();
+                        return;
+                    }
+                }
+                Toast.makeText(SignInActivity.this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
+
+    /**
+     * 跳转到登录成功界面
+     */
+    private void startLoginSuccessActivity() {
+        Intent intent = new Intent(this, LoginSuccessActivity.class);
+        startActivity(intent);
+        SignInActivity.this.finish();
 
     }
+
 }
+
+
+

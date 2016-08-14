@@ -31,6 +31,6 @@
     <color name="header">#58567D</color>
     <color name="grgray">#686868</color>
     <color name="include_bg_title">#00000000</color>
-    <color name="include_bg_back_press">#FCBB01</color>
-    <color name="sign_bg_back_press">#EFFF7B</color>
+    <color name="include_bg_back_press">#9DECF9</color>
+    <color name="sign_bg_back_press">#E6F9FA</color>
 </resources>

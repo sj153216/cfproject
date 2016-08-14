@@ -42,6 +42,7 @@ dependencies {
     compile files('src/main/libs/ShareSDK-Wechat-Favorite-2.7.4.jar')
     compile files('src/main/libs/ShareSDK-Wechat-Moments-2.7.4.jar')
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
+    compile files('src/main/libs/fastjson-1.2.7.jar')
 }
 android{
     sourceSets.main{

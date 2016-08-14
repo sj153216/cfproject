@@ -12,6 +12,10 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.sjhcn.application.QRcodeApplication;
+import com.sjhcn.myfragment.ThirdFragment;
+import com.sjhcn.qrcode.R;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -26,6 +30,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.zip.CRC32;
+
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 public class Utils {
     private static final String TAG = "Utils";
@@ -538,6 +544,51 @@ public class Utils {
         } else {
             return false;
         }
+    }
+
+    public static void showShare(final int shareType) {
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        // 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
+        //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+        oks.setTitle(QRcodeApplication.getInstance().getString(R.string.share));
+        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+        oks.setTitleUrl("http://sharesdk.cn");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("分享文本");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl("http://sharesdk.cn");
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        //oks.setComment("我是测试评论文本");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(ThirdFragment.mActivity.getString(R.string.app_name));
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://sharesdk.cn");
+//        oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
+//            //自定义分享的回调想要函数
+//            @Override
+//            public void onShare(Platform platform,
+//                                cn.sharesdk.framework.Platform.ShareParams paramsToShare) {
+//                //点击微信好友
+//                if ("Wechat".equals(platform.getName())) {
+//                    //微信分享应用 ,此功能需要微信绕开审核，需要使用项目中的wechatdemo.keystore进行签名打包
+//                    //由于Onekeyshare没有关于应用分享的参数如setShareType等，我们需要通过自定义 分享来实现
+//                    //比如下面设置了setTitle,可以覆盖oks.setTitle里面的title值
+//                    paramsToShare.setTitle("来自分享");
+//                    paramsToShare.setText("分享内容");
+//                    paramsToShare.setShareType(shareType);
+//                    //paramsToShare.setExtInfo("");
+//                    //paramsToShare.setFilePath("/data/app/com.sjhcn.qrcode-1/base.apk");
+//                    paramsToShare.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+//                }
+//            }
+//        });
+        // 启动分享GUI
+        oks.show(QRcodeApplication.getInstance());
     }
 
 }

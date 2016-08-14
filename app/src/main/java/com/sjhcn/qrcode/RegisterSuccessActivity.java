@@ -3,6 +3,7 @@ package com.sjhcn.qrcode;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
@@ -37,6 +38,7 @@ public class RegisterSuccessActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.register_success_activity);
         initView();
     }

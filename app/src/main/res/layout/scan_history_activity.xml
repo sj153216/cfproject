@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/thin"
+    android:background="@drawable/bg_add"
     android:orientation="vertical">
 
     <include layout="@layout/include_title" />
@@ -16,15 +16,14 @@
         android:layout_marginRight="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <com.sjhcn.view.MyTextView
             android:id="@+id/scan_record"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="20dp"
             android:text="读码记录"
             android:textColor="#F45A1C"
             android:textSize="22sp" />
@@ -32,10 +31,9 @@
         <com.sjhcn.view.MyTextView
             android:id="@+id/make_record"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="20dp"
             android:text="制码记录"
             android:textColor="#F45A1C"
             android:textSize="22sp" />

@@ -29,11 +29,10 @@ public class SecondFragment extends Fragment {
 
     private SecondFragmentAdapter mSecondAdapter;
     private List<Item> mData;
-    private int[] bitmapId = new int[]{R.drawable.ic_menu_invite, R.drawable.ic_menu_invite,
-            R.drawable.ic_menu_invite, R.drawable.ic_menu_invite,
-            R.drawable.ic_menu_invite, R.drawable.ic_menu_invite,
-            R.drawable.ic_find_previous_holo_dark};
-    private String[] hints = new String[]{"名片", "电话", "文本", "网址", "位置", "WIFI"};
+    private int[] bitmapId = new int[]{R.drawable.contace_circle, R.drawable.phone,
+            R.drawable.ic_menu_invite, R.drawable.ie,
+            R.drawable.map, R.drawable.ic_find_previous_holo_dark};
+    private String[] hints = new String[]{"名片", "电话", "文本", "网址", "位置"};
 
 
     @Override
@@ -65,10 +64,10 @@ public class SecondFragment extends Fragment {
 
     private void initData() {
         mData = new ArrayList<Item>(6);
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             Item item = new Item();
             item.setLable(((BitmapDrawable) getResources().getDrawable(bitmapId[i])).getBitmap());
-            item.setArrow(((BitmapDrawable) getResources().getDrawable(bitmapId[6])).getBitmap());
+            item.setArrow(((BitmapDrawable) getResources().getDrawable(bitmapId[5])).getBitmap());
             item.setContent(hints[i]);
             mData.add(item);
         }

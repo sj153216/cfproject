@@ -1,6 +1,7 @@
 package com.sjhcn.qrcode;
 
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.TextView;
 
 /**
@@ -13,6 +14,7 @@ public class AboutUsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.about_us_activity);
         mTitle = (TextView) findViewById(R.id.title_name);
     }

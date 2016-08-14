@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_add"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/phone" />
+
+        <EditText
+            android:id="@+id/email_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40dp"
+            android:background="@null"
+            android:hint="请输入联系邮件"
+            android:textColorHint="#FF9B50"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#A66BAB" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/suggestion_et"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_margin="15dp"
+        android:layout_marginTop="20dp"
+        android:gravity="top|left"
+        android:hint="请输入您的已检或建议"
+        android:singleLine="false"
+        android:textColorHint="#FF9B50"
+        android:textSize="20sp"
+        android:textStyle="italic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1">
+
+            <RadioButton
+                android:id="@+id/suggestion_rbt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="操作不便"
+                android:textColor="#FF9B50"
+                android:textSize="20sp"
+                android:textStyle="italic" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1">
+
+            <RadioButton
+                android:id="@+id/fuction_rbt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="功能不够"
+                android:textColor="#FF9B50"
+                android:textSize="20sp"
+                android:textStyle="italic" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submit_bt"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="提交"
+        android:textColor="#FF9B50"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:gravity="center"
+        android:background="@drawable/selector_sign_btn_back"/>
+
+</LinearLayout>
