@@ -67,7 +67,7 @@ public class ScanResultActivity extends BaseActivity implements View.OnClickList
         mSwitchView = (SwitchView) findViewById(R.id.switchview);
         mQRcodeBitmap = (ImageView) findViewById(R.id.qrcode_bitmap);
         mRl = (RelativeLayout) findViewById(R.id.rl);
-        mAccessBt = (Button) findViewById(R.id.access_to);
+        mAccessBt = (Button) findViewById(R.id.scan_access_to);
         mShareIv = (ImageView) findViewById(to_right_img);
     }
 
@@ -172,7 +172,7 @@ public class ScanResultActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.switchview:
+            case R.id.scan_access_to:
                 String url = (String) mContent.getText();
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");

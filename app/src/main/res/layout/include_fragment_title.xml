@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/tab_height"
-    android:background="#C9E9DE">
+    android:layout_height="40dp"
+    android:background="#D4E9FD">
 
     <TextView
         android:id="@+id/fragment_title"

@@ -34,7 +34,6 @@
             android:layout_toRightOf="@id/name_tv"
             android:background="@null"
             android:hint="请输入用户名"
-            android:inputType="textPassword"
             android:textColorHint="#FF994C"
             android:textSize="20sp"
             android:textStyle="italic" />

@@ -133,6 +133,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <service android:name="com.sjhcn.service.HandleQRcodeService" />
+        
     </application>
 
 </manifest>

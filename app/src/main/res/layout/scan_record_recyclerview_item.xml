@@ -6,10 +6,10 @@
 
     <ImageView
         android:id="@+id/lable"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="30dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_menu_invite" />
 
@@ -29,11 +29,11 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:maxEms="20"
+            android:maxEms="30"
             android:singleLine="true"
             android:text="dd"
             android:textColor="#BBA47A"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textStyle="italic" />
 
         <TextView
@@ -44,7 +44,7 @@
             android:gravity="center_vertical"
             android:text="dd"
             android:textColor="#D25F04"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textStyle="italic" />
     </LinearLayout>
 

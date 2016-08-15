@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,6 +30,7 @@ public class MakeResultActivity extends BaseActivity {
     //下面是网址部分的控件跟内容
     private RelativeLayout mUrlRl;
     private TextView mContentTv;
+    private Button mAccessToBt;
 
     //下面是名片部分的控件跟内容
     private LinearLayout mNameLl;
@@ -135,6 +137,7 @@ public class MakeResultActivity extends BaseActivity {
         //初始化url部分的view
         mUrlRl = (RelativeLayout) findViewById(R.id.url_rl);
         mContentTv = (TextView) findViewById(R.id.contentTv);
+        mAccessToBt = (Button) findViewById(R.id.make_access_to);
         //初始化名片部分的view
         mNameLl = (LinearLayout) findViewById(R.id.name_ll);
         mNameTv = (TextView) findViewById(R.id.nameTv);

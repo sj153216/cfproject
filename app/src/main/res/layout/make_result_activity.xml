@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/thin">
+    android:background="@drawable/bg_add">
 
 
     <LinearLayout
@@ -78,7 +78,7 @@
                     android:src="@drawable/ic_find_previous_holo_dark" />
 
                 <Button
-                    android:id="@+id/access_to"
+                    android:id="@+id/make_access_to"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -362,7 +362,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="#C9E9DE"
-        android:padding="35dp"
+        android:paddingBottom="25dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp"
         android:visibility="gone">
 
         <ImageView

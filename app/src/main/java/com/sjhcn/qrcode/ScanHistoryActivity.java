@@ -73,10 +73,6 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
         initEvent();
     }
 
-    private void initEvent() {
-        mScanRecordTv.setOnClickListener(this);
-        mMakeRecordTv.setOnClickListener(this);
-    }
 
     private void initView() {
         mScanRecordTv = (MyTextView) findViewById(R.id.scan_record);
@@ -221,20 +217,63 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
 
     }
 
+    private void initEvent() {
+        mScanRecordTv.setOnClickListener(this);
+        mMakeRecordTv.setOnClickListener(this);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        showScanRecyclerView();
+                        break;
+                    case 1:
+                        showMakeRecyclerView();
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.scan_record:
-                mScanRecordTv.setBackgroundColor(Color.parseColor("#66DDFB"));
-                mMakeRecordTv.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                mViewPager.setCurrentItem(POSITION_SCAN_RECORD);
+                showScanRecyclerView();
                 break;
             case R.id.make_record:
-                mScanRecordTv.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                mMakeRecordTv.setBackgroundColor(Color.parseColor("#66DDFB"));
-                mViewPager.setCurrentItem(POSITION_MAKE_RECORD);
+                showMakeRecyclerView();
                 break;
         }
+    }
+
+    /**
+     * 当viewpager滑动时，选择make textview
+     */
+    private void showMakeRecyclerView() {
+        mScanRecordTv.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        mMakeRecordTv.setBackgroundColor(Color.parseColor("#66DDFB"));
+        mViewPager.setCurrentItem(POSITION_MAKE_RECORD);
+    }
+
+    /**
+     * 当viewpager滑动时，选择scan textview
+     */
+    private void showScanRecyclerView() {
+        mScanRecordTv.setBackgroundColor(Color.parseColor("#66DDFB"));
+        mMakeRecordTv.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        mViewPager.setCurrentItem(POSITION_SCAN_RECORD);
     }
 
 }

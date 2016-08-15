@@ -21,22 +21,22 @@
         <com.sjhcn.view.MyTextView
             android:id="@+id/scan_record"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="读码记录"
             android:textColor="#F45A1C"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
 
         <com.sjhcn.view.MyTextView
             android:id="@+id/make_record"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="制码记录"
             android:textColor="#F45A1C"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <android.support.v4.view.ViewPager

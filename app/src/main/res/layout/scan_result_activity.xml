@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/thin">
+    android:background="@drawable/bg_add">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,10 +55,10 @@
                 android:id="@+id/line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
                 android:layout_below="@id/content"
-                android:layout_toRightOf="@id/lable"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/lable"
                 android:background="#B9822A" />
 
             <ImageView
@@ -71,10 +71,13 @@
                 android:src="@drawable/ic_find_previous_holo_dark" />
 
             <Button
-                android:id="@+id/access_to"
+                android:id="@+id/scan_access_to"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:background="@drawable/selector_btn_back"
+                android:gravity="center"
+                android:padding="5dp"
                 android:text="访问链接"
                 android:textSize="20sp"
                 android:textStyle="italic" />
@@ -89,10 +92,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="#C9E9DE"
-        android:paddingTop="15dp"
+        android:paddingBottom="25dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:paddingBottom="25dp"
+        android:paddingTop="15dp"
         android:visibility="gone">
 
         <ImageView

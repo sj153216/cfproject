@@ -32,11 +32,17 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     private EditText mPasswordEt;
     private RelativeLayout mRegiRl;
 
+    //关于用户名跟密码
+    public static String sUserName;
+    public static String sPassword;
+    //是否已经登录过
+    public static Boolean sHasLoginIn = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.sign_in_activity);
+        setContentView(R.layout.login_in_activity);
         initView();
         initData();
         initEvent();
@@ -91,18 +97,23 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
      * 用户登录
      */
     private void loginIn() {
-        final String userName = mUserNameEt.getText().toString();
-        final String password = mPasswordEt.getText().toString();
-        BmobQuery query = new BmobQuery("UserInfo");
-        query.addWhereEqualTo("userName", userName);
-        query.order("createdAt");
-        //v3.5.0版本提供`findObjectsByTable`方法查询自定义表名的数据
-        query.findObjectsByTable(new QueryListener<JSONArray>() {
-            @Override
-            public void done(JSONArray jsonArray, BmobException e) {
-                judgePerssion(jsonArray, e, password);
-            }
-        });
+        if (mUserNameEt.getText().toString().equals("") ||
+                mPasswordEt.getText().toString().equals("")) {
+            Toast.makeText(SignInActivity.this, "账户名或密码不能为空", Toast.LENGTH_SHORT).show();
+        } else {
+            final String userName = mUserNameEt.getText().toString();
+            final String password = mPasswordEt.getText().toString();
+            BmobQuery query = new BmobQuery("UserInfo");
+            query.addWhereEqualTo("userName", userName);
+            query.order("createdAt");
+            //v3.5.0版本提供`findObjectsByTable`方法查询自定义表名的数据
+            query.findObjectsByTable(new QueryListener<JSONArray>() {
+                @Override
+                public void done(JSONArray jsonArray, BmobException e) {
+                    judgePerssion(jsonArray, e, password);
+                }
+            });
+        }
     }
 
     /**
@@ -118,14 +129,17 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 Toast.makeText(SignInActivity.this, "该用户未注册", Toast.LENGTH_SHORT).show();
             } else {
                 ArrayList<UserInfo> userInfoList = (ArrayList<UserInfo>) com.alibaba.fastjson.JSONArray.parseArray(jsonArray.toString(), UserInfo.class);
-                for (int i = 0; i < userInfoList.size(); i++) {
-                    UserInfo userInfo = userInfoList.get(i);
-                    if (userInfo.getPassword().equals(password)) {
-                        startLoginSuccessActivity();
-                        return;
-                    }
+                UserInfo userInfo = userInfoList.get(0);
+                if (!sHasLoginIn && userInfo.getPassword().equals(password)) {
+                    startLoginSuccessActivity();
+                    sUserName = mUserNameEt.getText().toString();
+                    sPassword = mPasswordEt.getText().toString();
+                    sHasLoginIn = true;
+                } else if (sHasLoginIn) {
+                    Toast.makeText(SignInActivity.this, "当前用户已经登录,不可重复登录", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SignInActivity.this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(SignInActivity.this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
 
             }
         }

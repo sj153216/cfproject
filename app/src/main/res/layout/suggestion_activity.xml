@@ -47,7 +47,7 @@
         android:layout_margin="15dp"
         android:layout_marginTop="20dp"
         android:gravity="top|left"
-        android:hint="请输入您的已检或建议"
+        android:hint="请输入您的意见或建议"
         android:singleLine="false"
         android:textColorHint="#FF9B50"
         android:textSize="20sp"
@@ -56,40 +56,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            android:layout_weight="1">
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/suggestion_rbt"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
                 android:text="操作不便"
                 android:textColor="#FF9B50"
                 android:textSize="20sp"
                 android:textStyle="italic" />
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1">
-
             <RadioButton
                 android:id="@+id/fuction_rbt"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="功能不够"
                 android:textColor="#FF9B50"
                 android:textSize="20sp"
                 android:textStyle="italic" />
-        </RelativeLayout>
 
+        </RadioGroup>
     </LinearLayout>
 
     <Button
@@ -97,12 +94,12 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
+        android:background="@drawable/selector_sign_btn_back"
+        android:gravity="center"
         android:paddingBottom="5dp"
         android:text="提交"
         android:textColor="#FF9B50"
         android:textSize="20sp"
-        android:textStyle="italic"
-        android:gravity="center"
-        android:background="@drawable/selector_sign_btn_back"/>
+        android:textStyle="italic" />
 
 </LinearLayout>

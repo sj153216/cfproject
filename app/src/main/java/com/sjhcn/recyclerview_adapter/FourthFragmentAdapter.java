@@ -84,12 +84,15 @@ class FourthFragmentViewHolder extends RecyclerView.ViewHolder {
                         ThirdFragment.mActivity.startActivity(aboutIntent);
                         break;
                     case 1:
-                        //意见反馈
-                        Intent suggestionIsntent = new Intent(ThirdFragment.mActivity, SuggestionActivity.class);
-                        ThirdFragment.mActivity.startActivity(suggestionIsntent);
+
                         break;
                     case 2:
                         Utils.showShare(Platform.SHARE_APPS);
+                        break;
+                    case 3:
+                        //意见反馈
+                        Intent suggestionIsntent = new Intent(ThirdFragment.mActivity, SuggestionActivity.class);
+                        ThirdFragment.mActivity.startActivity(suggestionIsntent);;
                         break;
                 }
             }
