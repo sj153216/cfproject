@@ -70,25 +70,26 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 mConfirmEt.getText().toString().equals("")) {
             Toast.makeText(RegisterActivity.this, "账户名或密码不能为空", Toast.LENGTH_SHORT).show();
         } else {
-            if (!isRepeatUserName()) {
-                UserInfo userInfo = new UserInfo();
-                userInfo.setUserName(mUserNameEt.getText().toString());
-                userInfo.setPassword(mPasswordEt.getText().toString());
-                userInfo.save(new SaveListener<String>() {
-                    @Override
-                    public void done(String s, BmobException e) {
-                        if (e == null) {
-                            //Toast.makeText(RegisterActivity.this, "添加数据成功", Toast.LENGTH_SHORT).show();
-                            startRegisterSuccessActivity();
-                        } else {
-                            Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                });
-            } else {
-                Toast.makeText(RegisterActivity.this, "该用户名已被注册", Toast.LENGTH_SHORT).show();
-            }
+            isRepeatUserName();
+//            if (!isRepeatUserName) {
+//                UserInfo userInfo = new UserInfo();
+//                userInfo.setUserName(mUserNameEt.getText().toString());
+//                userInfo.setPassword(mPasswordEt.getText().toString());
+//                userInfo.save(new SaveListener<String>() {
+//                    @Override
+//                    public void done(String s, BmobException e) {
+//                        if (e == null) {
+//                            //Toast.makeText(RegisterActivity.this, "添加数据成功", Toast.LENGTH_SHORT).show();
+//                            startRegisterSuccessActivity();
+//                        } else {
+//                            Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                    }
+//                });
+//            } else {
+//                Toast.makeText(RegisterActivity.this, "该用户名已被注册", Toast.LENGTH_SHORT).show();
+//            }
         }
 
     }
@@ -97,7 +98,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     /**
      * 判断当前用户名是否注册guo
      */
-    private Boolean isRepeatUserName() {
+    private void isRepeatUserName() {
 
         final String userName = mUserNameEt.getText().toString();
         BmobQuery query = new BmobQuery("UserInfo");
@@ -107,15 +108,31 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         query.findObjectsByTable(new QueryListener<JSONArray>() {
             @Override
             public void done(JSONArray jsonArray, BmobException e) {
-                if (jsonArray == null) {
-                    isRepeatUserName = false;
+                if (jsonArray.length() == 0 || jsonArray == null) {
+                    //isRepeatUserName = false;
+                    UserInfo userInfo = new UserInfo();
+                    userInfo.setUserName(mUserNameEt.getText().toString());
+                    userInfo.setPassword(mPasswordEt.getText().toString());
+                    userInfo.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            if (e == null) {
+                                //Toast.makeText(RegisterActivity.this, "添加数据成功", Toast.LENGTH_SHORT).show();
+                                startRegisterSuccessActivity();
+                            } else {
+                                Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
                 } else {
-                    isRepeatUserName = true;
+                    //isRepeatUserName = true;
+                    Toast.makeText(RegisterActivity.this, "该用户名已经注册", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        return isRepeatUserName;
     }
+
 
     /**
      * 跳转到注册成功界面

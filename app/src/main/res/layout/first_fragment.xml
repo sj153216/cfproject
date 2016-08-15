@@ -5,12 +5,20 @@
     android:layout_height="match_parent"
     android:background="@mipmap/fangcun">
 
-    <ImageView
-        android:id="@+id/camera"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:scaleType="fitXY"
-        android:src="@mipmap/camera_add" />
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/camera"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/selector_btn_back"
+            android:scaleType="fitXY"
+            android:src="@mipmap/camera_add" />
+    </RelativeLayout>
 
 </RelativeLayout>

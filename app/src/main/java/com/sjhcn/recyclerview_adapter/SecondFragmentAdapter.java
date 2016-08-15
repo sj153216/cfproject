@@ -16,6 +16,7 @@ import com.sjhcn.module.DataManager;
 import com.sjhcn.myfragment.ThirdFragment;
 import com.sjhcn.qrcode.MapCardActivity;
 import com.sjhcn.qrcode.NameCardActivity;
+import com.sjhcn.qrcode.PhoneCardActivity;
 import com.sjhcn.qrcode.R;
 import com.sjhcn.qrcode.UrlCardActivity;
 
@@ -86,6 +87,8 @@ class SecondFragmentViewHolder extends RecyclerView.ViewHolder {
 
                         break;
                     case 1:
+                        Intent phoneIntent = new Intent(ThirdFragment.mActivity, PhoneCardActivity.class);
+                        ThirdFragment.mActivity.startActivity(phoneIntent);
                         break;
                     case 2:
                         break;

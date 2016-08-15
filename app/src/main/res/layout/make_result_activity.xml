@@ -51,9 +51,8 @@
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@id/lable"
-                    android:maxEms="20"
+                    android:maxEms="30"
                     android:singleLine="true"
-                    android:text="名字"
                     android:textColor="#AB7BAF"
                     android:textSize="18sp"
                     android:textStyle="italic" />
@@ -83,8 +82,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:text="访问链接"
-                    android:textSize="18sp"
                     android:textColor="#AB7BAF"
+                    android:textSize="18sp"
                     android:textStyle="italic" />
             </RelativeLayout>
 
@@ -353,6 +352,57 @@
 
 
             </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/phone_rl"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/phone_lable"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="30dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/phone" />
+
+                <TextView
+                    android:id="@+id/phone_content_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_toRightOf="@id/phone_lable"
+                    android:maxEms="30"
+                    android:singleLine="true"
+                    android:text="电话"
+                    android:textColor="#AB7BAF"
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
+
+                <ImageView
+                    android:id="@+id/phone_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/phone_content_tv"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/phone_lable"
+                    android:background="#B9822A" />
+
+                <ImageView
+                    android:id="@+id/phone_arrow"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_find_previous_holo_dark" />
+
+            </RelativeLayout>
+
 
         </FrameLayout>
 

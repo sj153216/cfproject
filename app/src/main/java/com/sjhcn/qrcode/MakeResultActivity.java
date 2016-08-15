@@ -45,6 +45,11 @@ public class MakeResultActivity extends BaseActivity {
     private TextView mPartTv;
     private TextView mEmailTv;
 
+    //下面是电话部分
+    private RelativeLayout mPhoneRl;
+    private ImageView mPhoneIv;
+    private TextView mPhoneContentTv;
+
     //下面是通过switchview打开或关闭的二维码图标控件
     private ImageView mQRcodeBitmap;
     private RelativeLayout mQRcodeRl;
@@ -109,7 +114,11 @@ public class MakeResultActivity extends BaseActivity {
                 mEmailTv.setText(mEmailStr);
                 mCompanyTv.setText(mCompanyStr);
                 break;
-            case Constant.ACTION_GENERATE_MAP_QRCODEINFO:
+            case Constant.ACTION_GENERATE_PHONE_QRCODEINFO:
+                mNameLl.setVisibility(View.GONE);
+                mUrlRl.setVisibility(View.GONE);
+                mPhoneRl.setVisibility(View.VISIBLE);
+                mContentTv.setText(mQRcodeInfo);
                 break;
             default:
                 break;
@@ -160,6 +169,11 @@ public class MakeResultActivity extends BaseActivity {
         mQRcodeRl = (RelativeLayout) findViewById(R.id.qrcode_rl);
         mTitle = (TextView) findViewById(R.id.title_name);
 
+        //初始化电话部分
+        mPhoneRl = (RelativeLayout) findViewById(R.id.phone_rl);
+        mPhoneIv = (ImageView) findViewById(R.id.phone_lable);
+        mPhoneContentTv = (TextView) findViewById(R.id.phone_content_tv);
+
     }
 
     @Override
@@ -169,11 +183,11 @@ public class MakeResultActivity extends BaseActivity {
             mTitle.setText("网址二维码");
         } else if (mAction == Constant.ACTION_GENERATE_NAME_QRCODEINFO) {
             mTitle.setText("名片二维码");
+        } else if (mAction == Constant.ACTION_GENERATE_PHONE_QRCODEINFO) {
+            mTitle.setText("电话二维码");
         } else {
             mTitle.setText("地图二维码");
         }
-
-
     }
 
 
@@ -229,7 +243,7 @@ public class MakeResultActivity extends BaseActivity {
         mSwitchView.setOpened(true);
         if (!mQRcodeInfo.equals("")) {
             //根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（200*200）
-            Bitmap qrCodeBitmap = EncodingHandler.createQRCode(mQRcodeInfo, 150);
+            Bitmap qrCodeBitmap = EncodingHandler.createQRCode(mQRcodeInfo, 200);
 
             //------------------添加logo部分------------------//
             Bitmap logoBmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_invite);

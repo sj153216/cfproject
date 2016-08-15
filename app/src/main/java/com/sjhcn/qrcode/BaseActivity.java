@@ -17,7 +17,7 @@ public class BaseActivity extends Activity {
     private ImageView toRightImg;
     private ImageView rightImg;
 
-    private String titleStr="";
+    private String titleStr = "";
 
     public BaseActivity() {
         super();
@@ -43,7 +43,7 @@ public class BaseActivity extends Activity {
     protected void onResume() {
         super.onResume();
         back = (ImageView) findViewById(R.id.back);
-        title = (TextView) findViewById(R.id.title);
+        title = (TextView) findViewById(R.id.title_name);
         toRightImg = (ImageView) findViewById(R.id.to_right_img);
         rightImg = (ImageView) findViewById(R.id.right_img);
         if (back != null) {

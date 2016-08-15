@@ -107,6 +107,9 @@
             android:name="com.sjhcn.qrcode.LoginSuccessActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".PhoneCardActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"

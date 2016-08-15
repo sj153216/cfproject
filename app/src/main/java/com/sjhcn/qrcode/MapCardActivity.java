@@ -2,12 +2,10 @@ package com.sjhcn.qrcode;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +37,7 @@ import com.baidu.mapapi.search.share.OnGetShareUrlResultListener;
 import com.baidu.mapapi.search.share.ShareUrlResult;
 import com.baidu.mapapi.search.share.ShareUrlSearch;
 import com.sjhcn.application.QRcodeApplication;
+import com.sjhcn.view.MyDialog;
 
 import java.util.List;
 
@@ -52,13 +51,14 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
     private TextView mTitle;
     private MapView mMapView;
     SDKReceiver mReceiver;
+    private ImageView mShareIv;
+    private ImageView mMakeQRcodeIv;
     private BaiduMap mBaiduMap;
     //地理位置管理
     private LocationManager locationManager;
     //位置提供器
     private String provider;
     private boolean isFirstLocate = true;
-    private LocationListener locationListener;
 
     private ImageView mNavigateIv;
     private BDLocation mLocation;
@@ -71,7 +71,7 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
     //分享
     private ShareUrlSearch mShareUrlSearch = null;
     //显示地理位置的dialog
-    private Dialog mDialog;
+    private MyDialog mDialog;
     private TextView mLatitudeTv;
     private TextView mLongitudeTv;
     private TextView mAddress;
@@ -100,28 +100,34 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
     protected void onResume() {
         super.onResume();
         mTitle.setText("位置");
+        mShareIv.setVisibility(View.VISIBLE);
+        mMakeQRcodeIv.setVisibility(View.VISIBLE);
         mMapView.onResume();
-        //locationManager.requestLocationUpdates(provider, 1000, 1, locationListener);
     }
 
     private void initView() {
-        mTitle = (TextView) findViewById(R.id.title_name);
-        mMapView = (MapView) findViewById(R.id.map_view);
-        mNavigateIv = (ImageView) findViewById(R.id.navigate_iv);
-        mLatitudeTv = (TextView) findViewById(R.id.latitude_tv);
-        mLongitudeTv = (TextView) findViewById(R.id.longitude_tv);
-        mAddress = (TextView) findViewById(R.id.location_tv);
-        mPlusIv = (ImageView) findViewById(R.id.plus_iv);
-        mPopupWindowLl = (LinearLayout) findViewById(R.id.popup_window);
-        mNormalTv = (TextView) findViewById(R.id.normal);
-        mSateTv = (TextView) findViewById(R.id.map_sate_tv);
-    }
-
-    private void initData() {
-        mDialog = new Dialog(this);
+        mDialog = new MyDialog(this);
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mDialog.setContentView(R.layout.dialog_show_position);
         mDialog.setCancelable(true);
         mDialog.setCanceledOnTouchOutside(true);
+        mTitle = (TextView) findViewById(R.id.title_name);
+        mShareIv = (ImageView) findViewById(R.id.to_right_img);
+        mMakeQRcodeIv = (ImageView) findViewById(R.id.right_img);
+        mMapView = (MapView) findViewById(R.id.map_view);
+        mNavigateIv = (ImageView) findViewById(R.id.navigate_iv);
+        mLatitudeTv = (TextView) mDialog.findViewById(R.id.latitude_tv);
+        mLongitudeTv = (TextView) mDialog.findViewById(R.id.longitude_tv);
+        mAddress = (TextView) mDialog.findViewById(R.id.dialog_location_tv);
+        mPlusIv = (ImageView) findViewById(R.id.plus_iv);
+        mPopupWindowLl = (LinearLayout) findViewById(R.id.popup_window);
+        mNormalTv = (TextView) findViewById(R.id.map_normal_tv);
+        mSateTv = (TextView) findViewById(R.id.map_sate_tv);
+
+    }
+
+    private void initData() {
+
         IntentFilter iFilter = new IntentFilter();
         iFilter.addAction(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR);
         iFilter.addAction(SDKInitializer.SDK_BROADCAST_ACTION_STRING_NETWORK_ERROR);
@@ -155,7 +161,9 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         mPlusIv.setOnClickListener(this);
         mNormalTv.setOnClickListener(this);
         mSateTv.setOnClickListener(this);
+        mShareIv.setOnClickListener(this);
     }
+
 
     /**
      * 配置定位SDK参数
@@ -306,7 +314,7 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
                 navigateTo();
                 break;
             case R.id.plus_iv:
-                showPopupWindow(v);
+                showPopupWindow(mPopupWindowLl);
                 break;
             case R.id.map_normal_tv:
                 mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);

@@ -36,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_corner_scan_history"
+            android:background="@drawable/shape_corner_make_history"
             android:gravity="center"
             android:text="制码记录"
             android:textColor="#F45A1C"

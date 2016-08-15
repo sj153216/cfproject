@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp"
     android:id="@+id/dialog_ll"
-    android:background="#C9E9DE">
+    android:background="@drawable/shape_corner">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,24 +60,25 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:orientation="horizontal">
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp">
 
         <TextView
-            android:id="@+id/location_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="地理位置： "
+            android:text="地理位置："
             android:textColor="#B07DB6"
             android:textSize="15sp"
             android:textStyle="italic" />
         <TextView
+            android:id="@+id/dialog_location_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:singleLine="false"
             android:textColor="#B07DB6"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:textStyle="italic" />
 
     </LinearLayout>
