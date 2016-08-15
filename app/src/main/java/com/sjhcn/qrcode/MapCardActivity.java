@@ -94,7 +94,7 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         super.onResume();
         mTitle.setText("位置");
         mMapView.onResume();
-        locationManager.requestLocationUpdates(provider, 1000, 1, locationListener);
+        //locationManager.requestLocationUpdates(provider, 1000, 1, locationListener);
     }
 
     private void initView() {
@@ -116,7 +116,6 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
         initLocation();
         mLocationClient.start();
-        showMe();
 
 //        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //获取所有可用的位置提供器
@@ -162,8 +161,6 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void showMe() {
-        // 开启定位图层
-        mBaiduMap.setMyLocationEnabled(true);
         // 构造定位数据
         MyLocationData locData = new MyLocationData.Builder()
                 .accuracy(mLocation.getRadius())
@@ -289,7 +286,7 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
                 sb.append(location.getOperators());
                 sb.append("\ndescribe : ");
                 sb.append("网络定位成功");
-
+                showMe();
             } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {// 离线定位结果
                 sb.append("\ndescribe : ");
                 sb.append("离线定位成功，离线定位结果也是有效的");
