@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,8 +38,10 @@ import com.baidu.mapapi.search.share.OnGetShareUrlResultListener;
 import com.baidu.mapapi.search.share.ShareUrlResult;
 import com.baidu.mapapi.search.share.ShareUrlSearch;
 import com.sjhcn.application.QRcodeApplication;
+import com.sjhcn.constants.Constant;
 import com.sjhcn.view.MyDialog;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 /**
@@ -160,6 +163,33 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         mNormalTv.setOnClickListener(this);
         mSateTv.setOnClickListener(this);
         mShareIv.setOnClickListener(this);
+        mMakeQRcodeIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
+                    //地图截屏回调接口
+                    public void onSnapshotReady(Bitmap snapshot) {
+                        startMakeResultActivity(snapshot);
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * 打开制码结果页面
+     *
+     * @param snapshot
+     */
+    private void startMakeResultActivity(Bitmap snapshot) {
+        Intent intent = new Intent(MapCardActivity.this, MakeResultActivity.class);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();//初始化一个流对象
+        snapshot.compress(Bitmap.CompressFormat.PNG, 100, output);//把bitmap100%高质量压缩 到 output对象里
+        byte[] byteArray = output.toByteArray();//转换成功了
+        intent.putExtra("mapCode", byteArray);
+        intent.putExtra("action", Constant.ACTION_GENERATE_MAP_QRCODEINFO);
+        intent.putExtra("qrCode", "坐标： " + mLocation.getLatitude() + ", " + mLocation.getLongitude() + ", " + mLocation.getAddrStr());
+        MapCardActivity.this.startActivity(intent);
     }
 
 

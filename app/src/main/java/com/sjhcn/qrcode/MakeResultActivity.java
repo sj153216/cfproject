@@ -19,13 +19,16 @@ import android.widget.Toast;
 
 import com.google.zxing.WriterException;
 import com.sjhcn.constants.Constant;
+import com.sjhcn.utils.Utils;
 import com.sjhcn.view.SwitchView;
 import com.sjhcn.zxingencoding.EncodingHandler;
+
+import cn.sharesdk.framework.Platform;
 
 /**
  * Created by sjhcn on 2016/7/15.
  */
-public class MakeResultActivity extends BaseActivity {
+public class MakeResultActivity extends BaseActivity implements View.OnClickListener {
     private SwitchView mSwitchView;
 
     //下面是网址部分的控件跟内容
@@ -54,14 +57,25 @@ public class MakeResultActivity extends BaseActivity {
     private ImageView mQRcodeBitmap;
     private RelativeLayout mQRcodeRl;
 
+    //下面是地图部分
+    private ImageView mShowMapIv;
+    private LinearLayout mMapLl;
+    private TextView mMapContentTv;
+
     //标题，根据action变化
     private TextView mTitle;
+    //标题，根据action变化
+    private ImageView mShareIv;
     //二维码字符串，用于生成二维码
     private String mQRcode;
     //根据此action判断是显示url部分还是名片部分，还有title
     private int mAction;
     //通过制码传递过来的qrcode
     private String mQRcodeInfo;
+    //地图界面传递过来的字节数组
+    private byte[] mMapByte;
+    //将地图界面传递过来的字节数组转化为bitmap
+    private Bitmap mMapBitmap;
 
 
     @Override
@@ -94,13 +108,16 @@ public class MakeResultActivity extends BaseActivity {
         mEmailTv = (TextView) findViewById(R.id.emailTv);
 
         //初始化map部分的view
-
+        mShowMapIv = (ImageView) findViewById(R.id.mapshow_iv);
+        mMapLl = (LinearLayout) findViewById(R.id.map_ll);
+        mMapContentTv = (TextView) findViewById(R.id.map_content_tv);
         //显示二维码图标的按钮
         mSwitchView = (SwitchView) findViewById(R.id.switchview);
         //下面两个就是隐藏的二维码图片
         mQRcodeBitmap = (ImageView) findViewById(R.id.qrcode_bitmap);
         mQRcodeRl = (RelativeLayout) findViewById(R.id.qrcode_rl);
         mTitle = (TextView) findViewById(R.id.title_name);
+        mShareIv = (ImageView) findViewById(R.id.to_right_img);
 
         //初始化电话部分
         mPhoneRl = (RelativeLayout) findViewById(R.id.phone_rl);
@@ -118,15 +135,18 @@ public class MakeResultActivity extends BaseActivity {
             mTitle.setText("名片二维码");
         } else if (mAction == Constant.ACTION_GENERATE_PHONE_QRCODEINFO) {
             mTitle.setText("电话二维码");
-        } else {
+        } else if (mAction == Constant.ACTION_GENERATE_MAP_QRCODEINFO) {
             mTitle.setText("地图二维码");
         }
+        mShareIv.setVisibility(View.VISIBLE);
     }
 
     private void initData() {
         Intent intent = getIntent();
         mAction = intent.getIntExtra("action", Constant.ACTION_GENERATE_URL_QRCODEINFO);
         mQRcodeInfo = intent.getStringExtra("qrCode");
+        mMapByte = intent.getByteArrayExtra("mapCode");
+        mMapBitmap = BitmapFactory.decodeByteArray(mMapByte, 0, mMapByte.length);
         showWhichPage(mAction, intent);
     }
 
@@ -166,6 +186,14 @@ public class MakeResultActivity extends BaseActivity {
                 mUrlRl.setVisibility(View.GONE);
                 mPhoneRl.setVisibility(View.VISIBLE);
                 mPhoneContentTv.setText(mQRcodeInfo);
+                break;
+            case Constant.ACTION_GENERATE_MAP_QRCODEINFO:
+                mNameLl.setVisibility(View.GONE);
+                mUrlRl.setVisibility(View.GONE);
+                mPhoneRl.setVisibility(View.GONE);
+                mMapLl.setVisibility(View.VISIBLE);
+                mShowMapIv.setImageBitmap(mMapBitmap);
+                mMapContentTv.setText(mQRcodeInfo);
                 break;
             default:
                 break;
@@ -208,17 +236,9 @@ public class MakeResultActivity extends BaseActivity {
             }
         });
 
-        mAccessToBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = mContentTv.getText().toString();
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse(url);
-                intent.setData(content_url);
-                startActivity(intent);
-            }
-        });
+        mAccessToBt.setOnClickListener(this);
+        mShareIv.setOnClickListener(this);
+
     }
 
     /**
@@ -272,4 +292,20 @@ public class MakeResultActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.make_access_to:
+                String url = mContentTv.getText().toString();
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(url);
+                intent.setData(content_url);
+                startActivity(intent);
+                break;
+            case R.id.to_right_img:
+                Utils.showShare(Platform.SHARE_IMAGE);
+                break;
+        }
+    }
 }
