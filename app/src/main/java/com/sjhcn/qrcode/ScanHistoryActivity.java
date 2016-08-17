@@ -255,6 +255,7 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
                         if (mMakeDatas.size() == 0) {
                             mNoFootLl.setVisibility(View.VISIBLE);
                             mNoFootTv.setText("还没有制码记录哦");
+                            showMakeRecyclerView();
 
                         } else {
                            // mMakeRecord.setAdapter(mMakeRecyclerViewAdapter);

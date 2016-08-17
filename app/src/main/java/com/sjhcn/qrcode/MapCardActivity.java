@@ -34,6 +34,7 @@ import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.baidu.mapapi.search.share.LocationShareURLOption;
 import com.baidu.mapapi.search.share.OnGetShareUrlResultListener;
 import com.baidu.mapapi.search.share.ShareUrlResult;
 import com.baidu.mapapi.search.share.ShareUrlSearch;
@@ -226,6 +227,7 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         // 当不需要定位图层时关闭定位图层
         mBaiduMap.setMyLocationEnabled(false);
         mMapView.onDestroy();
+        mShareUrlSearch.destroy();
         unregisterReceiver(mReceiver);
     }
 
@@ -349,6 +351,10 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.map_sate_tv:
                 mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+                break;
+            case R.id.to_right_img:
+                mShareUrlSearch.requestLocationShareUrl(new LocationShareURLOption().location(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()))
+                        .name(mLocation.getAddrStr()+mLocation.getStreet()+mLocation.getStreetNumber()).snippet("我在这，你在哪"));
                 break;
         }
     }

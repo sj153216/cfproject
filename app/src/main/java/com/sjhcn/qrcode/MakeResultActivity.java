@@ -23,6 +23,9 @@ import com.sjhcn.utils.Utils;
 import com.sjhcn.view.SwitchView;
 import com.sjhcn.zxingencoding.EncodingHandler;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 import cn.sharesdk.framework.Platform;
 
 /**
@@ -264,6 +267,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
         if (!mQRcodeInfo.equals("")) {
             //根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（200*200）
             Bitmap qrCodeBitmap = EncodingHandler.createQRCode(mQRcodeInfo, 200);
+            saveBitmap(qrCodeBitmap);
 
             //------------------添加logo部分------------------//
             Bitmap logoBmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_invite);
@@ -288,6 +292,24 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
             mQRcodeRl.startAnimation(animation);
         } else {
             Toast.makeText(MakeResultActivity.this, "Text can not be empty", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 将bitmap保存到本地
+     */
+    public void saveBitmap(Bitmap bitmap) {
+        File f = new File("/sdcard/", "bitmap");
+        if (f.exists()) {
+            f.delete();
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(f);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

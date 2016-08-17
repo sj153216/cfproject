@@ -31,7 +31,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.zip.CRC32;
 
+import cn.sharesdk.framework.Platform;
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 
 public class Utils {
     private static final String TAG = "Utils";
@@ -568,25 +570,26 @@ public class Utils {
         oks.setSite(ThirdFragment.mActivity.getString(R.string.app_name));
         // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setSiteUrl("http://sharesdk.cn");
-//        oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
-//            //自定义分享的回调想要函数
-//            @Override
-//            public void onShare(Platform platform,
-//                                cn.sharesdk.framework.Platform.ShareParams paramsToShare) {
-//                //点击微信好友
-//                if ("Wechat".equals(platform.getName())) {
-//                    //微信分享应用 ,此功能需要微信绕开审核，需要使用项目中的wechatdemo.keystore进行签名打包
-//                    //由于Onekeyshare没有关于应用分享的参数如setShareType等，我们需要通过自定义 分享来实现
-//                    //比如下面设置了setTitle,可以覆盖oks.setTitle里面的title值
-//                    paramsToShare.setTitle("来自分享");
-//                    paramsToShare.setText("分享内容");
-//                    paramsToShare.setShareType(shareType);
-//                    //paramsToShare.setExtInfo("");
-//                    //paramsToShare.setFilePath("/data/app/com.sjhcn.qrcode-1/base.apk");
-//                    paramsToShare.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
-//                }
-//            }
-//        });
+        oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
+            //自定义分享的回调想要函数
+            @Override
+            public void onShare(Platform platform,
+                                cn.sharesdk.framework.Platform.ShareParams paramsToShare) {
+                //点击微信好友
+                if ("Wechat".equals(platform.getName())) {
+                    //微信分享应用 ,此功能需要微信绕开审核，需要使用项目中的wechatdemo.keystore进行签名打包
+                    //由于Onekeyshare没有关于应用分享的参数如setShareType等，我们需要通过自定义 分享来实现
+                    //比如下面设置了setTitle,可以覆盖oks.setTitle里面的title值
+                    paramsToShare.setTitle("来自分享");
+                    paramsToShare.setText("分享内容");
+                    paramsToShare.setShareType(shareType);
+                    paramsToShare.setImagePath("/sdcard/namecard/bitmap.png");
+                    //paramsToShare.setExtInfo("");
+                    //paramsToShare.setFilePath("/data/app/com.sjhcn.qrcode-1/base.apk");
+                   // paramsToShare.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+                }
+            }
+        });
         // 启动分享GUI
         oks.show(QRcodeApplication.getInstance());
     }
