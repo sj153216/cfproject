@@ -423,6 +423,7 @@
                         android:layout_toRightOf="@id/map_lable"
                         android:maxEms="30"
                         android:singleLine="true"
+                        android:background="@drawable/selector_btn_back"
                         android:text="坐标"
                         android:textColor="#AB7BAF"
                         android:textSize="18sp"
@@ -454,8 +455,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/shape_corner" />
+                    android:background="@drawable/shape_corner"
+                    android:scaleType="fitXY" />
             </LinearLayout>
 
 

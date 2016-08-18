@@ -33,6 +33,7 @@ import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.share.LocationShareURLOption;
 import com.baidu.mapapi.search.share.OnGetShareUrlResultListener;
@@ -60,8 +61,6 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
     private BaiduMap mBaiduMap;
     //地理位置管理
     private LocationManager locationManager;
-    //位置提供器
-    private String provider;
     private boolean isFirstLocate = true;
 
     private ImageView mNavigateIv;
@@ -139,8 +138,13 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         registerReceiver(mReceiver, iFilter);
         mBaiduMap = mMapView.getMap();
 
+        //地理位置分享
         mShareUrlSearch = ShareUrlSearch.newInstance();
         mShareUrlSearch.setOnGetShareUrlResultListener(this);
+        //地理编码
+        mGeoCoder = GeoCoder.newInstance();
+        mGeoCoder.setOnGetGeoCodeResultListener(this);
+
 
         mBaiduMap.setMyLocationEnabled(true);
         mLocationClient = new LocationClient(QRcodeApplication.getInstance());     //声明LocationClient类
@@ -154,10 +158,8 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         mBaiduMap.setOnMapLongClickListener(new BaiduMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
-                mLatitudeTv.setText(latLng.latitude + "");
-                mLongitudeTv.setText(latLng.longitude + "");
-                mAddress.setText(mLocation.getAddrStr());
-                mDialog.show();
+
+                mGeoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(latLng));
             }
         });
         mPlusIv.setOnClickListener(this);
@@ -189,7 +191,7 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         byte[] byteArray = output.toByteArray();//转换成功了
         intent.putExtra("mapCode", byteArray);
         intent.putExtra("action", Constant.ACTION_GENERATE_MAP_QRCODEINFO);
-        intent.putExtra("qrCode", "坐标： " + mLocation.getLatitude() + ", " + mLocation.getLongitude() + ", " + mLocation.getAddrStr());
+        intent.putExtra("qrCode", "坐标： " + mLocation.getAddrStr() + mLocation.getLatitude() + ", " + mLocation.getLongitude() + ", ");
         MapCardActivity.this.startActivity(intent);
     }
 
@@ -354,7 +356,7 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.to_right_img:
                 mShareUrlSearch.requestLocationShareUrl(new LocationShareURLOption().location(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()))
-                        .name(mLocation.getAddrStr()+mLocation.getStreet()+mLocation.getStreetNumber()).snippet("我在这，你在哪"));
+                        .name(mLocation.getAddrStr() + mLocation.getStreet() + mLocation.getStreetNumber()).snippet("我在这，你在哪"));
                 break;
         }
     }
@@ -463,9 +465,12 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
             Toast.makeText(MapCardActivity.this, "抱歉，未能找到结果",
                     Toast.LENGTH_LONG).show();
         }
-        Toast.makeText(MapCardActivity.this,
-                "位置：" + reverseGeoCodeResult.getAddress(), Toast.LENGTH_LONG)
-                .show();
+        mLatitudeTv.setText(reverseGeoCodeResult.getLocation().latitude + "");
+        mLongitudeTv.setText(reverseGeoCodeResult.getLocation().longitude + "");
+        ReverseGeoCodeResult.AddressComponent addressComponent = reverseGeoCodeResult.getAddressDetail();
+        mAddress.setText(addressComponent.province + addressComponent.city + addressComponent.district +
+                addressComponent.street + addressComponent.streetNumber + "");
+        mDialog.show();
     }
 
 

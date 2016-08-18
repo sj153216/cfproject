@@ -80,6 +80,8 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
     //将地图界面传递过来的字节数组转化为bitmap
     private Bitmap mMapBitmap;
 
+    private Bitmap mBitmap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -241,6 +243,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
 
         mAccessToBt.setOnClickListener(this);
         mShareIv.setOnClickListener(this);
+        mMapContentTv.setOnClickListener(this);
 
     }
 
@@ -267,7 +270,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
         if (!mQRcodeInfo.equals("")) {
             //根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（200*200）
             Bitmap qrCodeBitmap = EncodingHandler.createQRCode(mQRcodeInfo, 200);
-            saveBitmap(qrCodeBitmap);
+            // saveBitmap(qrCodeBitmap);
 
             //------------------添加logo部分------------------//
             Bitmap logoBmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_invite);
@@ -284,6 +287,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
 //                    / 2 - logoBmp.getHeight() / 2, null);
             //------------------添加logo部分------------------//
             mQRcodeRl.setVisibility(View.VISIBLE);
+            mBitmap = bitmap;
             mQRcodeBitmap.setImageBitmap(bitmap);
             ScaleAnimation animation = new ScaleAnimation(0.0f, 1.1f, 0.0f, 1.1f,
                     Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -299,11 +303,13 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
      * 将bitmap保存到本地
      */
     public void saveBitmap(Bitmap bitmap) {
-        File f = new File("/sdcard/", "bitmap");
-        if (f.exists()) {
-            f.delete();
-        }
         try {
+            File f = new File("/sdcard/", "bitmap");
+            if (f.exists()) {
+                f.delete();
+            } else {
+                f.createNewFile();
+            }
             FileOutputStream out = new FileOutputStream(f);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
             out.flush();
@@ -326,8 +332,20 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.to_right_img:
-                Utils.showShare(Platform.SHARE_IMAGE);
+                Utils.showShare(Platform.SHARE_IMAGE, mBitmap);
+                break;
+            case R.id.map_content_tv:
+                startShowLocationActivity();
                 break;
         }
+    }
+
+    /**
+     * 启动显示地理位置的界面
+     */
+    private void startShowLocationActivity() {
+        Intent intent = new Intent(this, ShowLocationActivity.class);
+        intent.putExtra("location", mMapContentTv.getText().toString());
+        this.startActivity(intent);
     }
 }

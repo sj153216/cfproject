@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
@@ -548,7 +549,7 @@ public class Utils {
         }
     }
 
-    public static void showShare(final int shareType) {
+    public static void showShare(final int shareType, final Bitmap bitmap) {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
@@ -583,15 +584,42 @@ public class Utils {
                     paramsToShare.setTitle("来自分享");
                     paramsToShare.setText("分享内容");
                     paramsToShare.setShareType(shareType);
-                    paramsToShare.setImagePath("/sdcard/namecard/bitmap.png");
+                    //paramsToShare.setImagePath("/sdcard/bitmap.png");
+                    paramsToShare.setImageData(bitmap);
                     //paramsToShare.setExtInfo("");
                     //paramsToShare.setFilePath("/data/app/com.sjhcn.qrcode-1/base.apk");
-                   // paramsToShare.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+                    // paramsToShare.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
                 }
             }
         });
         // 启动分享GUI
         oks.show(QRcodeApplication.getInstance());
+    }
+
+    /**
+     * 合并两张bitmap为一张
+     *
+     * @param background
+     * @param foreground
+     * @return Bitmap
+     */
+    public static Bitmap combineBitmap(Bitmap background, Bitmap foreground) {
+        if (background == null) {
+            return null;
+        }
+        int bgWidth = background.getWidth();
+        int bgHeight = background.getHeight();
+        int fgWidth = foreground.getWidth();
+        int fgHeight = foreground.getHeight();
+        Bitmap newmap = Bitmap
+                .createBitmap(bgWidth, bgHeight, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(newmap);
+        canvas.drawBitmap(background, 0, 0, null);
+        canvas.drawBitmap(foreground, (bgWidth - fgWidth) / 2,
+                (bgHeight - fgHeight) / 2, null);
+        canvas.save(Canvas.ALL_SAVE_FLAG);
+        canvas.restore();
+        return newmap;
     }
 
 }
