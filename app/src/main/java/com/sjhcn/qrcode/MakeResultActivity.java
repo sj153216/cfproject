@@ -151,7 +151,6 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
         mAction = intent.getIntExtra("action", Constant.ACTION_GENERATE_URL_QRCODEINFO);
         mQRcodeInfo = intent.getStringExtra("qrCode");
         mMapByte = intent.getByteArrayExtra("mapCode");
-        mMapBitmap = BitmapFactory.decodeByteArray(mMapByte, 0, mMapByte.length);
         showWhichPage(mAction, intent);
     }
 
@@ -169,6 +168,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
                 mContentTv.setText(mQRcodeInfo);
                 break;
             case Constant.ACTION_GENERATE_NAME_QRCODEINFO:
+            case Constant.ACTION_GENERATE_NAME_MODEL_QRCODEINFO:
                 //首先让另外两个布局不可见
                 mUrlRl.setVisibility(View.GONE);
                 mNameLl.setVisibility(View.VISIBLE);
@@ -178,7 +178,9 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
                 String mPartStr = intent.getStringExtra("mPartStr");
                 String mEmailStr = intent.getStringExtra("mEmailStr");
                 String mCompanyStr = intent.getStringExtra("mCompanyStr");
-
+                if (mMapByte != null) {
+                    mMapBitmap = BitmapFactory.decodeByteArray(mMapByte, 0, mMapByte.length);
+                }
                 mNameTv.setText(mNameStr);
                 mPhoneTv.setText(mPhoneStr);
                 mPosTv.setText(mPosStr);
@@ -273,20 +275,26 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
             // saveBitmap(qrCodeBitmap);
 
             //------------------添加logo部分------------------//
-            Bitmap logoBmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_invite);
+            //Bitmap logoBmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_invite);
 
             //二维码和logo合并
             Bitmap bitmap = Bitmap.createBitmap(qrCodeBitmap.getWidth(), qrCodeBitmap
                     .getHeight(), qrCodeBitmap.getConfig());
-            Canvas canvas = new Canvas(bitmap);
-            //二维码
-            canvas.drawBitmap(qrCodeBitmap, 0, 0, null);
+            if (mAction == Constant.ACTION_GENERATE_NAME_MODEL_QRCODEINFO) {
+                bitmap = Utils.combineBitmap(mMapBitmap, bitmap);
+            } else {
+                Canvas canvas = new Canvas(bitmap);
+                //二维码
+                canvas.drawBitmap(qrCodeBitmap, 0, 0, null);
+            }
+
             //logo绘制在二维码中央
 //            canvas.drawBitmap(logoBmp, qrCodeBitmap.getWidth() / 2
 //                    - logoBmp.getWidth() / 2, qrCodeBitmap.getHeight()
 //                    / 2 - logoBmp.getHeight() / 2, null);
             //------------------添加logo部分------------------//
             mQRcodeRl.setVisibility(View.VISIBLE);
+            //分享用
             mBitmap = bitmap;
             mQRcodeBitmap.setImageBitmap(bitmap);
             ScaleAnimation animation = new ScaleAnimation(0.0f, 1.1f, 0.0f, 1.1f,

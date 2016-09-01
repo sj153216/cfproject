@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_add">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/include_title" />
+
+
+
+    <Button
+        android:id="@+id/model_bt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/selector_btn_back"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="#AC7AAF"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:layout_marginBottom="10dp"/>
+    <GridView
+        android:id="@+id/model_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/include"
+        android:layout_above="@id/model_bt"
+        android:horizontalSpacing="1dp"
+        android:numColumns="3"
+        android:verticalSpacing="1dp">
+
+    </GridView>
+
+</RelativeLayout>

@@ -228,9 +228,9 @@ public class MapCardActivity extends BaseActivity implements View.OnClickListene
         super.onDestroy();
         // 当不需要定位图层时关闭定位图层
         mBaiduMap.setMyLocationEnabled(false);
-        mMapView.onDestroy();
         mShareUrlSearch.destroy();
         unregisterReceiver(mReceiver);
+        mMapView.onDestroy();
     }
 
 

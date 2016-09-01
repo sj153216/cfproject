@@ -218,5 +218,17 @@
             android:background="#B57EB8" />
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/use_model_bt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_btn_back"
+        android:gravity="center"
+        android:text="使用模板生成 "
+        android:textColor="#B57EB8"
+        android:textSize="18sp"
+        android:textStyle="italic" />
+
 
 </LinearLayout>

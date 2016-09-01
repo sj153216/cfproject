@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +19,8 @@ import com.sjhcn.service.HandleQRcodeService;
  */
 public class NameCardActivity extends BaseActivity implements LoadDataIntf {
 
+    public static final String TYPE_NOT_USE_MODEL = "notUseModel";
+    public static final String TYPE_USE_MODEL = "useModel";
 
     private TextView mTitle;
     private ImageView mMakeQRcodeImg;
@@ -36,6 +39,8 @@ public class NameCardActivity extends BaseActivity implements LoadDataIntf {
     private String mPartStr;
     private String mEmailStr;
     private String mCompanyStr;
+
+    private Button mUseModelBt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,7 @@ public class NameCardActivity extends BaseActivity implements LoadDataIntf {
         mPartEdit = (EditText) findViewById(R.id.part);
         mEmailEdit = (EditText) findViewById(R.id.email);
         mCompanyEdit = (EditText) findViewById(R.id.company);
+        mUseModelBt = (Button) findViewById(R.id.use_model_bt);
     }
 
     private void initData() {
@@ -79,45 +85,76 @@ public class NameCardActivity extends BaseActivity implements LoadDataIntf {
                 generateQRcodeStr();
             }
         });
+        mUseModelBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                generateModelQRcodeStr();
+            }
+        });
     }
 
     /**
-     * 获取二维码字符串
+     * 获取二维码字符串,同时跳转页面
      */
     private void generateQRcodeStr() {
-        mNameStr = mNameEdit.getText().toString();
-        mPhoneStr = mPhoneEdit.getText().toString();
-
-        mPosStr = mPosEdit.getText().toString();
-        mPartStr = mPartEdit.getText().toString();
-        mEmailStr = mEmailEdit.getText().toString();
-        mCompanyStr = mCompanyEdit.getText().toString();
-
-        mQRcodeStr = mNameStr + mPhoneStr + mPosStr + mPartStr + mEmailStr + mCompanyStr;
-
+        getTextFromEditText();
         if (mNameStr.equals("") || mPhoneStr.equals("")) {
             Toast.makeText(NameCardActivity.this, "姓名或电话不能为空", Toast.LENGTH_SHORT).show();
         } else {
             startHandleService();
             startMakeQRcodeActivity();
-            //跳转之前首先判断下输入的二维码是否过短，若过短，就不跳转机，给个提示
-            //因为两个线程同时执行，没法通过标识符判断
-//            try {
-//                Thread.sleep(1500);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            if (!HandleQRcodeService.isTooShort) {
-//
-//            }
         }
     }
 
     /**
-     * 启动activity
+     * 获取二维码字符串，同时跳转到模板界面
+     */
+    private void generateModelQRcodeStr() {
+        getTextFromEditText();
+        if (mNameStr.equals("") || mPhoneStr.equals("")) {
+            Toast.makeText(NameCardActivity.this, "姓名或电话不能为空", Toast.LENGTH_SHORT).show();
+        } else {
+            startHandleService();
+            startModelActivity();
+        }
+    }
+
+    /**
+     * 取出String
+     */
+    private void getTextFromEditText() {
+        mNameStr = mNameEdit.getText().toString();
+        mPhoneStr = mPhoneEdit.getText().toString();
+        mPosStr = mPosEdit.getText().toString();
+        mPartStr = mPartEdit.getText().toString();
+        mEmailStr = mEmailEdit.getText().toString();
+        mCompanyStr = mCompanyEdit.getText().toString();
+        mQRcodeStr = mNameStr + mPhoneStr + mPosStr + mPartStr + mEmailStr + mCompanyStr;
+    }
+
+    /**
+     * 启动Makeactivity
      */
     private void startMakeQRcodeActivity() {
         Intent intent = new Intent(NameCardActivity.this, MakeResultActivity.class);
+        configIntent(intent, TYPE_NOT_USE_MODEL);
+    }
+
+    /**
+     * 启动ModelActivity
+     */
+    private void startModelActivity() {
+        Intent intent = new Intent(NameCardActivity.this, ModelActivity.class);
+        configIntent(intent, TYPE_USE_MODEL);
+    }
+
+    /**
+     * 代码冗余
+     *
+     * @param intent
+     * @param type
+     */
+    private void configIntent(Intent intent, String type) {
         intent.putExtra("action", Constant.ACTION_GENERATE_NAME_QRCODEINFO);
         intent.putExtra("mNameStr", mNameStr);
         intent.putExtra("mPhoneStr", mPhoneStr);
@@ -126,6 +163,7 @@ public class NameCardActivity extends BaseActivity implements LoadDataIntf {
         intent.putExtra("mEmailStr", mEmailStr);
         intent.putExtra("mCompanyStr", mCompanyStr);
         intent.putExtra("qrCode", mQRcodeStr);
+        intent.putExtra("type", type);
         startActivity(intent);
     }
 
