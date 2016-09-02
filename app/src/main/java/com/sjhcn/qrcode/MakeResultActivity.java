@@ -162,6 +162,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
     private void showWhichPage(int action, Intent intent) {
         switch (action) {
             case Constant.ACTION_GENERATE_URL_QRCODEINFO:
+            case Constant.ACTION_GENERATE_URL_MODEL_QRCODEINFO:
                 //首先让另外两个布局不可见
                 mNameLl.setVisibility(View.GONE);
                 mUrlRl.setVisibility(View.VISIBLE);
@@ -189,6 +190,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
                 mCompanyTv.setText(mCompanyStr);
                 break;
             case Constant.ACTION_GENERATE_PHONE_QRCODEINFO:
+            case Constant.ACTION_GENERATE_PHONE_MODEL_QRCODEINFO:
                 mNameLl.setVisibility(View.GONE);
                 mUrlRl.setVisibility(View.GONE);
                 mPhoneRl.setVisibility(View.VISIBLE);
@@ -271,7 +273,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
         mSwitchView.setOpened(true);
         if (!mQRcodeInfo.equals("")) {
             //根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（200*200）
-            Bitmap qrCodeBitmap = EncodingHandler.createQRCode(mQRcodeInfo, 200);
+            Bitmap qrCodeBitmap = EncodingHandler.createQRCode(mQRcodeInfo, 230);
             // saveBitmap(qrCodeBitmap);
 
             //------------------添加logo部分------------------//
@@ -280,13 +282,14 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
             //二维码和logo合并
             Bitmap bitmap = Bitmap.createBitmap(qrCodeBitmap.getWidth(), qrCodeBitmap
                     .getHeight(), qrCodeBitmap.getConfig());
-            if (mAction == Constant.ACTION_GENERATE_NAME_MODEL_QRCODEINFO) {
-                bitmap = Utils.combineBitmap(mMapBitmap, bitmap);
-            } else {
-                Canvas canvas = new Canvas(bitmap);
-                //二维码
-                canvas.drawBitmap(qrCodeBitmap, 0, 0, null);
-            }
+            drawBitmap(bitmap, mMapBitmap, qrCodeBitmap);
+//            if (mAction == Constant.ACTION_GENERATE_NAME_MODEL_QRCODEINFO) {
+//                bitmap = Utils.combineBitmap(mMapBitmap, qrCodeBitmap);
+//            } else {
+//                Canvas canvas = new Canvas(bitmap);
+//                //二维码
+//                canvas.drawBitmap(qrCodeBitmap, 0, 0, null);
+//            }
 
             //logo绘制在二维码中央
 //            canvas.drawBitmap(logoBmp, qrCodeBitmap.getWidth() / 2
@@ -304,6 +307,38 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
             mQRcodeRl.startAnimation(animation);
         } else {
             Toast.makeText(MakeResultActivity.this, "Text can not be empty", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 区分不同的action 画图
+     *
+     * @param bitmap
+     * @param mMapBitmap
+     * @param qrCodeBitmap
+     */
+    private void drawBitmap(Bitmap bitmap, Bitmap mMapBitmap, Bitmap qrCodeBitmap) {
+        switch (mAction) {
+            case Constant.ACTION_GENERATE_NAME_QRCODEINFO:
+            case Constant.ACTION_GENERATE_PHONE_QRCODEINFO:
+            case Constant.ACTION_GENERATE_URL_QRCODEINFO:
+            case Constant.ACTION_GENERATE_MAP_QRCODEINFO:
+                Canvas canvas = new Canvas(bitmap);
+                //二维码
+                canvas.drawBitmap(qrCodeBitmap, 0, 0, null);
+                break;
+            case Constant.ACTION_GENERATE_NAME_MODEL_QRCODEINFO:
+                bitmap = Utils.combineBitmap(mMapBitmap, qrCodeBitmap);
+                break;
+            case Constant.ACTION_GENERATE_PHONE_MODEL_QRCODEINFO:
+                bitmap = Utils.combineBitmap(mMapBitmap, qrCodeBitmap);
+                break;
+            case Constant.ACTION_GENERATE_URL_MODEL_QRCODEINFO:
+                bitmap = Utils.combineBitmap(mMapBitmap, qrCodeBitmap);
+                break;
+            case Constant.ACTION_GENERATE_MAP_MODEL_QRCODEINFO:
+                bitmap = Utils.combineBitmap(mMapBitmap, qrCodeBitmap);
+                break;
         }
     }
 

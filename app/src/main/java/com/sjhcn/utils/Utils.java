@@ -617,6 +617,8 @@ public class Utils {
         canvas.drawBitmap(background, 0, 0, null);
         canvas.drawBitmap(foreground, (bgWidth - fgWidth) / 2,
                 (bgHeight - fgHeight) / 2, null);
+       // canvas.drawBitmap(foreground, 0, 0, null);
+
         canvas.save(Canvas.ALL_SAVE_FLAG);
         canvas.restore();
         return newmap;

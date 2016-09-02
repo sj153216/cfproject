@@ -29,7 +29,7 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener 
     private GridView mModelGv;
     private Button mSelectBt;
 
-    //生成二维码的字符串
+    //namecard生成二维码的字符串
     private String mQRcodeStr;
     private String mNameStr;
     private String mPhoneStr;
@@ -37,6 +37,9 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener 
     private String mPartStr;
     private String mEmailStr;
     private String mCompanyStr;
+    //phoneCard界面
+    private String mQRPhoneStr;
+    //传递过来的action
     private int action;
 
     private int[] mBitmaps = new int[]{R.drawable.gexing_2, R.drawable.gexing_3, R.drawable.gexing_4,
@@ -58,7 +61,6 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener 
         initView();
         initData();
         initEvent();
-
     }
 
     private void initView() {
@@ -139,15 +141,30 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener 
      */
     private void startMakeResuleActivity() {
         Intent intent = new Intent(this, MakeResultActivity.class);
-        intent.putExtra("mNameStr", mNameStr);
-        intent.putExtra("mPhoneStr", mPhoneStr);
-        intent.putExtra("mPosStr", mPosStr);
-        intent.putExtra("mPartStr", mPartStr);
-        intent.putExtra("mEmailStr", mEmailStr);
-        intent.putExtra("mCompanyStr", mCompanyStr);
-        intent.putExtra("qrCode", mQRcodeStr);
-        intent.putExtra("mapCode", compressBitmap(mBitmap));
-        intent.putExtra("action", Constant.ACTION_GENERATE_NAME_MODEL_QRCODEINFO);
+        switch (action) {
+            case Constant.ACTION_GENERATE_NAME_QRCODEINFO:
+                intent.putExtra("mNameStr", mNameStr);
+                intent.putExtra("mPhoneStr", mPhoneStr);
+                intent.putExtra("mPosStr", mPosStr);
+                intent.putExtra("mPartStr", mPartStr);
+                intent.putExtra("mEmailStr", mEmailStr);
+                intent.putExtra("mCompanyStr", mCompanyStr);
+                intent.putExtra("qrCode", mQRcodeStr);
+                intent.putExtra("mapCode", compressBitmap(mBitmap));
+                intent.putExtra("action", Constant.ACTION_GENERATE_NAME_MODEL_QRCODEINFO);
+                break;
+            case Constant.ACTION_GENERATE_PHONE_QRCODEINFO:
+                intent.putExtra("qrCode", mQRcodeStr);
+                intent.putExtra("action", Constant.ACTION_GENERATE_PHONE_QRCODEINFO);
+                break;
+            case Constant.ACTION_GENERATE_URL_QRCODEINFO:
+                intent.putExtra("qrCode", mQRcodeStr);
+                intent.putExtra("action", Constant.ACTION_GENERATE_URL_MODEL_QRCODEINFO);
+                break;
+            case Constant.ACTION_GENERATE_MAP_QRCODEINFO:
+
+                break;
+        }
         startActivity(intent);
     }
 

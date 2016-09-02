@@ -3,6 +3,7 @@ package com.sjhcn.qrcode;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ public class PhoneCardActivity extends BaseActivity {
     private TextView mTitle;
     private EditText mPhoneEt;
     private ImageView mMakeQRcodeImg;
+    private Button mUseModelBt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class PhoneCardActivity extends BaseActivity {
         mTitle = (TextView) findViewById(R.id.title_name);
         mPhoneEt = (EditText) findViewById(R.id.phone_et);
         mMakeQRcodeImg = (ImageView) findViewById(R.id.right_img);
+        mUseModelBt = (Button) findViewById(R.id.phone_use_model_bt);
     }
 
     private void initData() {
@@ -57,6 +60,21 @@ public class PhoneCardActivity extends BaseActivity {
                 } else {
                     String qrcode = mPhoneEt.getText().toString();
                     Intent intent = new Intent(PhoneCardActivity.this, MakeResultActivity.class);
+                    intent.putExtra("qrCode", qrcode);
+                    intent.putExtra("action", Constant.ACTION_GENERATE_PHONE_QRCODEINFO);
+                    startHandleService(qrcode);
+                    startActivity(intent);
+                }
+            }
+        });
+        mUseModelBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPhoneEt.getText().toString().equals("")) {
+                    Toast.makeText(PhoneCardActivity.this, "电话不能为空", Toast.LENGTH_SHORT).show();
+                } else {
+                    String qrcode = mPhoneEt.getText().toString();
+                    Intent intent = new Intent(PhoneCardActivity.this, ModelActivity.class);
                     intent.putExtra("qrCode", qrcode);
                     intent.putExtra("action", Constant.ACTION_GENERATE_PHONE_QRCODEINFO);
                     startHandleService(qrcode);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class UrlCardActivity extends BaseActivity implements LoadDataIntf {
     private ImageView mMakeQRcodeImg;
     private EditText mUrlEt;
     private String mUrlContent;
+    private Button mUseModelBt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class UrlCardActivity extends BaseActivity implements LoadDataIntf {
         mTitle = (TextView) findViewById(R.id.title_name);
         mMakeQRcodeImg = (ImageView) findViewById(R.id.right_img);
         mUrlEt = (EditText) findViewById(R.id.urlEt);
+        mUseModelBt = (Button) findViewById(R.id.url_use_model_bt);
     }
 
     private void initData() {
@@ -57,7 +60,21 @@ public class UrlCardActivity extends BaseActivity implements LoadDataIntf {
         mMakeQRcodeImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getQRcodeStr();
+                Intent intent = new Intent(UrlCardActivity.this, MakeResultActivity.class);
+                getQRcodeStr(intent);
+            }
+        });
+        mUseModelBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mUrlContent = mUrlEt.getText().toString();
+                if (mUrlContent.equals("")) {
+                    Toast.makeText(UrlCardActivity.this, "网址不能为空", Toast.LENGTH_SHORT).show();
+                } else {
+                    startHandleService();
+                    Intent intent = new Intent(UrlCardActivity.this, ModelActivity.class);
+                    startWhickActivity(intent);
+                }
             }
         });
     }
@@ -65,21 +82,20 @@ public class UrlCardActivity extends BaseActivity implements LoadDataIntf {
     /**
      * 获取二维码字符串
      */
-    private void getQRcodeStr() {
+    private void getQRcodeStr(Intent intent) {
         mUrlContent = mUrlEt.getText().toString();
         if (mUrlContent.equals("")) {
             Toast.makeText(UrlCardActivity.this, "网址不能为空", Toast.LENGTH_SHORT).show();
         } else {
             startHandleService();
-            startMakeQRcodeActivity();
+            startWhickActivity(intent);
         }
     }
 
     /**
      * 启动activity
      */
-    private void startMakeQRcodeActivity() {
-        Intent intent = new Intent(UrlCardActivity.this, MakeResultActivity.class);
+    private void startWhickActivity(Intent intent) {
         intent.putExtra("action", Constant.ACTION_GENERATE_URL_QRCODEINFO);
         intent.putExtra("qrCode", mUrlContent);
         startActivity(intent);

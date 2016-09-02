@@ -31,5 +31,15 @@
             android:background="#B57EB8" />
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/phone_use_model_bt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="使用模板生成"
+        android:textColorHint="#B57EB8"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:background="@drawable/selector_btn_back"
+        android:layout_marginTop="20dp"/>
 
 </LinearLayout>
