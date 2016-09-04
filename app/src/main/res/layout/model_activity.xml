@@ -9,7 +9,49 @@
         android:id="@+id/include"
         layout="@layout/include_title" />
 
+    <com.sjhcn.view.ViewPagerIndicator
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/include"
+        android:layout_marginBottom="10dp">
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="经典"
+            android:textColor="#AC7AAF"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="黄昏"
+            android:textColor="#AC7AAF"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="青春"
+            android:textColor="#AC7AAF"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+
+    </com.sjhcn.view.ViewPagerIndicator>
 
     <Button
         android:id="@+id/model_bt"
@@ -21,18 +63,17 @@
         android:text="确定"
         android:textColor="#AC7AAF"
         android:textSize="18sp"
-        android:textStyle="italic"
-        android:layout_marginBottom="10dp"/>
-    <GridView
-        android:id="@+id/model_gridview"
+        android:textStyle="italic" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/indicator_viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/include"
+        android:layout_marginTop="10dp"
         android:layout_above="@id/model_bt"
-        android:horizontalSpacing="1dp"
-        android:numColumns="3"
-        android:verticalSpacing="1dp">
+        android:layout_below="@id/indicator">
 
-    </GridView>
+    </android.support.v4.view.ViewPager>
+
 
 </RelativeLayout>

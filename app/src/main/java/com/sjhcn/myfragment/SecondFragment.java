@@ -59,7 +59,6 @@ public class SecondFragment extends Fragment {
     private void initView(LayoutInflater inflater, ViewGroup container) {
         view = inflater.inflate(R.layout.second_fragment, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.second_recycler_view);
-        mTextView = (TextView) view.findViewById(R.id.tv);
     }
 
     private void initData() {

@@ -35,7 +35,7 @@
         android:id="@+id/phone_use_model_bt"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="使用模板生成"
+        android:hint="使用背景生成"
         android:textColorHint="#B57EB8"
         android:textSize="18sp"
         android:textStyle="italic"

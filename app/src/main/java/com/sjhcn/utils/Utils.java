@@ -603,17 +603,15 @@ public class Utils {
      * @param foreground
      * @return Bitmap
      */
-    public static Bitmap combineBitmap(Bitmap background, Bitmap foreground) {
+    public static void combineBitmap(Bitmap bitmap, Bitmap background, Bitmap foreground) {
         if (background == null) {
-            return null;
+            return ;
         }
         int bgWidth = background.getWidth();
         int bgHeight = background.getHeight();
         int fgWidth = foreground.getWidth();
         int fgHeight = foreground.getHeight();
-        Bitmap newmap = Bitmap
-                .createBitmap(bgWidth, bgHeight, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(newmap);
+        Canvas canvas = new Canvas(bitmap);
         canvas.drawBitmap(background, 0, 0, null);
         canvas.drawBitmap(foreground, (bgWidth - fgWidth) / 2,
                 (bgHeight - fgHeight) / 2, null);
@@ -621,7 +619,6 @@ public class Utils {
 
         canvas.save(Canvas.ALL_SAVE_FLAG);
         canvas.restore();
-        return newmap;
     }
 
 }

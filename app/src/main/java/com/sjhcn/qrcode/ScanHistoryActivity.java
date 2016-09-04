@@ -3,12 +3,10 @@ package com.sjhcn.qrcode;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +18,7 @@ import com.sjhcn.entitis.QRcodeScanInfo;
 import com.sjhcn.entitis.ScanRecordItem;
 import com.sjhcn.module.DataManager;
 import com.sjhcn.recyclerview_adapter.MakeRecordAdapter;
+import com.sjhcn.recyclerview_adapter.MyPagerAdapter;
 import com.sjhcn.recyclerview_adapter.ScanRecordAdapter;
 import com.sjhcn.utils.MyDateUtils;
 import com.sjhcn.view.DividerItemDecoration;
@@ -108,7 +107,6 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
         mScanRecyclerViewAdapter = new ScanRecordAdapter(this, mScanDatas);
         mMakeRecyclerViewAdapter = new MakeRecordAdapter(this, mMakeDatas);
         mScanRecord.setAdapter(mScanRecyclerViewAdapter);
-
         mMakeRecord.setAdapter(mMakeRecyclerViewAdapter);
 
     }
@@ -188,43 +186,6 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
 
     }
 
-
-    // ViewPager适配器
-    class MyPagerAdapter extends PagerAdapter {
-        private ArrayList<View> mViewList;
-
-        public MyPagerAdapter(ArrayList<View> mViewList) {
-            this.mViewList = mViewList;
-        }
-
-        @Override
-        public int getCount() {
-            return mViewList.size();// 页卡数
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;// 官方推荐写法
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(mViewList.get(position));// 添加页卡
-            return mViewList.get(position);
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView(mViewList.get(position));// 删除页卡
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return "";// 页卡标题
-        }
-
-    }
-
     private void initEvent() {
         mScanRecordTv.setOnClickListener(this);
         mMakeRecordTv.setOnClickListener(this);
@@ -242,25 +203,20 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
                             mNoFootLl.setVisibility(View.VISIBLE);
                             mNoFootTv.setText("还没有扫码记录哦");
                             showScanRecyclerView();
-
                         } else {
                             //mScanRecord.setAdapter(mScanRecyclerViewAdapter);
                             showScanRecyclerView();
                             mNoFootLl.setVisibility(View.GONE);
-
                         }
-
                         break;
                     case 1:
                         if (mMakeDatas.size() == 0) {
                             mNoFootLl.setVisibility(View.VISIBLE);
                             mNoFootTv.setText("还没有制码记录哦");
                             showMakeRecyclerView();
-
                         } else {
-                           // mMakeRecord.setAdapter(mMakeRecyclerViewAdapter);
+                            // mMakeRecord.setAdapter(mMakeRecyclerViewAdapter);
                             mNoFootLl.setVisibility(View.GONE);
-
                             showMakeRecyclerView();
                         }
                         break;
@@ -288,7 +244,6 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
                     // mScanRecord.setAdapter(mScanRecyclerViewAdapter);
                     showScanRecyclerView();
                     mNoFootLl.setVisibility(View.GONE);
-
                 }
                 break;
             case R.id.make_record:
@@ -300,7 +255,6 @@ public class ScanHistoryActivity extends BaseActivity implements View.OnClickLis
                     //  mMakeRecord.setAdapter(mMakeRecyclerViewAdapter);
                     showMakeRecyclerView();
                     mNoFootLl.setVisibility(View.GONE);
-
                 }
                 break;
         }

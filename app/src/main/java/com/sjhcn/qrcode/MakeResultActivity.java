@@ -273,7 +273,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
         mSwitchView.setOpened(true);
         if (!mQRcodeInfo.equals("")) {
             //根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（200*200）
-            Bitmap qrCodeBitmap = EncodingHandler.createQRCode(mQRcodeInfo, 230);
+            Bitmap qrCodeBitmap = EncodingHandler.createQRCode(mQRcodeInfo, 231);
             // saveBitmap(qrCodeBitmap);
 
             //------------------添加logo部分------------------//
@@ -283,14 +283,6 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
             Bitmap bitmap = Bitmap.createBitmap(qrCodeBitmap.getWidth(), qrCodeBitmap
                     .getHeight(), qrCodeBitmap.getConfig());
             drawBitmap(bitmap, mMapBitmap, qrCodeBitmap);
-//            if (mAction == Constant.ACTION_GENERATE_NAME_MODEL_QRCODEINFO) {
-//                bitmap = Utils.combineBitmap(mMapBitmap, qrCodeBitmap);
-//            } else {
-//                Canvas canvas = new Canvas(bitmap);
-//                //二维码
-//                canvas.drawBitmap(qrCodeBitmap, 0, 0, null);
-//            }
-
             //logo绘制在二维码中央
 //            canvas.drawBitmap(logoBmp, qrCodeBitmap.getWidth() / 2
 //                    - logoBmp.getWidth() / 2, qrCodeBitmap.getHeight()
@@ -328,16 +320,10 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
                 canvas.drawBitmap(qrCodeBitmap, 0, 0, null);
                 break;
             case Constant.ACTION_GENERATE_NAME_MODEL_QRCODEINFO:
-                bitmap = Utils.combineBitmap(mMapBitmap, qrCodeBitmap);
-                break;
             case Constant.ACTION_GENERATE_PHONE_MODEL_QRCODEINFO:
-                bitmap = Utils.combineBitmap(mMapBitmap, qrCodeBitmap);
-                break;
             case Constant.ACTION_GENERATE_URL_MODEL_QRCODEINFO:
-                bitmap = Utils.combineBitmap(mMapBitmap, qrCodeBitmap);
-                break;
             case Constant.ACTION_GENERATE_MAP_MODEL_QRCODEINFO:
-                bitmap = Utils.combineBitmap(mMapBitmap, qrCodeBitmap);
+                Utils.combineBitmap(bitmap, mMapBitmap, qrCodeBitmap);
                 break;
         }
     }
