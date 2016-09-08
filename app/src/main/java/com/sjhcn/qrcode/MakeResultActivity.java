@@ -268,7 +268,9 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
         animation.setFillAfter(true);//动画执行完后是否停留在执行完的状态
         mQRcodeRl.startAnimation(animation);
         mQRcodeRl.setVisibility(View.GONE);
-        mMyCodeTv.setVisibility(View.GONE);
+        if (mMyCodeTv != null) {
+            mMyCodeTv.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -304,7 +306,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
             animation.setDuration(500);//设置动画持续时间
             animation.setFillAfter(true);//动画执行完后是否停留在执行完的状态
             mQRcodeRl.startAnimation(animation);
-            mMyCodeTv.setVisibility(View.VISIBLE);
+
         } else {
             Toast.makeText(MakeResultActivity.this, "Text can not be empty", Toast.LENGTH_SHORT).show();
         }
@@ -337,6 +339,7 @@ public class MakeResultActivity extends BaseActivity implements View.OnClickList
                 Canvas myCodeCanvas = new Canvas(bitmap);
                 //二维码
                 myCodeCanvas.drawBitmap(qrCodeBitmap, 0, 0, null);
+                mMyCodeTv.setVisibility(View.VISIBLE);
                 break;
         }
     }

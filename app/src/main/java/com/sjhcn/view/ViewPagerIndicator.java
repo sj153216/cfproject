@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -173,6 +174,7 @@ public class ViewPagerIndicator extends LinearLayout {
          */
         // 不断改变偏移量，invalidate
         mTranslationX = getWidth() / 3 * (position + offset);
+        Log.d("ViewPagerIndicator", position + "----->" + offset);
 
 //        WindowManager wm = (WindowManager) QRcodeApplication.getInstance().getSystemService(Context.WINDOW_SERVICE);
 //        int tabWidth = wm.getDefaultDisplay().getWidth() / 3;
