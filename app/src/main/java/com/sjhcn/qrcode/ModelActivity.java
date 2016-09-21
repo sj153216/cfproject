@@ -3,6 +3,7 @@ package com.sjhcn.qrcode;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -139,18 +140,21 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
         mClassGv.setHorizontalSpacing(3);
         mClassGv.setVerticalSpacing(3);
         mClassGv.setNumColumns(3);
+        mClassGv.setSelector(getResources().getDrawable(R.color.transparent));
         mViewList.add(mClassGv);
 
         mSunsetGv = new GridView(this);
         mSunsetGv.setHorizontalSpacing(3);
         mSunsetGv.setVerticalSpacing(3);
         mSunsetGv.setNumColumns(3);
+        mSunsetGv.setSelector(getResources().getDrawable(R.color.transparent));
         mViewList.add(mSunsetGv);
 
         mSunshineGv = new GridView(this);
         mSunshineGv.setHorizontalSpacing(3);
         mSunshineGv.setVerticalSpacing(3);
         mSunshineGv.setNumColumns(3);
+        mSunshineGv.setSelector(getResources().getDrawable(R.color.transparent));
         mViewList.add(mSunshineGv);
     }
 
@@ -237,15 +241,19 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
         }
         for (int i = 0; i < temp.getChildCount(); i++) {
             ImageView oldSelectIv = (ImageView) temp.getChildAt(i).findViewById(R.id.model_item_select_iv);
+            ImageView oldImgIv = (ImageView) temp.getChildAt(i).findViewById(R.id.model_item_iv);
             oldSelectIv.setVisibility(View.GONE);
+            oldImgIv.setColorFilter(null);
         }
         ImageView selectIv = (ImageView) view.findViewById(R.id.model_item_select_iv);
+        ImageView imgIv = (ImageView) view.findViewById(R.id.model_item_iv);
         if (lastClickPos == position) {
             // ImageView iv = (ImageView) view.findViewById(R.id.model_item_iv);
             //若果是，判断是否已经选择过
             if (!isSelected) {
                 selectIv.setVisibility(View.VISIBLE);
                 isSelected = true;
+                imgIv.setColorFilter(Color.parseColor("#77000000"));
                 currentGridView(mViewPagerCurrentPos, position);
             } else {
                 selectIv.setVisibility(View.GONE);
@@ -259,6 +267,7 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener,
                 }
             }
             selectIv.setVisibility(View.VISIBLE);
+            imgIv.setColorFilter(Color.parseColor("#77000000"));
             isSelected = true;
             currentGridView(mViewPagerCurrentPos, position);
         }

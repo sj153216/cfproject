@@ -103,6 +103,7 @@ public class NameCardActivity extends BaseActivity implements LoadDataIntf {
         } else {
             startHandleService();
             startMakeQRcodeActivity();
+            this.finish();
         }
     }
 
@@ -116,6 +117,8 @@ public class NameCardActivity extends BaseActivity implements LoadDataIntf {
         } else {
             startHandleService();
             startModelActivity();
+            this.finish();
+
         }
     }
 

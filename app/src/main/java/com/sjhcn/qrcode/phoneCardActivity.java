@@ -64,6 +64,7 @@ public class PhoneCardActivity extends BaseActivity {
                     intent.putExtra("action", Constant.ACTION_GENERATE_PHONE_QRCODEINFO);
                     startHandleService(qrcode);
                     startActivity(intent);
+                    PhoneCardActivity.this.finish();
                 }
             }
         });
@@ -79,6 +80,7 @@ public class PhoneCardActivity extends BaseActivity {
                     intent.putExtra("action", Constant.ACTION_GENERATE_PHONE_QRCODEINFO);
                     startHandleService(qrcode);
                     startActivity(intent);
+                    PhoneCardActivity.this.finish();
                 }
             }
         });

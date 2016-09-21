@@ -53,25 +53,17 @@ public class HandleQRcodeService extends Service {
         if (action.equals(ACTION_SAVE_SCAN_TO_LOCAL)) {
             //将扫描得到的二维码存入数据库
             QRcodeScanInfo codeInfo = new QRcodeScanInfo();
-            String head = result.substring(0, 4);
-            fillQRcodeScanInfo(codeInfo, head);
+            //String head = result.substring(0, 4);
+            fillQRcodeScanInfo(codeInfo, result);
             QRcodeScanInfoManager.getInstance().addQRcodeScanInfo(codeInfo);
         } else if (action.equals(ACTION_SAVE_MAKE_TO_LOCAL)) {
             //将制码得到的二维码存入数据库
             QRcodeMakeInfo codeInfo = new QRcodeMakeInfo();
-            String head = null;
-            int length = result.length();
-//            if (length >= 4) {
-//                isTooShort = false;
-            head = result.substring(0, 4);
-            fillQRcodeMakeInfo(codeInfo, head);
+            //String head = null;
+            //int length = result.length();
+            //head = result.substring(0, 4);
+            fillQRcodeMakeInfo(codeInfo, result);
             QRcodeMakeInfoManager.getInstance().addQRcodeMakeInfo(codeInfo);
-//            } else {
-//                isTooShort = true;
-//                Message msg = mainHandler.obtainMessage();
-//                mainHandler.sendEmptyMessage(0x110);
-//            }
-
         }
     }
 
@@ -79,14 +71,14 @@ public class HandleQRcodeService extends Service {
      * 封装成bean对象
      *
      * @param codeInfo
-     * @param head
+     * @param result
      */
-    private void fillQRcodeMakeInfo(QRcodeMakeInfo codeInfo, String head) {
-        if (head.equals("http")) {
+    private void fillQRcodeMakeInfo(QRcodeMakeInfo codeInfo, String result) {
+        if (result.startsWith("http")) {
             codeInfo.setQRcodeType(Constant.MAKE_QRCODE_YTPE_URL);
             codeInfo.setQRcode(result);
             codeInfo.setMakeTime(System.currentTimeMillis());
-        } else if (head.substring(0, 2).equals("坐标")) {
+        } else if (result.startsWith("坐标")) {
             codeInfo.setQRcodeType(Constant.MAKE_QRCODE_YTPE_MAP);
             codeInfo.setQRcode(result);
             codeInfo.setMakeTime(System.currentTimeMillis());
@@ -98,13 +90,13 @@ public class HandleQRcodeService extends Service {
     }
 
     /**
-     * 封装成bean对象
+     * 封装对象
      *
      * @param codeInfo
-     * @param head
+     * @param result
      */
-    private void fillQRcodeScanInfo(QRcodeScanInfo codeInfo, String head) {
-        if (head.equals("http")) {
+    private void fillQRcodeScanInfo(QRcodeScanInfo codeInfo, String result) {
+        if (result.startsWith("http")) {
             codeInfo.setQRcodeType(Constant.SCAN_QRCODE_YTPE_URL);
             codeInfo.setQRcode(result);
             codeInfo.setScanTime(System.currentTimeMillis());

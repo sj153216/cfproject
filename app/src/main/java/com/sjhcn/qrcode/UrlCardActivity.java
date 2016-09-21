@@ -74,6 +74,7 @@ public class UrlCardActivity extends BaseActivity implements LoadDataIntf {
                     startHandleService();
                     Intent intent = new Intent(UrlCardActivity.this, ModelActivity.class);
                     startWhickActivity(intent);
+                    UrlCardActivity.this.finish();
                 }
             }
         });
@@ -89,6 +90,7 @@ public class UrlCardActivity extends BaseActivity implements LoadDataIntf {
         } else {
             startHandleService();
             startWhickActivity(intent);
+            this.finish();
         }
     }
 
